@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 360</title>
+    <script src="/js/jquery/jquery-3.6.0.js"></script>
+    <script src="/js/rangeslider/rangeslider.min.js"></script>
+</head>
+
+<body>
+    <!-- <div class="tooltip">Show info</div>
+    <canvas id="output"></canvas> -->
+
+
+    <div class="main1">
+        <div class="control-orbits">
+            <div id="control-orbit-output">
+
+            </div>
+        </div>
+        <div class="tooltip">Show info</div>
+        <canvas style="max-width: 100%;max-height: 100%;" id="output"></canvas>
+        <div class="map mini-map " id="map">
+            <canvas style="max-width: 100%;max-height: 100%;" id="output-map">
+
+            </canvas>
+        </div>
+        <div class="controls">
+            <div class="chil-controls control-map" data-tooltip-number="0" onclick="clickMap()" data-status="open"
+                data-tooltip="Mở bản đồ">
+
+                <!-- <img class="img-map" src="/images/icons/icon-map.png"> -->
+                <span class="tooltiptext-map">Tooltip text</span>
+            </div>
+
+            <div class="chil-controls thumb-control" data-tooltip-number="1" data-status="open" onclick="clickThumb()"
+                data-tooltip="Ẩn chọn cảnh">
+                <span class="tooltiptext-map">Tooltip text</span>
+                <!-- <img class="img-map" src="/images/icons/icon-details.png"> -->
+            </div>
+            <div class="chil-controls rotate-control" data-tooltip-number="2" data-status="close"
+                onclick="clickRotate(this)" data-tooltip="Mở tự động xoay">
+                <span class="tooltiptext-map">Tooltip text</span>
+                <!-- <img class="img-map" src="/images/icons/icon-rotate-left-disable.png"> -->
+            </div>
+            <div class="chil-controls fullscreen-control" data-tooltip-number="3" data-status="open"
+                onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
+                <span class="tooltiptext-map">Tooltip text</span>
+                <!-- <img class="img-map" src="/images/icons/icon-fullscreen.png"> -->
+            </div>
+
+            <!-- <div class="chil-controls">
+                <button class="btn" id="btn" onclick="show()"> Bản đồ</button>
+            </div> -->
+        </div>
+
+        <div class="mainThumb">
+            <div class="bodyThumb">
+                <!-- <div class="scrollbar">
+                    <div touch-action="none" class="scrollbar-btn">
+                        <div class="scrollbar-btn-content">
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="list-thumb">
+
+                    <div touch-action="none" class="div-list-thumb">
+                        <div class="all-title">
+                            <div class="div-title-thumb">
+                                <p class="p-title-thumb">
+                                    1. Over Motu Ihiti</p>
+                            </div>
+                        </div>
+
+                        <div class="all-thumb">
+                            <!-- <div class="div-thumb" elemtype="thumb">
+                                <div class="div-thumb-img">
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slidecontainer">
+            <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider"
+                id="myRange" on>
+        </div>
+
+    </div>
+
+    <script>
+        function clickMap() {
+            var map = document.getElementById("map");
+            if (map.classList.contains("mini-map")) {
+                map.classList.remove("mini-map")
+                map.classList.add("active")
+            } else {
+                map.classList.add('mini-map');
+                map.classList.remove("active")
+
+            }
+        }
+        function clickThumb() {
+            var thumb = document.querySelector(".mainThumb");
+            if (thumb.classList.contains("disableThumb")) {
+                thumb.classList.remove("disableThumb")
+            } else {
+                thumb.classList.add('disableThumb');
+
+            }
+        }
+        function clickRotate(e) {
+            if (e.classList.contains("disableRotate")) {
+                e.classList.remove("disableRotate")
+
+            } else {
+                e.classList.add('disableRotate');
+
+            }
+
+        }
+        function clickFullscreen(e) {
+            var elem = document.querySelector(".main1");
+            if (e.getAttribute("data-status") == "open") {
+                openFullscreen(elem);
+            }
+            if (e.getAttribute("data-status") == "close") {
+                closeFullscreen(elem);
+            }
+        }
+        function openFullscreen(elem) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function closeFullscreen(elem) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+        class Tooltip {
+            /**
+             * @param {String} open - tooltip text open
+             * @param {String} close- tooltip text close
+             * @param {String} imgOpen- link image open
+             * @param {String} imgClose- link image close
+            */
+            constructor(open, close, imgOpen, imgClose) {
+                this.open = open
+                this.close = close
+                this.imgOpen = imgOpen
+                this.imgClose = imgClose
+            }
+        }
+        const tooltips = [
+            new Tooltip("Phóng to bản đồ", "Thu nhỏ bản đồ", "/images/icons/icon-map.png", "/images/icons/icon-map-disable.png"),
+            new Tooltip("Ẩn chọn cảnh", "Hiện chọn cảnh", "/images/icons/icon-details.png", "/images/icons/icon-details-disable.png"),
+            new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "/images/icons/icon-rotate-left.png", "/images/icons/icon-rotate-left-disable.png"),
+            new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
+
+
+        ]
+
+
+        document.querySelectorAll(".chil-controls").forEach(x => {
+            const div = x.firstChild
+            const tooltip = document.querySelector(".tooltiptext-map")
+
+            x.addEventListener("mouseover", function () {
+                tooltip.innerHTML = x.getAttribute("data-tooltip")
+                var rect = x.getBoundingClientRect();
+                var parent = document.querySelector(".controls").getBoundingClientRect()
+                tooltip.style.left = (rect.left - parent.left + (rect.width / 2)) + 'px'
+
+                tooltip.style.visibility = "visible"
+
+            })
+            x.addEventListener("mouseleave", function () {
+                tooltip.style.visibility = "hidden"
+
+            })
+            x.addEventListener("click", function () {
+                var number = x.getAttribute("data-tooltip-number")
+                //   tooltip.style.visibility = "hidden"
+                if (x.getAttribute("data-status") == "open") {
+                    x.setAttribute("data-tooltip", tooltips[number].close)
+                    x.setAttribute("data-status", "close")
+                    x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+
+                } else {
+                    x.setAttribute("data-tooltip", tooltips[number].open)
+                    x.setAttribute("data-status", "open")
+                    x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+                }
+                tooltip.innerHTML = x.getAttribute("data-tooltip")
+                tooltip.style.visibility = "visible"
+                console.log("fefef")
+
+            })
+
+        })
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            console.log((window.innerHeight * 0.02) + 75 )
+            document.querySelector(".slidecontainer").style.bottom = ((window.innerHeight * 0.02) + 65 )+ "px"
+            //do work
+        });
+    </script>
+
+</body>
+
+</html>
