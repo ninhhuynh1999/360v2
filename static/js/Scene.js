@@ -28,7 +28,7 @@ export default class Scene {
         //this.scene = scene
         // const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
         const sphere = this.scene.getObjectByName("Sphere1")
-
+        const scene = this.scene
         const textureLoader = new THREE.TextureLoader()
         textureLoader.load(
 
@@ -39,7 +39,13 @@ export default class Scene {
             function(texture){
         texture.wrapS = THREE.RepeatWrapping;
         texture.repeat.x = - 1;
-        sphere.material.map =  texture
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+       scene.background = texture
+       sphere.material.envMap = texture
+       sphere.material.needsUpdate = true
+       console.log(scene.background)
+        
+
             },
 
             //onProgress callback

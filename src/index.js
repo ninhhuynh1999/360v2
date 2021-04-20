@@ -50,21 +50,30 @@ controls.keys = {
     RIGHT: 39, // right arrow
     BOTTOM: 40 // down arrow
 }
-controls.enableZoom = false
+controls.enableZoom = true
 
 
 // create the sphere
-const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
+//const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
+const sphereGeo = new THREE.IcosahedronGeometry(150, 75)
 const textureLoader = new THREE.TextureLoader()
 const texture = textureLoader.load("/images/anh360/congtruong.jpg")
-texture.wrapS = THREE.RepeatWrapping;
-texture.repeat.x = - 1;
-const sphereMaterial = new THREE.MeshBasicMaterial({
-    map: texture,
-    side: THREE.BackSide,
-    transparent: true,
-    // wireframe: true
-})
+// texture.wrapS = THREE.RepeatWrapping;
+// texture.repeat.x = - 1;
+let textureEquirec = textureLoader.load( '/images/anh360/congtruong.jpg' );
+ textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
+scene.background = textureEquirec
+
+
+// const sphereMaterial = new THREE.MeshBasicMaterial({
+//     map: texture,
+//     side: THREE.BackSide,
+//     transparent: true,
+//     // wireframe: true
+// })
+const sphereMaterial = new THREE.MeshBasicMaterial({envMap: textureEquirec})
+sphereMaterial.needsUpdate = true;
+
 sphereMaterial.transparent = true
 const sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
 //this.sphere.rotation.y = 3.9
