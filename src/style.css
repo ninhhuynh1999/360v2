@@ -410,3 +410,7 @@ img.img-map {
   background: url("~../static/images/icons/icon-fullscreen.png") no-repeat center center;
   background-size: contain!important;
 }
+.hideAll-control{
+  background: url("~../static/images/icons/icon-show.png") no-repeat center center;
+  background-size: contain!important;
+}

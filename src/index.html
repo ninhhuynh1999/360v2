@@ -50,6 +50,11 @@
                 <span class="tooltiptext-map">Tooltip text</span>
                 <!-- <img class="img-map" src="/images/icons/icon-fullscreen.png"> -->
             </div>
+            <div class="chil-controls hideAll-control" data-tooltip-number="3" data-status="open"
+            onclick="clickHide(this)" data-tooltip="Ẩn giao diện điều khiển">
+            <span class="tooltiptext-map">Tooltip text</span>
+            <!-- <img class="img-map" src="/images/icons/icon-fullscreen.png"> -->
+        </div>
 
             <!-- <div class="chil-controls">
                 <button class="btn" id="btn" onclick="show()"> Bản đồ</button>
@@ -152,6 +157,17 @@
                 document.msExitFullscreen();
             }
         }
+        function closeFullscreen(elem) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+
+
         class Tooltip {
             /**
              * @param {String} open - tooltip text open
@@ -171,11 +187,9 @@
             new Tooltip("Ẩn chọn cảnh", "Hiện chọn cảnh", "/images/icons/icon-details.png", "/images/icons/icon-details-disable.png"),
             new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "/images/icons/icon-rotate-left.png", "/images/icons/icon-rotate-left-disable.png"),
             new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
-
+            new Tooltip("Mở giao diện điều khiển","Ẩn giao ddienj điều khiển","/images/icons/icon-show.png", "/images/icons/icon-show-disable.png")
 
         ]
-
-
         document.querySelectorAll(".chil-controls").forEach(x => {
             const div = x.firstChild
             const tooltip = document.querySelector(".tooltiptext-map")

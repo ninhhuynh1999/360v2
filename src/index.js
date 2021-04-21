@@ -42,7 +42,7 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableRotate = true
 controls.autoRotate = false
 controls.enableKeys = true
-controls.enableDamping = false
+controls.enableDamping = true
 controls.dampingFactor = 0.04;
 controls.keys = {
     LEFT: 37, //left arrow
@@ -389,6 +389,7 @@ function onClick(event) {
         listScene.newActive = intersects[0].object.idScene
         listScene.activeScene(true)
         document.getElementById("myRange").value = 1
+        // mapCameraLookAt(listScene.activePoint)
     }
 }
 //event Mouse move on main scene
