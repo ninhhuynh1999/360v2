@@ -182,7 +182,6 @@ export default class ListScene {
 
         // let geometry = new THREE.SphereGeometry(30, 32, 1, 0, 1.5, 0.2, 1.5);
         let geometry = new THREE.CylinderGeometry(30, 30, 5, 32, 10, false, 0, 1.5)
-
         const circle = new THREE.Mesh(geometry, material);
         circle.name = "beam"
         circle.position.y = 15

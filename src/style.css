@@ -187,7 +187,7 @@ img.img-map {
   pointer-events: all;
   visibility: visible;
   opacity: 1;
-  transition: visibility 0.4s, opacity 0.4s;
+  transition: visibility 0.4s , opacity 0.4s;
 }
 .mainThumb.disableThumb {
   visibility: hidden;
@@ -342,7 +342,7 @@ img.img-map {
 /* //slider */
 .slidecontainer {
   transform: rotate(-90deg);
-  width: 150px;
+  width: fit-content;
   position: absolute;
   left: -40px;
 }
@@ -411,6 +411,14 @@ img.img-map {
   background-size: contain!important;
 }
 .hideAll-control{
-  background: url("~../static/images/icons/icon-show.png") no-repeat center center;
+  background: url("~../static/images/icons/icon-arrow-right.png") no-repeat center center;
+  background-size: contain!important;
+}
+#btn-zoom-in{
+  background: url("~../static/images/icons/icon-zoom-in.png") no-repeat center center;
+  background-size: contain!important;
+}
+#btn-zoom-out{
+  background: url("~../static/images/icons/icon-zoom-out.png") no-repeat center center;
   background-size: contain!important;
 }

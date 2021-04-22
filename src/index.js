@@ -22,7 +22,6 @@ let map_tooltipActive = false
 
 
 //init scene
-
 const output = document.querySelector('#output')
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -43,7 +42,7 @@ controls.enableRotate = true
 controls.autoRotate = false
 controls.enableKeys = true
 controls.enableDamping = true
-controls.dampingFactor = 0.04;
+// controls.dampingFactor = 0.04;
 controls.keys = {
     LEFT: 37, //left arrow
     UP: 38, // up arrow
@@ -133,7 +132,7 @@ const s1 = new Scene(1, "/images/anh360/congtruong1.jpg", camera, "Sân trước
 const s2 = new Scene(2, "/images/anh360/congtruong2.jpg", camera, "Sân trước khu C", scene)
 const s3 = new Scene(3, "/images/anh360/congtruong3.jpg", camera, "Sân trước khu C", scene)
 const s4 = new Scene(4, "/images/anh360/congtruong4.jpg", camera, "Sân trước khu C", scene)
-const s5 = new Scene(5, "/images/anh360/klf0.jpg", camera, "Sân giữa khu C và B", scene)
+const s5 = new Scene(5, "/images/anh360/klf00.jpg", camera, "Sân giữa khu C và B", scene)
 const s6 = new Scene(6, "/images/anh360/klf1.jpg", camera, "KLF1", scene)
 const s7 = new Scene(7, "/images/anh360/demo1.jpeg", camera, "KLF 2", scene)
 const s8 = new Scene(8, "/images/anh360/demo2.jpeg", camera, "KLF 2", scene)
@@ -658,17 +657,13 @@ function mapCameraLookAt(position) {
 
 
 function animate() {
-
     requestAnimationFrame(animate);
-
     controls.update()
     renderer.render(scene, camera);
     //render()
-
 }
 
 function render() {
-
     // so something moves
 
     renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
@@ -683,8 +678,6 @@ function render() {
     //camera.aspect = width / height;
     //    camera.updateProjectionMatrix();
     //    renderer.render( scene2, camera2 );
-
-
 }
 
 //animation map render

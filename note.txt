@@ -1,0 +1,4 @@
+1. chinh giao dien dien thoai (map, )
+2. chinh map rotate
+3. them point to scene
+4. them xem mo hinh 3d
