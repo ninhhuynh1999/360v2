@@ -31,7 +31,7 @@ console.log(camera)
 scene.add(camera)
 
 //renderer
-const renderer = new THREE.WebGLRenderer({ canvas: output,antialias: true })
+const renderer = new THREE.WebGLRenderer({ canvas: output, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio)
 //document.body.appendChild(renderer.domElement)
@@ -55,10 +55,10 @@ controls.enableZoom = true
 // create the sphere
 const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
 const textureLoader = new THREE.TextureLoader()
-let textureEquirec = textureLoader.load( '/images/anh360/congtruong.jpg' );
- textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
+let textureEquirec = textureLoader.load('/images/anh360/congtruong.jpg');
+textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
 scene.background = textureEquirec
-const sphereMaterial = new THREE.MeshBasicMaterial({envMap: textureEquirec})
+const sphereMaterial = new THREE.MeshBasicMaterial({ envMap: textureEquirec })
 sphereMaterial.needsUpdate = true;
 
 sphereMaterial.transparent = true
@@ -126,8 +126,11 @@ map_animate();
 
 
 //init all scene
-const s0 = new Scene(0, "/images/anh360/congtruong.jpg", camera, "Ngoài cổng", scene)
-const s1 = new Scene(1, "/images/anh360/congtruong1.jpg", camera, "Sân trước khu C", scene)
+
+// s0: 4.9475004391
+// s1: 2.717005048570
+const s0 = new Scene(0, "/images/anh360/congtruong.jpg", camera, "Ngoài cổng", scene, 4.9475004391)
+const s1 = new Scene(1, "/images/anh360/congtruong1.jpg", camera, "Sân trước khu C", scene,2.717005048570)
 const s2 = new Scene(2, "/images/anh360/congtruong2.jpg", camera, "Sân trước khu C", scene)
 const s3 = new Scene(3, "/images/anh360/congtruong3.jpg", camera, "Sân trước khu C", scene)
 const s4 = new Scene(4, "/images/anh360/congtruong4.jpg", camera, "Sân trước khu C", scene)
@@ -200,38 +203,40 @@ s6.addPoint({
     scene: s5
 })
 s7.addPoint({
-    position: new THREE.Vector3(-148.39671217645767,  -5.975249156553756,  -19.869635759269965),
+    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
     name: 'KLF (1)',
     scene: s6
 })
 s8.addPoint({
-    position: new THREE.Vector3(-148.39671217645767,  -5.975249156553756,  -19.869635759269965),
+    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
     name: 'KLF (1)',
     scene: s6
 })
 s9.addPoint({
-    position: new THREE.Vector3(-148.39671217645767,  -5.975249156553756,  -19.869635759269965),
+    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
     name: 'KLF (1)',
     scene: s6
 })
 s10.addPoint({
-    position: new THREE.Vector3(-148.39671217645767,  -5.975249156553756,  -19.869635759269965),
+    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
     name: 'KLF (1)',
     scene: s6
 })
 s11.addPoint({
-    position: new THREE.Vector3(-148.39671217645767,  -5.975249156553756,  -19.869635759269965),
+    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
     name: 'KLF (1)',
     scene: s6
 })
-//init first scene
-s0.createScene(scene)
-s0.appear()
+
+
 
 //add scene to ListScene
-const arr = [s0, s1, s2, s3, s4, s5, s6, s7,s8,s9,s10,s11]
+const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11]
 const listScene = new ListScene(arr, scene, camera)
-listScene.actived = 0
+//generate frist first scene
+listScene.actived = s1
+listScene.newActive = 0
+listScene.activeScene()
 console.log(listScene)
 //init map to listScene
 listScene.map_scene = map_scene
@@ -274,9 +279,9 @@ function onResize() {
 
 // event on change controls
 controls.addEventListener("change", function () {
-    let active = listScene.activePoint
+    let numberPlus = listScene.actived.updateMiniMap
     // console.log(active.userDate.rotate)
-    updateBeam(0)
+    updateBeam(numberPlus)
 })
 
 //add event on camera map change
@@ -320,7 +325,7 @@ function map_controlsChange() {
         }
 
         if (divOuputMap.classList.contains("mini-map")) {
-            scale = (scale -1 < MIN_SCALE)? (MIN_SCALE):(scale-1)
+            scale = (scale - 1 < MIN_SCALE) ? (MIN_SCALE) : (scale - 1)
         }
 
         listScene.map_sprites.forEach(element => {
@@ -366,6 +371,8 @@ function addEventToImgThumb() {
             let txt = x.getAttribute("data-sceneId")
             listScene.newActive = txt
             listScene.activeScene()
+            mapCameraLookAt(listScene.activePoint.position.clone())
+
         })
         x.addEventListener("mouseup", function () {
             divTitle.style.opacity = 0
@@ -390,7 +397,7 @@ function onClick(event) {
         listScene.newActive = intersects[0].object.idScene
         listScene.activeScene(true)
         document.getElementById("myRange").value = 1
-        // mapCameraLookAt(listScene.activePoint)
+        mapCameraLookAt(listScene.activePoint.position.clone())
     }
 }
 //event Mouse move on main scene
@@ -408,7 +415,7 @@ function onMouseMove(event) {
         if (intersects[0].object.type == "Sprite") {
 
             tooltipActive = intersects[0].object
-            
+
             let p = tooltipActive.position.clone().project(camera)
             tooltip.style.top = ((-1 * p.y + 1) * window.innerHeight / 2) + 'px'
             tooltip.style.left = ((p.x + 1) * window.innerWidth / 2) + 'px'
@@ -454,20 +461,20 @@ function mapHover(event) {
     let intersects = ray.intersectObjects(map_scene.children)
     if (intersects.length > 0) {
         let a = intersects[0]
-        if (a.object.type == "Sprite" && a.object.isPoint == true ) {
+        if (a.object.type == "Sprite" && a.object.isPoint == true) {
             if (typeof map_tooltipActive !== "boolean" && map_tooltipActive.name != a.object.name) {
                 map_tooltipActive.scale.set(scaleSprite, scaleSprite, scaleSprite)
-                map_tooltipActive.position.y =1
-                listScene.map_sprites.forEach(element =>{
-                    if(element.uuid != a.object.uuid) {
-                       element.position.y = 1
+                map_tooltipActive.position.y = 1
+                listScene.map_sprites.forEach(element => {
+                    if (element.uuid != a.object.uuid) {
+                        element.position.y = 1
                     }
                 })
             }
             map_tooltipActive = a.object
             console.log(map_tooltipActive.position.y)
             let p = map_tooltipActive.position.clone().project(map_camera)
-            tooltip.style.top = (((-1 * p.y + 1) * divOuputMap.clientWidth) / 2 +4+ _top) + 'px'
+            tooltip.style.top = (((-1 * p.y + 1) * divOuputMap.clientWidth) / 2 + 4 + _top) + 'px'
             tooltip.style.left = (((p.x + 1) * divOuputMap.clientHeight) / 2 + _left) + 'px'
             tooltip.classList.add('mapActive')
             tooltip.innerHTML = map_tooltipActive.name
@@ -479,7 +486,7 @@ function mapHover(event) {
                 z: zoomSprite,
             })
             foundSprite2 = true
-            map_tooltipActive.position.y =2
+            map_tooltipActive.position.y = 2
 
             // map_tooltipActive = true
         }
@@ -492,13 +499,13 @@ function mapHover(event) {
             y: scaleSprite,
             z: scaleSprite,
         })
-        map_tooltipActive.position.y =1
-      
+        map_tooltipActive.position.y = 1
+
 
     }
 }
 // mouse click on map scene
-function mapClick(event) {
+ function mapClick(event) {
     const ray = new THREE.Raycaster()
     let mouse = new THREE.Vector2(
         ((event.clientX - divOuputMap.getBoundingClientRect().left) / divOuputMap.clientWidth) * 2 - 1,
@@ -510,11 +517,12 @@ function mapClick(event) {
     console.log(intersects)
     if (intersects.length > 0 && intersects[0].object.type == "Sprite") {
         const position = new THREE.Vector3().copy(map_tooltipActive.position.clone())
-        mapCameraLookAt(position)
         tooltip.classList.remove('mapActive')
         //update position camera
-
         map_tooltipActive.onClick()
+        console.log(listScene.activePoint)
+        mapCameraLookAt(position)
+
     }
 }
 
@@ -533,15 +541,7 @@ document.querySelector(".rotate-control").addEventListener("click", function () 
 document.querySelector(".map").addEventListener("transitionend", function () {
     const element = document.querySelector(".map")
     const position = listScene.activePoint.position.clone()
-    // parameters:
-    // height: 5
-    // heightSegments: 10
-    // openEnded: false
-    // radialSegments: 32
-    // radiusBottom: 30
-    // radiusTop: 30
-    // thetaLength: 1.5
-    // thetaStart: 0
+
     const beam = map_scene.getObjectByName('beam')
     const parameters = beam.geometry.parameters
     const newcamera = new THREE.OrthographicCamera(divOuputMap.clientWidth * aspect / -2, divOuputMap.clientWidth * aspect / 2, divOuputMap.clientHeight / 2, divOuputMap.clientHeight / -2, 0.1, 1000)
@@ -575,22 +575,19 @@ document.querySelector(".map").addEventListener("transitionend", function () {
 
 // event scroll mouse to zoom
 function onScroll(event) {
-    
+
     let temp = parseInt(slider.value)
     console.log(event.deltaY)
     if (event.deltaY < 0) {
         if (temp == 100) {
             return
         }
-        console.log("zooom")
         slider.value = temp + 5
         slider.oninput()
     } else {
         if (temp == 1) {
             return
         }
-        console.log("no zom")
-
         slider.value = temp - 5
         slider.oninput()
     }
@@ -608,11 +605,11 @@ document.body.querySelector("#output").addEventListener("click", onClick)
 document.body.querySelector("#output").addEventListener("mousemove", onMouseMove)
 divOuputMap.addEventListener("mousemove", mapHover)
 divOuputMap.addEventListener("click", mapClick)
-divOuputMap.addEventListener("mouseleave",function(e){
-  let hoverElement= document.elementFromPoint(e.clientX,e.clientY)
-  if(hoverElement.tagName =="DIV"){
-      return
-  }
+divOuputMap.addEventListener("mouseleave", function (e) {
+    let hoverElement = document.elementFromPoint(e.clientX, e.clientY)
+    if (hoverElement.tagName == "DIV") {
+        return
+    }
     tooltip.classList.remove("mapActive")
     TweenLite.to(map_tooltipActive.scale, 0.5, {
         x: scaleSprite,
@@ -624,7 +621,11 @@ divOuputMap.addEventListener("mouseleave",function(e){
 
 
 //update camera's field of view on map 
-function updateBeam() {
+/**
+ * 
+ * @param {Number} numberPlus 
+ */
+function updateBeam(numberPlus =0) {
     /*
     s0: 4.9475004391
     s1: 2.717005048570
@@ -640,8 +641,8 @@ function updateBeam() {
     const beam = map_scene.getObjectByName("beam")
     const eu = new THREE.Euler()
     eu.copy(camera.rotation)
-    beam.rotation.y = eu.y + 2.717005048570
-    console.log(beam.rotation.y)
+    beam.rotation.y = eu.y + numberPlus
+   // console.log(beam.rotation.y)
 }
 
 /**
@@ -665,22 +666,6 @@ function animate() {
     //render()
 }
 
-function render() {
-    // so something moves
-
-    renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
-    renderer.setScissorTest(false);
-    renderer.render(scene, camera);
-
-    // then, render the overlay
-    renderer.setViewport(100, 100, 100, 100);
-    renderer.setScissor(100, 100, 100, 100);
-    renderer.setScissorTest(true);
-
-    //camera.aspect = width / height;
-    //    camera.updateProjectionMatrix();
-    //    renderer.render( scene2, camera2 );
-}
 
 //animation map render
 function map_animate() {

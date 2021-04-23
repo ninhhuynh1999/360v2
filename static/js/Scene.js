@@ -3,15 +3,16 @@ import * as THREE from 'three'
 export default class Scene {
     /**
      * Assign the project to an employee.
-     * @param {number} id -
-     * @param {string} image -
-     * @param {THREE.PerspectiveCamera} camera - 
-     * @param {string} name - 
-     * @param {THREE.Scene} scene - 
+     * @param {number} id 
+     * @param {string} image 
+     * @param {THREE.PerspectiveCamera} camera  
+     * @param {string} name  
+     * @param {THREE.Scene} scene  
      * @param {[]} points
      * @param {[]} sprites
+     * @param {Number} updateMiniMap
      */
-    constructor(id, image, camera, name, scene, points = [], sprites = []) {
+    constructor(id, image, camera, name, scene,updateMiniMap =0 ,points = [], sprites = []) {
 
         this.id = id
         this.image = image
@@ -21,7 +22,7 @@ export default class Scene {
 
         this.points = points
         this.sprites = sprites
-
+        this.updateMiniMap = updateMiniMap
     }
 
     createScene() {
@@ -42,7 +43,6 @@ export default class Scene {
                 scene.background = texture
                 sphere.material.envMap = texture
                 //sphere.material.needsUpdate = true
-
             },
 
             //onProgress callback
@@ -54,7 +54,6 @@ export default class Scene {
                 console.error('An error happened while load texture.');
             }
         )
-
         // const sphereMaterial = new THREE.MeshBasicMaterial({
         //     map: texture,
         //     side: THREE.BackSide,
@@ -67,7 +66,6 @@ export default class Scene {
         // this.sphere.name = "Sphere1"
         // this.scene.add(this.sphere)
         // this.sphere.material.transparent = false
-
         this.points.forEach(point => {
             this.addTooltip(point)
         })
@@ -82,7 +80,6 @@ export default class Scene {
         let spriteMap = new THREE.TextureLoader().load("/images/icons/icon-info.png")
         let spriteMaterial = new THREE.SpriteMaterial({
             map: spriteMap,
-
         })
         let sprite = new THREE.Sprite(spriteMaterial)
         sprite.onScene = true
@@ -127,7 +124,7 @@ export default class Scene {
     }
 
 
-    async destroy() {
+     destroy() {
         this.sprites.forEach((sprite) => {
             this.scene.remove(sprite)
             //  console.log("da xoa"+sprite.name)
@@ -135,7 +132,7 @@ export default class Scene {
 
 
     }
-    async appear() {
+     appear() {
 
         this.sprites.forEach((sprite) => {
             sprite.scale.set(8, 8, 8)

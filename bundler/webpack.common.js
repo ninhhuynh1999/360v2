@@ -3,10 +3,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
+//list file will export
+let htmlPageNames = ['load360'];
+let multipleHtmlPlugins = htmlPageNames.map(name => {
+  return new HtmlWebpackPlugin({
+    template: `./static/view/${name}.html`, // relative path to the HTML files
+    filename: `${name}.html`, // output HTML files
+    chunks: [`${name}`] // respective JS files
+  })
+});
+
+
 module.exports = {
     entry: {
         index:path.resolve(__dirname, '../src/index.js'),
-     
+        load360:path.resolve(__dirname, '../static/view/main.js'),
+        
     },
     output:
     {
@@ -24,11 +36,13 @@ module.exports = {
             ]
         }),
         new HtmlWebpackPlugin({
+           
             template: path.resolve(__dirname, '../src/index.html'),
-            minify: true
+            minify: true,
+            chunks:['index']
         }),
         new MiniCSSExtractPlugin()
-    ],
+    ].concat(multipleHtmlPlugins),
     module:
     {
         rules:
