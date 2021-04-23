@@ -11,7 +11,7 @@ export default class Scene {
      * @param {[]} points
      * @param {[]} sprites
      */
-    constructor(id, image, camera, name, scene,points=[],sprites=[]) {
+    constructor(id, image, camera, name, scene, points = [], sprites = []) {
 
         this.id = id
         this.image = image
@@ -21,12 +21,11 @@ export default class Scene {
 
         this.points = points
         this.sprites = sprites
-        
+
     }
 
     createScene() {
         //this.scene = scene
-        // const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
         const sphere = this.scene.getObjectByName("Sphere1")
         const scene = this.scene
         const textureLoader = new THREE.TextureLoader()
@@ -36,28 +35,26 @@ export default class Scene {
             this.image,
 
             //onLoad callback
-            function(texture){
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.repeat.x = - 1;
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-       scene.background = texture
-       sphere.material.envMap = texture
-       sphere.material.needsUpdate = true
-       console.log(scene.background)
-        
+            function (texture) {
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.repeat.x = - 1;
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+                scene.background = texture
+                sphere.material.envMap = texture
+                //sphere.material.needsUpdate = true
 
             },
 
             //onProgress callback
-            function(event){
+            function (event) {
                 console.log(event)
             },
             //onError callback
-            function(err){
-                console.error( 'An error happened while load texture.' );
+            function (err) {
+                console.error('An error happened while load texture.');
             }
         )
-      
+
         // const sphereMaterial = new THREE.MeshBasicMaterial({
         //     map: texture,
         //     side: THREE.BackSide,
@@ -70,13 +67,13 @@ export default class Scene {
         // this.sphere.name = "Sphere1"
         // this.scene.add(this.sphere)
         // this.sphere.material.transparent = false
-      
+
         this.points.forEach(point => {
             this.addTooltip(point)
         })
 
     }
-   
+
     addPoint(point) {
         this.points.push(point)
     }
@@ -85,7 +82,7 @@ export default class Scene {
         let spriteMap = new THREE.TextureLoader().load("/images/icons/icon-info.png")
         let spriteMaterial = new THREE.SpriteMaterial({
             map: spriteMap,
-          
+
         })
         let sprite = new THREE.Sprite(spriteMaterial)
         sprite.onScene = true
@@ -135,11 +132,11 @@ export default class Scene {
             this.scene.remove(sprite)
             //  console.log("da xoa"+sprite.name)
         })
-        
-     
+
+
     }
     async appear() {
-        
+
         this.sprites.forEach((sprite) => {
             sprite.scale.set(8, 8, 8)
             // console.log("da hien"+sprite.name)

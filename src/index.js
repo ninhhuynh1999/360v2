@@ -53,23 +53,11 @@ controls.enableZoom = true
 
 
 // create the sphere
-//const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
-const sphereGeo = new THREE.IcosahedronGeometry(150, 75)
+const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
 const textureLoader = new THREE.TextureLoader()
-const texture = textureLoader.load("/images/anh360/congtruong.jpg")
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.repeat.x = - 1;
 let textureEquirec = textureLoader.load( '/images/anh360/congtruong.jpg' );
  textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
 scene.background = textureEquirec
-
-
-// const sphereMaterial = new THREE.MeshBasicMaterial({
-//     map: texture,
-//     side: THREE.BackSide,
-//     transparent: true,
-//     // wireframe: true
-// })
 const sphereMaterial = new THREE.MeshBasicMaterial({envMap: textureEquirec})
 sphereMaterial.needsUpdate = true;
 
@@ -81,6 +69,17 @@ sphere.name = "Sphere1"
 scene.add(sphere)
 sphere.material.transparent = false
 
+
+//const sphereGeo = new THREE.IcosahedronGeometry(150, 75)
+//const texture = textureLoader.load("/images/anh360/congtruong.jpg")
+// texture.wrapS = THREE.RepeatWrapping;
+// texture.repeat.x = - 1;
+// const sphereMaterial = new THREE.MeshBasicMaterial({
+//     map: texture,
+//     side: THREE.BackSide,
+//     transparent: true,
+//     // wireframe: true
+// })
 
 //setup map
 
@@ -360,13 +359,16 @@ function addEventToImgThumb() {
             divTitle.style.top = (rect.top - 110) + 'px'
             divTitle.style.opacity = 1
         })
-        x.addEventListener("mouseleave", function () {
+        x.addEventListener("mouseout", function () {
             divTitle.style.opacity = 0
         })
         x.addEventListener("click", function () {
             let txt = x.getAttribute("data-sceneId")
             listScene.newActive = txt
             listScene.activeScene()
+        })
+        x.addEventListener("mouseup", function () {
+            divTitle.style.opacity = 0
         })
 
     })

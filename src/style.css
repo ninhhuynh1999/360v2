@@ -357,6 +357,7 @@ img.img-map {
   opacity: 0.85;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
+  transform: rotate(-360deg);
   
 }
 
