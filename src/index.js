@@ -129,18 +129,36 @@ map_animate();
 
 // s0: 4.9475004391
 // s1: 2.717005048570
-const s0 = new Scene(0, "/images/anh360/congtruong.jpg", camera, "Ngoài cổng", scene, 4.9475004391)
-const s1 = new Scene(1, "/images/anh360/congtruong1.jpg", camera, "Sân trước khu C", scene,2.717005048570)
-const s2 = new Scene(2, "/images/anh360/congtruong2.jpg", camera, "Sân trước khu C", scene)
-const s3 = new Scene(3, "/images/anh360/congtruong3.jpg", camera, "Sân trước khu C", scene)
-const s4 = new Scene(4, "/images/anh360/congtruong4.jpg", camera, "Sân trước khu C", scene)
-const s5 = new Scene(5, "/images/anh360/klf00.jpg", camera, "Sân giữa khu C và B", scene)
-const s6 = new Scene(6, "/images/anh360/klf1.jpg", camera, "KLF1", scene)
-const s7 = new Scene(7, "/images/anh360/demo1.jpeg", camera, "KLF 2", scene)
-const s8 = new Scene(8, "/images/anh360/demo2.jpeg", camera, "KLF 2", scene)
-const s9 = new Scene(9, "/images/anh360/demo3.jpeg", camera, "KLF 2", scene)
-const s10 = new Scene(10, "/images/anh360/demo4.jpeg", camera, "KLF 2", scene)
-const s11 = new Scene(11, "/images/anh360/demo5.jpeg", camera, "KLF 2", scene)
+//-22.75123720584515, -1.1683045789250301e-14, 52.6157606630201
+const s0 = new Scene(0, "/images/anh360/congtruong.jpg", camera, "Ngoài cổng", scene, new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
+const s1 = new Scene(1, "/images/anh360/truoc-khu-c/vao-cong.jpg", camera, "Vào cổng", scene, new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 2.717005048570)
+const s2 = new Scene(2, "/images/anh360/truoc-khu-c/giua-hb-d(0).jpg", camera, "Giữa khu HB và Khu C (1)", scene, new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504),)
+const s3 = new Scene(3, "/images/anh360/truoc-khu-c/giua-hb-d.jpg", camera, "Giữa khu HB và Khu C (2)", scene, new THREE.Vector3( -4.1712394946635062,1, 52.18576295183792),)
+const s4 = new Scene(4, "/images/anh360/truoc-khu-c/truoc-khu-d.jpg", camera, "Trước khu D", scene, new THREE.Vector3(14.59200559381937, 1, 52.186303499582436),)
+const s5 = new Scene(5, "/images/anh360/truoc-khu-c/truoc-khu-hb.jpg", camera, "Trước khu HB", scene, new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201),)
+//
+const s6 = new Scene(6, "/images/anh360/giua-khu-c-b/khu-c-nhin-khu-b.jpg", camera, "Sân giữa khu B và khu C (1)", scene, new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934),)
+const s7 = new Scene(7, "/images/anh360/giua-khu-c-b/giua-san-c-b.jpg", camera, "Sân giữa khu B và khu C (2)", scene, new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158),)
+const s8 = new Scene(8, "/images/anh360/giua-khu-c-b/truoc-klf.jpg", camera, "Sân giữa khu B và khu C (3)", scene, new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632),)
+const s9 = new Scene(9, "/images/anh360/giua-khu-c-b/khu-b-nhin-khu-c.jpeg", camera, "Sân giữa khu B và khu C (4)", scene, new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085),)
+//
+const s10 = new Scene(10, "/images/anh360/giua-khu-b-a/anh loi.jpg", camera, "Sân giữa khu B và khu A (1)", scene, new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
+const s11 = new Scene(11, "/images/anh360/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg", camera, "Trước trung tam khảo thí (1)", scene, new THREE.Vector3(-17.5357713677974, 1,-14.11075508938375),)
+const s12 = new Scene(12, "/images/anh360/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1,-18.860755089386128),)
+const s13 = new Scene(13, "/images/anh360/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179,  3.2133038503226793e-15, -14.171434022941398),)
+const s14 = new Scene(14, "/images/anh360/giua-khu-b-a/giua-khu-a-b.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801),)
+const s15 = new Scene(15, "/images/anh360/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852),)
+const s16 = new Scene(16, "/images/anh360/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước phòng A.016", scene, new THREE.Vector3(-40.059427344415866,1, -47.28202139744883),)
+
+
+// const s5 = new Scene(5, "/images/anh360/klf00.jpg", camera, "Sân giữa khu C và B", scene, new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934),)
+// const s77 = new Scene(77, "/images/anh360/klf1.jpg", camera, "KLF1", scene, new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632),)
+// const s88 = new Scene(88, "/images/anh360/demo1.jpeg", camera, "KLF 3", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852),)
+// const s99 = new Scene(99, "/images/anh360/demo2.jpeg", camera, "KLF 4", scene, new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085),)
+// const s100 = new Scene(100, "/images/anh360/demo3.jpeg", camera, "KLF5", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801),)
+// const s111 = new Scene(111, "/images/anh360/demo4.jpeg", camera, "KLF 6", scene, new THREE.Vector3(51.618485116, 1, -23.646932590252415),)
+// const s122 = new Scene(122, "/images/anh360/demo5.jpeg", camera, "KLF 7", scene, new THREE.Vector3(58.195221225640616, 1, -66.02381438857115),)
+const arr = [s0, s1, s2, s3, s4, s5, s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16 ]
 //adpoint to scene
 s0.addPoint({
     position: new THREE.Vector3(119.082458435241, 9.995027139237752, 90.47797014227162),
@@ -202,36 +220,35 @@ s6.addPoint({
     name: 'Sân giữa khu C và khu BB',
     scene: s5
 })
-s7.addPoint({
-    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-    name: 'KLF (1)',
-    scene: s6
-})
-s8.addPoint({
-    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-    name: 'KLF (1)',
-    scene: s6
-})
-s9.addPoint({
-    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-    name: 'KLF (1)',
-    scene: s6
-})
-s10.addPoint({
-    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-    name: 'KLF (1)',
-    scene: s6
-})
-s11.addPoint({
-    position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-    name: 'KLF (1)',
-    scene: s6
-})
+// s7.addPoint({
+//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
+//     name: 'KLF (1)',
+//     scene: s6
+// })
+// s8.addPoint({
+//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
+//     name: 'KLF (1)',
+//     scene: s6
+// })
+// s9.addPoint({
+//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
+//     name: 'KLF (1)',
+//     scene: s6
+// })
+// s10.addPoint({
+//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
+//     name: 'KLF (1)',
+//     scene: s6
+// })
+// s11.addPoint({
+//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
+//     name: 'KLF (1)',
+//     scene: s6
+// })
 
 
 
 //add scene to ListScene
-const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11]
 const listScene = new ListScene(arr, scene, camera)
 //generate frist first scene
 listScene.actived = s1
@@ -361,7 +378,7 @@ function addEventToImgThumb() {
             // let mul = x.getAttribute("data-ordinal")
             // let curTop = 45
             var rect = x.getBoundingClientRect();
-            divTitle.style.top = (rect.top - 110) + 'px'
+            divTitle.style.top = (rect.top - 105 - output.getBoundingClientRect().top) + 'px'
             divTitle.style.opacity = 1
         })
         x.addEventListener("mouseout", function () {
@@ -450,12 +467,13 @@ function onMouseMove(event) {
 // mouse move on Map scene
 function mapHover(event) {
     let foundSprite2 = false
-    let _left = divOuputMap.getBoundingClientRect().left
-    let _top = divOuputMap.getBoundingClientRect().top
+
+    let reactMap = divOuputMap.getBoundingClientRect()
+    let rectCanvas = output.getBoundingClientRect()
     const ray = new THREE.Raycaster()
     let mouse = new THREE.Vector2(
-        ((event.clientX - _left) / divOuputMap.clientWidth) * 2 - 1,
-        - ((event.clientY - _top) / divOuputMap.clientHeight) * 2 + 1
+        ((event.clientX - reactMap.left) / divOuputMap.clientWidth) * 2 - 1,
+        - ((event.clientY - reactMap.top) / divOuputMap.clientHeight) * 2 + 1
     )
     ray.setFromCamera(mouse, map_camera)
     let intersects = ray.intersectObjects(map_scene.children)
@@ -472,10 +490,9 @@ function mapHover(event) {
                 })
             }
             map_tooltipActive = a.object
-            console.log(map_tooltipActive.position.y)
             let p = map_tooltipActive.position.clone().project(map_camera)
-            tooltip.style.top = (((-1 * p.y + 1) * divOuputMap.clientWidth) / 2 + 4 + _top) + 'px'
-            tooltip.style.left = (((p.x + 1) * divOuputMap.clientHeight) / 2 + _left) + 'px'
+            tooltip.style.top = (((-1 * p.y + 1) * divOuputMap.clientWidth) / 2 + reactMap.top-rectCanvas.y)  + 'px'
+            tooltip.style.left = (((p.x + 1) * divOuputMap.clientHeight) / 2+reactMap.left - rectCanvas.left ) + 'px'
             tooltip.classList.add('mapActive')
             tooltip.innerHTML = map_tooltipActive.name
             const zoomSprite = scaleSprite + scaleSprite * 0.18
@@ -505,16 +522,16 @@ function mapHover(event) {
     }
 }
 // mouse click on map scene
- function mapClick(event) {
+function mapClick(event) {
     const ray = new THREE.Raycaster()
     let mouse = new THREE.Vector2(
         ((event.clientX - divOuputMap.getBoundingClientRect().left) / divOuputMap.clientWidth) * 2 - 1,
         - ((event.clientY - divOuputMap.getBoundingClientRect().top) / divOuputMap.clientHeight) * 2 + 1
     )
-    console.log(map_tooltipActive)
+    //console.log(map_tooltipActive)
     ray.setFromCamera(mouse, map_camera)
     let intersects = ray.intersectObjects(map_scene.children)
-    console.log(intersects)
+    console.log(intersects[0].point)
     if (intersects.length > 0 && intersects[0].object.type == "Sprite") {
         const position = new THREE.Vector3().copy(map_tooltipActive.position.clone())
         tooltip.classList.remove('mapActive')
@@ -567,7 +584,6 @@ document.querySelector(".map").addEventListener("transitionend", function () {
         parameters.thetaStart,
         parameters.thetaLength
     )
-    console.log(beam.geometry)
     mapCameraLookAt(position)
     map_controlsChange()
     map_renderer.setSize(divOuputMap.clientWidth, divOuputMap.clientHeight);
@@ -625,7 +641,7 @@ divOuputMap.addEventListener("mouseleave", function (e) {
  * 
  * @param {Number} numberPlus 
  */
-function updateBeam(numberPlus =0) {
+function updateBeam(numberPlus = 0) {
     /*
     s0: 4.9475004391
     s1: 2.717005048570
@@ -642,7 +658,7 @@ function updateBeam(numberPlus =0) {
     const eu = new THREE.Euler()
     eu.copy(camera.rotation)
     beam.rotation.y = eu.y + numberPlus
-   // console.log(beam.rotation.y)
+    // console.log(beam.rotation.y)
 }
 
 /**

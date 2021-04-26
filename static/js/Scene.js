@@ -1,6 +1,7 @@
 import TweenLite from 'gsap/TweenLite'
 import * as THREE from 'three'
-export default class Scene {
+
+export  default  class Scene {
     /**
      * Assign the project to an employee.
      * @param {number} id 
@@ -11,8 +12,9 @@ export default class Scene {
      * @param {[]} points
      * @param {[]} sprites
      * @param {Number} updateMiniMap
+     * @param {THREE.Vector3} positionOnMap
      */
-    constructor(id, image, camera, name, scene,updateMiniMap =0 ,points = [], sprites = []) {
+    constructor(id, image, camera, name, scene,positionOnMap,updateMiniMap =0 ,points = [], sprites = []) {
 
         this.id = id
         this.image = image
@@ -23,6 +25,7 @@ export default class Scene {
         this.points = points
         this.sprites = sprites
         this.updateMiniMap = updateMiniMap
+        this.positionOnMap = positionOnMap
     }
 
     createScene() {
@@ -30,6 +33,8 @@ export default class Scene {
         const sphere = this.scene.getObjectByName("Sphere1")
         const scene = this.scene
         const textureLoader = new THREE.TextureLoader()
+        const client_view=document.querySelector(".div-scene")
+        client_view.classList.add("loading")
         textureLoader.load(
 
             //resource URK
@@ -43,6 +48,7 @@ export default class Scene {
                 scene.background = texture
                 sphere.material.envMap = texture
                 //sphere.material.needsUpdate = true
+                client_view.classList.remove("loading")
             },
 
             //onProgress callback

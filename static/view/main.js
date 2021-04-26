@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
-
+import "./load360.css"
 //init scene
 const div_output = document.querySelector(".show360")
 const output = document.querySelector('#output-threejs')
@@ -86,13 +86,13 @@ var loadFile = function (event) {
 function onScroll(event){
    
     event.preventDefault();
-    if (event.deltaY < 0) {
+    if (event.deltaY < 0 && camera.zoom < 3.5) {
         camera.zoom +=0.1
         camera.updateProjectionMatrix()
-    } else {
+    } 
+    if (event.deltaY > 0 && camera.zoom > 0.7) {
         camera.zoom -=0.1
         camera.updateProjectionMatrix()
-        
     }
     console.log(camera.zoom)
 }
