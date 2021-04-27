@@ -46,7 +46,8 @@ export  default  class Scene {
                 texture.repeat.x = - 1;
                 texture.mapping = THREE.EquirectangularReflectionMapping;
                 scene.background = texture
-                sphere.material.envMap = texture
+                //sphere.material.envMap = texture
+                sphere.material.map = texture
                 //sphere.material.needsUpdate = true
                 client_view.classList.remove("loading")
             },
@@ -89,7 +90,7 @@ export  default  class Scene {
         })
         let sprite = new THREE.Sprite(spriteMaterial)
         sprite.onScene = true
-        sprite.name = point.name
+        sprite.name = point.scene.id +") "+point.scene.name
         sprite.position.copy(point.position.clone().normalize().multiplyScalar(140))
         sprite.scale.multiplyScalar(8)
         this.scene.add(sprite)

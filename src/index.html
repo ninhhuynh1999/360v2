@@ -16,21 +16,23 @@
 <body>
     <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
         <a class="navbar-brand" href="/">Tham quan SGU</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul style="font-weight: bold;" class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a style="font-weight: bold;" class="nav-link" href="/">Xem cảnh trường <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="load360.html">Xem ảnh 360&#186; của bạn</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="models.html">Xem mô hình của trường</a>
-              </li>
-            <!-- <li class="nav-item dropdown">
+            <ul style="font-weight: bold;" class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a style="font-weight: bold;" class="nav-link" href="/">Xem cảnh trường <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="load360.html">Xem ảnh 360&#186; của bạn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="models.html">Xem mô hình của trường</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Dropdown
               </a>
@@ -41,87 +43,95 @@
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </li> -->
-            <!-- <li class="nav-item">
+                <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
             </li> -->
-          </ul>
-          <!-- <form class="form-inline my-2 my-lg-0">
+            </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form> -->
         </div>
-      </nav>
+    </nav>
     <!-- <div class="tooltip">Show info</div>
     <canvas id="output"></canvas> -->
     <div class="div-scene">
-    <div class="main1">
-        <div class="control-orbits">
-            <div id="control-orbit-output">
+        <div class="main1">
+            <div class="control-orbits">
+                <div id="control-orbit-output">
+
+                </div>
+            </div>
+            <div class="tooltip">Show info</div>
+            <canvas style="max-width: 100%;max-height: 100%;" id="output"></canvas>
+            <div class="map mini-map " id="map">
+                <canvas style="max-width: 100%;max-height: 100%;" id="output-map">
+                </canvas>
+            </div>
+            <div class="controls">
+                <div class="chil-controls control-map" data-tooltip-number="0" onclick="clickMap()" data-status="open"
+                    data-tooltip="Mở bản đồ">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+
+                <div class="chil-controls thumb-control" data-tooltip-number="1" data-status="open"
+                    onclick="clickThumb()" data-tooltip="Ẩn chọn cảnh">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+                <div class="chil-controls rotate-control" data-tooltip-number="2" data-status="close"
+                    onclick="clickRotate(this)" data-tooltip="Mở tự động xoay">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+                <div class="chil-controls fullscreen-control" data-tooltip-number="3" data-status="open"
+                    onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+                <div class="chil-controls hideAll-control" data-tooltip-number="4" data-status="open"
+                    onclick="clickHide(this)" data-tooltip="Ẩn giao diện điều khiển">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+
 
             </div>
-        </div>
-        <div class="tooltip">Show info</div>
-        <canvas style="max-width: 100%;max-height: 100%;" id="output"></canvas>
-        <div class="map mini-map " id="map">
-            <canvas style="max-width: 100%;max-height: 100%;" id="output-map">
-            </canvas>
-        </div>
-        <div class="controls">
-            <div class="chil-controls control-map" data-tooltip-number="0" onclick="clickMap()" data-status="open"
-                data-tooltip="Mở bản đồ">
-                <span class="tooltiptext-map">Tooltip text</span>
-            </div>
 
-            <div class="chil-controls thumb-control" data-tooltip-number="1" data-status="open" onclick="clickThumb()"
-                data-tooltip="Ẩn chọn cảnh">
-                <span class="tooltiptext-map">Tooltip text</span>
-            </div>
-            <div class="chil-controls rotate-control" data-tooltip-number="2" data-status="close"
-                onclick="clickRotate(this)" data-tooltip="Mở tự động xoay">
-                <span class="tooltiptext-map">Tooltip text</span>
-            </div>
-            <div class="chil-controls fullscreen-control" data-tooltip-number="3" data-status="open"
-                onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
-                <span class="tooltiptext-map">Tooltip text</span>
-            </div>
-            <div class="chil-controls hideAll-control" data-tooltip-number="4" data-status="open"
-                onclick="clickHide(this)" data-tooltip="Ẩn giao diện điều khiển">
-                <span class="tooltiptext-map">Tooltip text</span>
-            </div>
+            <div class="mainThumb">
+                <div class="search-thumb">
 
-       
-        </div>
-
-        <div class="mainThumb">
-            <div class="bodyThumb">         
-                <div class="list-thumb">
-                    <div touch-action="none" class="div-list-thumb">
-                        <div class="all-title">
-                            <div class="div-title-thumb">
-                                <p class="p-title-thumb">
-                                    1. Over Motu Ihiti</p>
+                    <input class="form-control mr-sm-2" class="input-search-thumb" type="search" placeholder="Search"
+                        aria-label="Search" style="
+                   padding-top: 0px;
+                   padding-bottom: 0px;
+               ">
+                </div>
+                <div class="bodyThumb">
+                    <div class="list-thumb">
+                        <div touch-action="none" class="div-list-thumb">
+                            <div class="all-title">
+                                <div class="div-title-thumb">
+                                    <p class="p-title-thumb">
+                                        111</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="all-thumb">
-                            <!-- <div class="div-thumb" elemtype="thumb">
+                            <div class="all-thumb">
+                                <!-- <div class="div-thumb" elemtype="thumb">
                                 <div class="div-thumb-img">
                                 </div>
                             </div> -->
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="slidecontainer">
-            <div id="btn-zoom-out"></div>
-            <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider"
-                id="myRange" on>
+            <div class="slidecontainer">
+                <div id="btn-zoom-out"></div>
+                <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider"
+                    id="myRange" on>
                 <div id="btn-zoom-in"></div>
-        </div>
+            </div>
 
+        </div>
     </div>
-</div>
     <script>
         function clickMap() {
             var map = document.getElementById("map");
@@ -201,12 +211,12 @@
         }
         function hideItems() {
             var items = document.querySelectorAll(".chil-controls")
-            var thumb =  document.querySelector(".mainThumb")
+            var thumb = document.querySelector(".mainThumb")
             items.forEach(item => {
                 if (item.classList.contains("hideAll-control")) return;
                 item.style.display = "none"
             })
-         
+
             thumb.style.visibility = "hidden"
             document.querySelector(".map").style.display = "none"
             document.querySelector(".slidecontainer").style.display = "none"
@@ -214,13 +224,13 @@
         }
         function showItems() {
             var items = document.querySelectorAll(".chil-controls")
-            var thumb =  document.querySelector(".mainThumb")
+            var thumb = document.querySelector(".mainThumb")
 
             items.forEach(item => {
                 if (item.classList.contains("hideAll-control")) return;
                 item.style.display = "inline-block"
             })
-            
+
 
             thumb.style.visibility = "visible"
 
@@ -282,17 +292,28 @@
                 }
                 tooltip.innerHTML = x.getAttribute("data-tooltip")
                 tooltip.style.visibility = "visible"
-                
+
 
             })
 
         })
-
+        var listThumb = document.querySelectorAll(".div-thumb")
         document.addEventListener("DOMContentLoaded", function (event) {
-            
+            listThumb = document.querySelectorAll(".div-thumb")
             document.querySelector(".slidecontainer").style.bottom = ((window.innerHeight * 0.02) + 65) + "px"
-            //do work
+            document.querySelector("input").addEventListener("input", searchThumb)
+
         });
+        function searchThumb(e) {
+            listThumb.forEach(thumb => {
+                var name = thumb.getAttribute("data-name").toLowerCase()
+                if (name.includes(e.target.value.toLowerCase())) {
+                    thumb.style.display = "block"
+                } else {
+                    thumb.style.display = "none"
+                }
+            })
+        }
     </script>
 
 </body>

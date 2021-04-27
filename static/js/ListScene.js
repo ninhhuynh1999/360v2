@@ -114,68 +114,6 @@ export default class ListScene {
     }
 
     createMap() {
-        // const arr = [
-        //     {
-        //         point: new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105),
-        //         name: "Cổng chính trường",
-        //         scene: 0,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466),
-        //         name: "Phòng bảo vệ cổng trước (1)",
-        //         scene: 1,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504),
-        //         name: "Phòng bảo vệ cổng trước (2)",
-        //         scene: 2,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-4.056558065291135, 1, 55.278199513554945),
-        //         name: "Sân giữa khu C, D, Hiệu bộ (1)",
-        //         scene: 3,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-5.3106129687846, 1, 51.34076104448941),
-        //         name: "Sân giữa khu C, D, Hiệu bộ (2)",
-        //         scene: 4,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934),
-        //         name: "Sân giữa khu C và khu B",
-        //         scene: 5,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632),
-        //         name: "KLF (1)",
-        //         scene: 6,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(19.69396315163179, 1, -36.40166799709852),
-        //         name: "Sân trước khu A (1)",
-        //         scene: 7,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085),
-        //         name: "Sân trước khu A (2)",
-        //         scene: 8,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(-3.531319583807877, 1, -33.65734462848801),
-        //         name: "Sân trước khu A (3)",
-        //         scene: 9,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(51.6184851196816, 5.250673804691445e-15, -23.646932590252415),
-        //         name: "Khu giữ xe khu E",
-        //         scene: 10,
-        //     },
-        //     {
-        //         point: new THREE.Vector3(58.195221225640616, 1, -66.02381438857115),
-        //         name: "Khu E",
-        //         scene: 11,
-        //     },
-        // ]
         //create plane
         let geometry1 = new THREE.PlaneGeometry(150, 150, 50, 50);
         let material1 = new THREE.MeshBasicMaterial({
@@ -211,7 +149,7 @@ export default class ListScene {
             });
             const sprite = new THREE.Sprite(material2);
             sprite.position.copy(element.positionOnMap)
-            sprite.name = element.name
+            sprite.name = element.id+")"+element.name
             sprite.scale.set(8, 8, 8)
             sprite.isPoint = true
             sprite.userData.mapScene = element.id

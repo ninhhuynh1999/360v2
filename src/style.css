@@ -35,6 +35,8 @@ canvas {
   transition: opacity 0.5s, transform 0.5s;
   /* display: none; */
   visibility: hidden;
+  max-width: 150px;
+  text-align: center;
 }
 
 .tooltip.isActive {
@@ -59,10 +61,11 @@ canvas {
   transition: opacity 0.5s, transform 0.5s;
 }
 .div-scene{
-  width: 90%;
+  width: 95%;
   height: 90%;
   margin: auto;
   margin-top: 2%;
+  border-style: outset;
 }
 .main1 {
   width: 100%;
@@ -199,9 +202,15 @@ img.img-map {
   visibility: hidden;
   opacity: 0;
 }
+.search-thumb{
+  width: 180px;
+  margin-left: 12px;
+  opacity: 0.85;
+  padding-bottom: 5px;
+}
 
 .bodyThumb {
-  position: absolute;
+  position: relative;
   right: 0px;
   top: 0px;
   width: 100%;
@@ -263,6 +272,7 @@ img.img-map {
 }
 
 .div-title-thumb {
+  display: flex;
   position: absolute;
   right: 100%;
   margin-right: 10px;
@@ -281,8 +291,7 @@ img.img-map {
 
 .p-title-thumb {
   display: inline;
-  margin-right: 16px;
-  margin-left: 16px;
+  margin: 0px 16px 0px 16px;
   vertical-align: sub;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;

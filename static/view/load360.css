@@ -3,8 +3,9 @@ html,body{
 }
 .show360{
     width: 85%;
-    height: 75%;
+    height: 85vh !important;
     margin: auto;
+    margin-bottom: 50px;
 }
 #output-threejs{
     max-width: 100%;
