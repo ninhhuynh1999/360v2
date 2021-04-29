@@ -26,6 +26,7 @@ export  default  class Scene {
         this.sprites = sprites
         this.updateMiniMap = updateMiniMap
         this.positionOnMap = positionOnMap
+        this.start_position_camera = new THREE.Vector3(1,1,1)
     }
 
     createScene() {
@@ -48,6 +49,7 @@ export  default  class Scene {
                 scene.background = texture
                 //sphere.material.envMap = texture
                 sphere.material.map = texture
+                
                 //sphere.material.needsUpdate = true
                 client_view.classList.remove("loading")
             },
@@ -61,18 +63,7 @@ export  default  class Scene {
                 console.error('An error happened while load texture.');
             }
         )
-        // const sphereMaterial = new THREE.MeshBasicMaterial({
-        //     map: texture,
-        //     side: THREE.BackSide,
-        //     transparent: true,
-        //     // wireframe: true
-        // })
-        // sphereMaterial.transparent = true
-        // this.sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
-        // //this.sphere.rotation.y = 3.9
-        // this.sphere.name = "Sphere1"
-        // this.scene.add(this.sphere)
-        // this.sphere.material.transparent = false
+        // this.camera.position.copy(this.start_position_camera);
         this.points.forEach(point => {
             this.addTooltip(point)
         })
@@ -95,13 +86,13 @@ export  default  class Scene {
         sprite.scale.multiplyScalar(8)
         this.scene.add(sprite)
         sprite.onClick = () => {
-            this.spriteClick(sprite, point)
+            this.spriteClick()
         }
         sprite.idScene = point.scene.id
         this.sprites.push(sprite)
     }
 
-    spriteClick(sprite, point) {
+    spriteClick() {
         this.camera.zoom = this.camera.zoom >= 1 ? 1 : 1
         TweenLite.to(this.camera, 1, {
             zoom: 3,

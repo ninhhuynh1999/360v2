@@ -73,6 +73,19 @@ canvas {
   /* background-color: aquamarine; */
   position: relative;
 }
+/* config dat.GUI */
+#gui{
+  position: absolute;
+  z-index: 13;
+  right: 0px;
+  top: 1px;
+  
+}
+.c > div > input {
+  font-size: 12px;
+  line-height: normal;
+}
+
 .chil-controls {
   margin: 5px 5px 5px 5px;
   display: inline-block;
@@ -82,7 +95,7 @@ canvas {
   transition: 0.45s;
 }
 .chil-controls:hover {
-  background-color: rgba(160, 73, 73, 0.829);
+  background-color: rgba(160, 73, 73, 0.829) !important;
 }
 .chil-controls .tooltiptext-map {
   visibility: hidden;
@@ -362,7 +375,7 @@ img.img-map {
   left: -40px;
 }
 
-.slider {
+.slider-zoom {
   -webkit-appearance: none;
   width: 100%;
   height: 15px;
@@ -376,7 +389,7 @@ img.img-map {
   
 }
 
-.slider:hover {
+.slider-zoom:hover {
   opacity: 1;
   /* background:#1abc9c  ; */
   /* background:#2c3e50  ; */
@@ -385,7 +398,7 @@ img.img-map {
   
 }
 
-.slider::-webkit-slider-thumb {
+.slider-zoom::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 15px;
@@ -394,15 +407,15 @@ img.img-map {
   background: #ffffff;
   cursor: pointer;
 }
-.slider::-webkit-slider-thumb:hover{
+.slider-zoom::-webkit-slider-thumb:hover{
   box-shadow: 0 0 0 3px #ffffff,
              0 0 0 6px #9e9e9e;
 }
-.slider:active::-webkit-slider-thumb {
+.slider-zoom:active::-webkit-slider-thumb {
   background: #ffffff;
 }
 
-.slider::-moz-range-thumb {
+.slider-zoom::-moz-range-thumb {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -430,6 +443,10 @@ img.img-map {
   background: url("~../static/images/icons/icon-arrow-right.png") no-repeat center center;
   background-size: contain!important;
 }
+.hidePoint-control{
+  background: url("~../static/images/icons/icon-point.png") no-repeat center center;
+  background-size: contain!important;
+}
 #btn-zoom-in{
   background: url("~../static/images/icons/icon-zoom-in.png") no-repeat center center;
   background-size: contain!important;
@@ -438,6 +455,7 @@ img.img-map {
   background: url("~../static/images/icons/icon-zoom-out.png") no-repeat center center;
   background-size: contain!important;
 }
+
 /* style.css */
 .loading {
   cursor: wait; /* busy cursor feedback */

@@ -86,7 +86,11 @@
                     onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
-                <div class="chil-controls hideAll-control" data-tooltip-number="4" data-status="open"
+                <div class="chil-controls hidePoint-control" data-tooltip-number="4" data-status="open"
+                    onclick="clickHidePoint(this)" data-tooltip="Ẩn các điểm chuyển cảnh">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+                <div class="chil-controls hideAll-control" data-tooltip-number="5" data-status="open"
                     onclick="clickHide(this)" data-tooltip="Ẩn giao diện điều khiển">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
@@ -97,11 +101,7 @@
             <div class="mainThumb">
                 <div class="search-thumb">
 
-                    <input class="form-control mr-sm-2" class="input-search-thumb" type="search" placeholder="Search"
-                        aria-label="Search" style="
-                   padding-top: 0px;
-                   padding-bottom: 0px;
-               ">
+                    <input class="form-control mr-sm-2" class="input-search-thumb" type="search" placeholder="Search" aria-label="Search" style="padding-top: 0px;padding-bottom: 0px;" oninput="searchThumb(this)">
                 </div>
                 <div class="bodyThumb">
                     <div class="list-thumb">
@@ -125,14 +125,20 @@
             </div>
             <div class="slidecontainer">
                 <div id="btn-zoom-out"></div>
-                <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider"
-                    id="myRange" on>
+                <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider-zoom"
+                    id="myRange" >
                 <div id="btn-zoom-in"></div>
             </div>
 
         </div>
     </div>
     <script>
+  var listThumb = document.querySelectorAll(".div-thumb")
+        document.addEventListener("DOMContentLoaded", function (event) {
+            listThumb = document.querySelectorAll(".div-thumb")
+            document.querySelector(".slidecontainer").style.bottom = ((window.innerHeight * 0.02) + 65) + "px"
+        });
+
         function clickMap() {
             var map = document.getElementById("map");
             if (map.classList.contains("mini-map")) {
@@ -191,18 +197,8 @@
                 document.msExitFullscreen();
             }
         }
-        function closeFullscreen(elem) {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
-        }
         function clickHide(e) {
             if (e.getAttribute("data-status") == "open") {
-
                 hideItems()
             } else {
                 showItems()
@@ -257,7 +253,8 @@
             new Tooltip("Ẩn chọn cảnh", "Hiện chọn cảnh", "/images/icons/icon-details.png", "/images/icons/icon-details-disable.png"),
             new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "/images/icons/icon-rotate-left.png", "/images/icons/icon-rotate-left-disable.png"),
             new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
-            new Tooltip("Ẩn giao diện điều khiển", "Mở giao diện điều khiển", "images/icons/icon-arrow-right.png", "images/icons/icon-arrow-left.png")
+            new Tooltip("Ẩn điểm chuyển cảnh", "Hiện điểm chuyển cảnh", "images/icons/icon-point.png", "images/icons/icon-point-disable.png"),
+            new Tooltip("Ẩn giao diện điều khiển", "Mở giao diện điều khiển", "images/icons/icon-arrow-right.png", "images/icons/icon-arrow-left.png"),
 
         ]
         document.querySelectorAll(".chil-controls").forEach(x => {
@@ -297,17 +294,23 @@
             })
 
         })
-        var listThumb = document.querySelectorAll(".div-thumb")
-        document.addEventListener("DOMContentLoaded", function (event) {
-            listThumb = document.querySelectorAll(".div-thumb")
-            document.querySelector(".slidecontainer").style.bottom = ((window.innerHeight * 0.02) + 65) + "px"
-            document.querySelector("input").addEventListener("input", searchThumb)
+      
+        document.addEventListener("fullscreenchange", function () {
 
-        });
+            if (!document.fullscreenElement) {
+                let x = document.querySelector(".fullscreen-control")
+                var number = x.getAttribute("data-tooltip-number")
+                x.setAttribute("data-tooltip", tooltips[number].open)
+                x.setAttribute("data-status", "open")
+                x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+            }
+        }, false)
+
         function searchThumb(e) {
+            console.log(e)
             listThumb.forEach(thumb => {
                 var name = thumb.getAttribute("data-name").toLowerCase()
-                if (name.includes(e.target.value.toLowerCase())) {
+                if (name.includes(e.value.toLowerCase())) {
                     thumb.style.display = "block"
                 } else {
                     thumb.style.display = "none"
