@@ -4,10 +4,10 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 //list file will export
-let htmlPageNames = ['load360'];
+let htmlPageNames = ['load360',"viewmodels"];
 let multipleHtmlPlugins = htmlPageNames.map(name => {
   return new HtmlWebpackPlugin({
-    template: `./static/view/${name}.html`, // relative path to the HTML files
+    template: `./static/view/${name}/${name}.html`, // relative path to the HTML files
     filename: `${name}.html`, // output HTML files
     chunks: [`${name}`] // respective JS files
   })
@@ -17,8 +17,8 @@ let multipleHtmlPlugins = htmlPageNames.map(name => {
 module.exports = {
     entry: {
         index:path.resolve(__dirname, '../src/index.js'),
-        load360:path.resolve(__dirname, '../static/view/main.js'),
-        
+        load360:path.resolve(__dirname, '../static/view/load360/main.js'),
+        viewmodels:path.resolve(__dirname, '../static/view/viewmodels/main.js'),
     },
     output:
     {

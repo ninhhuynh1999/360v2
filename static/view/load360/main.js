@@ -99,5 +99,13 @@ function onScroll(event){
 document.querySelector("#input-file").addEventListener('change', function (e) {
         loadFile(e)
         
-    })
-   div_output.onwheel = onScroll
+})
+div_output.onwheel = onScroll
+window.addEventListener("resize",function(){
+    let x = div_output.clientWidth
+    let y =div_output.clientHeight
+   
+    camera.aspect=x/y
+    camera.updateProjectionMatrix()
+    renderer.setSize(x,y)
+})
