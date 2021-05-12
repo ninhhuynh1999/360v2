@@ -7,7 +7,7 @@ import ListScene from '../static/js/ListScene.js'
 import Scene from '../static/js/Scene.js'
 
 import './style.css'
-
+import '../static/css/controls.css'
 // declared variables
 // let output //output of main scene
 // let scene, camera, renderer, controls, sphere //property mine scene
@@ -46,7 +46,9 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableRotate = true
 controls.autoRotate = false
 controls.enableKeys = true
-controls.enableDamping = false
+controls.enableDamping = true
+controls.enableZoom = false
+
 // controls.dampingFactor = 0.04;
 controls.keys = {
     LEFT: 37, //left arrow
@@ -54,7 +56,6 @@ controls.keys = {
     RIGHT: 39, // right arrow
     BOTTOM: 40 // down arrow
 }
-controls.enableZoom = true
 
 
 // create the sphere
@@ -396,7 +397,7 @@ s22.addPoint({
 
 //add scene to ListScene 
 const listScene = new ListScene(arr, scene, camera)
-
+listScene.scene_controls = controls
 //generate frist first scene
 listScene.actived = s1
 listScene.newActive = 0
@@ -554,7 +555,7 @@ function addEventToImgThumb() {
 
 //event Mouse click on main scene
 function onClick(event) {
-    document.querySelector("input").blur();
+    document.querySelector("input.form-control").blur();
     const rayCaster = new THREE.Raycaster();
     const main1Rect = div_main1.getBoundingClientRect()
     let mouse = new THREE.Vector2(
@@ -566,11 +567,16 @@ function onClick(event) {
     console.log(intersects[0])
 
     if (intersects.length > 0 && intersects[0].object.type == "Sprite" && intersects[0].object.onScene) {
-
         listScene.newActive = intersects[0].object.idScene
         listScene.activeScene(true)
         document.getElementById("myRange").value = 1
         mapCameraLookAt(listScene.activePoint.position.clone())
+        TweenLite.to(controls.target, 0.5, {
+            x: intersects[0].point.x,
+            y: intersects[0].point.y,
+            z: intersects[0].point.z,
+        })
+        
     }
 }
 //event Mouse move on main scene
@@ -768,6 +774,7 @@ document.querySelector(".map").addEventListener("transitionend", function () {
 
 // event scroll mouse to zoom
 function onScroll(event) {
+    event.preventDefault()
     let temp = parseInt(slider.value)
     console.log(event.deltaY)
     if (event.deltaY < 0) {

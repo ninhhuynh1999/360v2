@@ -13,8 +13,9 @@ export default class ListScene {
      * @param {THREE.Sprite} activePoint -the point(THREE.Sprite) active in map
      * @param {THREE.WebGLRenderer} renderer -renderer of THREE
      * @param {[]} map_sprites -all Sprite in Map scene
+     * @param {OrbitControls} map_sprites -all Sprite in Map scene
      */
-    constructor(scenes, scene, camera, actived, newActive = null, map_scene = null, activePoint = null, renderer = null, map_sprites = []) {
+    constructor(scenes, scene, camera, actived, newActive = null, map_scene = null, activePoint = null, renderer = null, map_sprites = [],scene_controls = null) {
         this.scenes = scenes;
         this.scene = scene;
         this.camera = camera
@@ -24,6 +25,7 @@ export default class ListScene {
         this.activePoint = activePoint
         this.renderer = renderer
         this.map_sprites = map_sprites
+        this.scene_controls = scene_controls
     }
 
     addScene(scene) {
@@ -40,16 +42,10 @@ export default class ListScene {
      */
     activeScene(zoom = false) {
         if (this.newActive != null && this.newActive != this.actived.id) {
-            //let sc = this.scenes[this.actived];
-            
+        
             let sc = this.actived;
 
             var x = sc.destroy();
-
-            // var chil = this.scene.children
-            // var c = await chil.forEach(e => {
-            //     this.scene.remove(e)
-            // });
 
             var find = this.scenes.find(element => element.id == this.newActive)
             if (zoom) {
@@ -65,13 +61,12 @@ export default class ListScene {
                 })
                 TweenLite.to(this.camera, 0.5, {
                     zoom: 1,
-                    
                     onComplete: () => {
                         this.camera.updateProjectionMatrix()
+                        this.scene_controls.target.set(0,0,0)
                     }
                 }).delay(1)
             } else {
-                //x = find.createScene();
                 TweenLite.to(this.camera, 0.5, {
                     zoom: 1,
                     onComplete: () => {
@@ -84,10 +79,8 @@ export default class ListScene {
                 }).delay(0.5)
             }
 
-            //x = await find.createScene();
             find.appear();
             this.actived = find
-            // this.actived = this.newActive;
             this.newActive = null;
             this.changeCurrentSprite()
         }
@@ -133,7 +126,6 @@ export default class ListScene {
             depthWrite: false,
         });
 
-        // let geometry = new THREE.SphereGeometry(30, 32, 1, 0, 1.5, 0.2, 1.5);
         let geometry = new THREE.CylinderGeometry(30, 30, 5, 32, 10, false, 0, 1.5)
         const circle = new THREE.Mesh(geometry, material);
         circle.name = "beam"

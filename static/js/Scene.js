@@ -29,7 +29,7 @@ export  default  class Scene {
         this.start_position_camera = new THREE.Vector3(1,1,1)
     }
 
-    createScene() {
+    async createScene() {
         //this.scene = scene
         const sphere = this.scene.getObjectByName("Sphere1")
         const scene = this.scene
@@ -49,8 +49,6 @@ export  default  class Scene {
                 scene.background = texture
                 //sphere.material.envMap = texture
                 sphere.material.map = texture
-                
-                //sphere.material.needsUpdate = true
                 client_view.classList.remove("loading")
             },
 
@@ -130,7 +128,7 @@ export  default  class Scene {
 
 
     }
-     appear() {
+    appear() {
 
         this.sprites.forEach((sprite) => {
             sprite.scale.set(8, 8, 8)

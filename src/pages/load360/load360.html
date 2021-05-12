@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xem ảnh 360 của bạn</title>
+  <script src="/js/jquery/jquery-3.6.0.min.js"></script>
+  <script src="/js/jquery/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="/js/jquery/popper.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" crossorigin="anonymous">
+  <script src="/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Tham quan SGU</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul style="font-weight: bold;" class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Xem cảnh trường <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="load360.html">Xem ảnh 360&#186; của bạn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmodels.html">Xem mô hình trường</a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  <div class="div-choose-file">
+    <h4> Chọn hình ảnh 360 của bạn để xem</h4>
+    <input id="input-file" multiple="false" type="file" accept="image/*">
+  </div>
+
+  <img id="output-img" src="/" crossorigin="anonymous" alt="">
+  <div class="show360">
+    <canvas id="output-threejs"></canvas>
+
+
+
+    <div class="controls">
+
+
+
+      <div class="chil-controls rotate-control" data-tooltip-number="0" data-status="close" onclick="clickRotate(this)"
+        data-tooltip="Mở tự động xoay">
+        <span class="tooltiptext-map">Tooltip text</span>
+      </div>
+      <div class="chil-controls fullscreen-control" data-tooltip-number="1" data-status="open"
+        onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
+        <span class="tooltiptext-map">Tooltip text</span>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="slidecontainer">
+      <div id="btn-zoom-out"></div>
+      <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider-zoom"
+        id="myRange">
+      <div id="btn-zoom-in"></div>
+    </div>
+  </div>
+</body>
+<script>
+
+  function clickRotate(e) {
+    if (e.classList.contains("disableRotate")) {
+      e.classList.remove("disableRotate")
+
+    } else {
+      e.classList.add('disableRotate');
+
+    }
+
+  }
+  function clickFullscreen(e) {
+    var elem = document.querySelector(".show360");
+    if (e.getAttribute("data-status") == "open") {
+      openFullscreen(elem);
+    }
+    if (e.getAttribute("data-status") == "close") {
+      closeFullscreen(elem);
+    }
+  }
+  function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
+  function closeFullscreen(elem) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+  }
+  class Tooltip {
+    /**
+     * @param {String} open - tooltip text open
+     * @param {String} close- tooltip text close
+     * @param {String} imgOpen- link image open
+     * @param {String} imgClose- link image close
+    */
+    constructor(open, close, imgOpen, imgClose) {
+      this.open = open
+      this.close = close
+      this.imgOpen = imgOpen
+      this.imgClose = imgClose
+    }
+  }
+  const tooltips = [
+    new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "/images/icons/icon-rotate-left.png", "/images/icons/icon-rotate-left-disable.png"),
+    new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
+  ]
+
+
+  document.querySelectorAll(".chil-controls").forEach(x => {
+    const div = x.firstElementChild
+    //const tooltip = document.querySelector(".tooltiptext-map")
+    const tooltip = div
+
+    x.addEventListener("mouseover", function () {
+      mouseOver(x, tooltip)
+
+    })
+    x.addEventListener("mouseleave", function () {
+      mouseLeave(x, tooltip)
+
+    })
+    x.addEventListener("click", function () {
+      mouseClick(x, tooltip)
+    })
+    x.addEventListener("touchstart", function (e) {
+      mouseOver(x, tooltip)
+    },false)
+    x.addEventListener("touchend", function (e) {
+      mouseLeave(x, tooltip)
+    },false)
+
+  })
+
+  function mouseOver(x, tooltip) {
+    tooltip.innerHTML = x.getAttribute("data-tooltip")
+    var rect = x.getBoundingClientRect();
+    var parent = document.querySelector(".controls").getBoundingClientRect()
+    tooltip.style.left = (rect.left - parent.left + (rect.width / 2)) + 'px'
+    tooltip.style.visibility = "visible"
+  }
+  function mouseLeave(x, tooltip) {
+    console.log(tooltip)
+    tooltip.style.visibility = "hidden"
+  }
+  function mouseClick(x, tooltip) {
+    var number = x.getAttribute("data-tooltip-number")
+    //   tooltip.style.visibility = "hidden"
+    if (x.getAttribute("data-status") == "open") {
+      x.setAttribute("data-tooltip", tooltips[number].close)
+      x.setAttribute("data-status", "close")
+      x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+    } else {
+      x.setAttribute("data-tooltip", tooltips[number].open)
+      x.setAttribute("data-status", "open")
+      x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+    }
+    tooltip.innerHTML = x.getAttribute("data-tooltip")
+    tooltip.style.visibility = "visible"
+  }
+
+</script>
+
+</html>
