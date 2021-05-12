@@ -10,6 +10,7 @@ import * as dat from 'three/examples/jsm/libs/dat.gui.module'
 import { Capsule } from 'three/examples/jsm/math/Capsule.js';
 
 import './style.css'
+
 class InfoModel {
     /**
      * @param {string} name 
@@ -30,7 +31,7 @@ class InfoModel {
 }
 const dae_Models = [
 
-    new InfoModel("Khu A", "/models/dae/a/a.dae", "", true, true),
+    new InfoModel("Khu A", "/models/dae/a/a.dae", "", false),
     new InfoModel("Khu B", "/models/dae/b/b.dae", "", false),
     new InfoModel("Khu C", "/models/dae/c/c.dae", "", false),
     new InfoModel("Khu D", "/models/dae/d/d.dae", "", false),
@@ -39,28 +40,32 @@ const dae_Models = [
     // new InfoModel("TRUONG","/models/dae/truong/truong.dae", ""),
 ]
 const gltf_Models = [
-    new InfoModel("Khu A", "/models/gltf/khuA.gltf", "", true, true),
-    new InfoModel("Khu B", "/models/gltf/khuB.gltf", "", false),
-    new InfoModel("Khu C", "/models/gltf/KHUC.gltf", "", false),
-    new InfoModel("Khu D", "/models/gltf/D.gltf", "", false),
-    new InfoModel("Khu HB", "/models/gltf/HB.gltf", "", false),
-    new InfoModel("Khu KLF", "/models/gltf/KLF.gltf", "", false),
-    new InfoModel("Truong", "/models/gltf/truong-clean.gltf", "", false),
+    new InfoModel("Khu A", "/models/gltf/khua.gltf", "", false),
+    new InfoModel("Khu B", "/models/gltf/khub.gltf", "", false),
+    new InfoModel("Khu C", "/models/gltf/khuc.gltf", "", false),
+    new InfoModel("Khu D", "/models/gltf/d.gltf", "", false),
+    new InfoModel("Khu HB", "/models/gltf/hb.gltf", "", false),
+    new InfoModel("Khu KLF", "/models/gltf/klf.gltf", "", false),
+    new InfoModel("Truong", "/models/gltf/truong.gltf", "", false),
 ]
-
+gltf_Models[1].actived = true
+gltf_Models[1].inActive = true
 
 const playerCollider = new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35);
 const playerVelocity = new THREE.Vector3();
 const playerDirection = new THREE.Vector3();
 
 const clock = new THREE.Clock();
+
 // Canvas
 const div_output = document.querySelector(".div-output")
 const canvas = document.querySelector('canvas.output')
+
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xf0f0f0);
 
+//camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000)
 camera.position.x = 65
 camera.position.y = 76
@@ -69,10 +74,11 @@ camera.rotation.order = 'YXZ';
 camera.updateProjectionMatrix()
 scene.add(camera)
 
+//renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
-const sizes = { width: window.innerWidth, height: window.innerHeight }
+const sizes = { width: div_output.clientWidth, height: div_output.clientHeight }
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.domElement.ondragstart = function (event) { event.preventDefault(); return false; };
@@ -80,6 +86,7 @@ renderer.physicallyCorrectLights = true
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.VSMShadowMap;
 
+//light
 const ambientLight = new THREE.AmbientLight(0xf0f0f0)
 ambientLight.intensity = 3.5
 scene.add(ambientLight);
@@ -143,21 +150,18 @@ function getCanvasRelativePosition(event) {
 }
 
 function setPickPosition(event) {
-    const pos = getCanvasRelativePosition(event);
-    pickPosition.x = (pos.x / canvas.width) * 2 - 1;
-    pickPosition.y = (pos.y / canvas.height) * -2 + 1;  // note we flip Y
-    raycaster.setFromCamera(pickPosition, camera);
+    // const pos = getCanvasRelativePosition(event);
+    // pickPosition.x = (pos.x / canvas.width) * 2 - 1;
+    // pickPosition.y = (pos.y / canvas.height) * -2 + 1;  // note we flip Y
+    // raycaster.setFromCamera(pickPosition, camera);
 
-    // calculate objects intersecting the picking ray
-    const intersects = raycaster.intersectObjects(scene.children);
+    // // calculate objects intersecting the picking ray
+    // const intersects = raycaster.intersectObjects(scene.children);
 
     if (document.pointerLockElement === canvas) {
-
         camera.rotation.y -= event.movementX / 500;
         camera.rotation.x -= event.movementY / 500;
-
     }
-
 }
 
 function clearPickPosition() {
@@ -182,10 +186,8 @@ function onKeyUp(event) {
 function updatePlayer(deltaTime) {
     const damping = Math.exp(- 3 * deltaTime) - 1;
     playerVelocity.addScaledVector(playerVelocity, damping);
-
     const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime);
     playerCollider.translate(deltaPosition);
-
     camera.position.copy(playerCollider.end);
 }
 function getForwardVector() {
@@ -193,20 +195,15 @@ function getForwardVector() {
     camera.getWorldDirection(playerDirection);
     playerDirection.y = 0;
     playerDirection.normalize();
-
     return playerDirection;
-
 }
 
 function getSideVector() {
-
     camera.getWorldDirection(playerDirection);
     playerDirection.y = 0;
     playerDirection.normalize();
     playerDirection.cross(camera.up);
-
     return playerDirection;
-
 }
 
 function controls(deltaTime) {
@@ -251,7 +248,6 @@ function controls(deltaTime) {
 
 document.addEventListener('resize', onWindowResize, false)
 document.addEventListener('click', onClick, false)
-
 document.addEventListener('mousemove', setPickPosition);
 document.addEventListener('mouseout', clearPickPosition);
 document.addEventListener('mouseleave', clearPickPosition);
@@ -264,7 +260,7 @@ canvas.addEventListener('mousedown', () => {
 document.addEventListener("keydown", onKeyDown, false)
 document.addEventListener("keyup", onKeyUp, false)
 
-window.addEventListener("resize", function(){
+window.addEventListener("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix();
     renderer.setSize(div_output.clientWidth, div_output.clientHeight);
@@ -325,7 +321,7 @@ div_output.insertBefore(mainGui, div_output.firstChild)
 
 
 const lightcolor = {
-   
+
     ambientLight: ambientLight.color.getHex(),
     directionalLight: directionalLight.color.getHex(),
 }
@@ -481,9 +477,9 @@ function gltf(url, item) {
         // gltf.scene.scale.x = gltf.scene.scale.y = gltf.scene.scale.z = 0.02;
         scene.add(gltf.scene);
         item.model = gltf.scene
-        directionalLight.target=gltf.scene
+        directionalLight.target = gltf.scene
     })
 }
 // obj('/models/obj/truong/truong.mtl','/models/obj/truong/truong.obj')
 // collada("/models/dae/truong.dae")
-gltf("/models/gltf/KhuB.gltf", gltf_Models[1])
+gltf("/models/gltf/khub.gltf", gltf_Models[1])

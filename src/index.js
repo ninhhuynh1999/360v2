@@ -29,7 +29,7 @@ let tooltipActive = false
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(40,40,40)
+camera.position.set(40, 40, 40)
 camera.rotation.order = "YXZ";
 
 console.log(camera)
@@ -150,19 +150,19 @@ const s9 = new Scene(9, "/images/anh360/giua-khu-c-b/khu-b-nhin-khu-c.jpeg", cam
 //
 const s10 = new Scene(10, "/images/anh360/giua-khu-b-a/anh loi.jpg", camera, "Sân giữa khu B và khu A (1)", scene, new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
 const s11 = new Scene(11, "/images/anh360/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg", camera, "Trước trung tam khảo thí (1)", scene, new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
-const s12 = new Scene(12, "/images/anh360/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128),1.016515391017462)
-const s13 = new Scene(13, "/images/anh360/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179, 1, -14.171434022941398),2.5640870575458819)
-const s14 = new Scene(14, "/images/anh360/giua-khu-b-a/giua-khu-a-b.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801),0.7113779244342634)
-const s15 = new Scene(15, "/images/anh360/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852),-1.4383899878200255)
-const s16 = new Scene(16, "/images/anh360/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước VP khoa Ngệ thuật", scene, new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883),4.1490519811884534)
+const s12 = new Scene(12, "/images/anh360/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
+const s13 = new Scene(13, "/images/anh360/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
+const s14 = new Scene(14, "/images/anh360/giua-khu-b-a/giua-khu-a-b.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
+const s15 = new Scene(15, "/images/anh360/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
+const s16 = new Scene(16, "/images/anh360/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước VP khoa Ngệ thuật", scene, new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
 //
-const s17 = new Scene(17, "/images/anh360/cong-khu-e/vao-bai-xe.jpg", camera, "Bãi giữ xe khu E (1)", scene, new THREE.Vector3(41.2978812500057, 1, -16.328114631825642),2.368653610977309715)
-const s18 = new Scene(18, "/images/anh360/cong-khu-e/bai-xe-trai.jpg", camera, "Bãi giữ xe khu E (2)", scene, new THREE.Vector3(41.84788239441488, 1, -65.87811005421378),-2.2982974509295153)
-const s19 = new Scene(19, "/images/anh360/cong-khu-e/cong-khu-e.jpg", camera, "Cổng khu E", scene, new THREE.Vector3(40.94069299664302, 1, -70.64192427713209),-2.2670281292993237)
-const s20 = new Scene(20, "/images/anh360/cong-khu-e/truoc-khu-e.jpg", camera, "Trước Khu E", scene, new THREE.Vector3(67.03096090906818, 1, -66.71809319276714),-3.8129060654203966)
+const s17 = new Scene(17, "/images/anh360/cong-khu-e/vao-bai-xe.jpg", camera, "Bãi giữ xe khu E (1)", scene, new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
+const s18 = new Scene(18, "/images/anh360/cong-khu-e/bai-xe-trai.jpg", camera, "Bãi giữ xe khu E (2)", scene, new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
+const s19 = new Scene(19, "/images/anh360/cong-khu-e/cong-khu-e.jpg", camera, "Cổng khu E", scene, new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
+const s20 = new Scene(20, "/images/anh360/cong-khu-e/truoc-khu-e.jpg", camera, "Trước Khu E", scene, new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
 //
-const s21 = new Scene(21, "/images/anh360/san-bong/san-bong-da(0).jpg", camera, "Sân bóng đá", scene, new THREE.Vector3(65.2776487434876, 1, 46.25711049148522),2.3295666234558236)
-const s22 = new Scene(22, "/images/anh360/san-bong/san-bong-ro.jpg", camera, "Sân bóng rổ", scene, new THREE.Vector3(52.920521032029576, 1, 27.582163873808565),2.2963426989729457)
+const s21 = new Scene(21, "/images/anh360/san-bong/san-bong-da(0).jpg", camera, "Sân bóng đá", scene, new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
+const s22 = new Scene(22, "/images/anh360/san-bong/san-bong-ro.jpg", camera, "Sân bóng rổ", scene, new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
 
 //aray of all scene
 const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22]
@@ -417,10 +417,10 @@ GUI.TEXT_OPEN = "MỞ CÀI ĐẶT"
 //setup dat GUI
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
-let camera_fov = cameraFolder.add(camera,"fov",25,80).onChange(updateCamera)
-let camera_position_x = cameraFolder.add(camera.position,"x",-60,60).onChange(updateCamera)
-let camera_position_y = cameraFolder.add(camera.position,"y",-60,80).onChange(updateCamera)
-let camera_position_z = cameraFolder.add(camera.position,"z",-60,80).onChange(updateCamera)
+let camera_fov = cameraFolder.add(camera, "fov", 25, 80).onChange(updateCamera)
+let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60).onChange(updateCamera)
+let camera_position_y = cameraFolder.add(camera.position, "y", -60, 80).onChange(updateCamera)
+let camera_position_z = cameraFolder.add(camera.position, "z", -60, 80).onChange(updateCamera)
 
 camera_fov.name("Trường nhìn(fov)")
 camera_position_x.name("Vị trí x:")
@@ -434,8 +434,8 @@ let customContainer = document.querySelector('.main1');
 let domElement = gui.domElement
 customContainer.insertBefore(domElement, customContainer.firstChild);
 
-function updateCamera(){
-   camera.updateProjectionMatrix()
+function updateCamera() {
+    camera.updateProjectionMatrix()
 }
 // responsive window
 function onResize() {
@@ -451,7 +451,7 @@ function onResize() {
 // event on change controls
 controls.addEventListener("change", function () {
     let numberPlus = listScene.actived.updateMiniMap
-    console.log(camera.rotation.y)
+    //console.log(camera.rotation.y)
     updateBeam(numberPlus)
 })
 
@@ -506,15 +506,6 @@ function map_controlsChange() {
 }
 
 // create thumbs && click event thumb 
-// let thumbs = [0, 4, 5] // id of scene want to show
-// for (var i = 0; i < thumbs.length; i++) {
-//     var a = listScene.scenes.find(element => element.id == thumbs[i])
-//     document.querySelector(".all-thumb").innerHTML += `<div  class="div-thumb"  elemtype="thumb">'
-//     <div class="div-thumb-img">
-//     <img class="img-thumb" data-sceneId="`+ a.id + `" data-title="` + a.name + `" data-ordinal="` + i + `" src="` + a.image + `" alt="Paris" style="width:100%",height:100%;>
-//     </div>
-//     </div>`
-// }
 listScene.scenes.forEach(element => {
     var a = element
     document.querySelector(".all-thumb").innerHTML += `<div data-name="${a.id}) ${a.name}" class="div-thumb"  elemtype="thumb">'
@@ -523,8 +514,9 @@ listScene.scenes.forEach(element => {
     </div>
     </div>`
 })
+
 addEventToImgThumb()
-//
+
 function addEventToImgThumb() {
     document.querySelectorAll(".img-thumb").forEach(x => {
         const title = document.querySelector(".p-title-thumb")
@@ -576,7 +568,7 @@ function onClick(event) {
             y: intersects[0].point.y,
             z: intersects[0].point.z,
         })
-        
+
     }
 }
 //event Mouse move on main scene
@@ -816,8 +808,6 @@ divOuputMap.addEventListener("mouseleave", function (e) {
         z: scaleSprite,
     })
 })
-
-
 
 //update camera's field of view on map 
 /**
