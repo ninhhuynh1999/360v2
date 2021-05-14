@@ -9,6 +9,7 @@
     position: absolute;
     right: 10px;
     bottom: 2%;
+  
   }
   .chil-controls {
     margin: 5px 5px 5px 5px;
@@ -46,30 +47,39 @@
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
   .control-map{
     background: url("~../images/icons/icon-map.png") no-repeat center center;
     background-size: contain !important;
+
   }
   .thumb-control{
     background: url("~../images/icons/icon-details.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
   }
   .rotate-control{
     background: url("~../images/icons/icon-rotate-left-disable.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
   }
   .fullscreen-control{
     background: url("~../images/icons/icon-fullscreen.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
   }
   .hideAll-control{
     background: url("~../images/icons/icon-arrow-right.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
   }
   .hidePoint-control{
     background: url("~../images/icons/icon-point.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
+  }
+  .help-control{
+    background: url("~../images/icons/icon-help.png") no-repeat center center;
+    background-size: contain !important;
   }
   #btn-zoom-in{
     background: url("~../images/icons/icon-zoom-in.png") no-repeat center center;
@@ -77,5 +87,32 @@
   }
   #btn-zoom-out{
     background: url("~../images/icons/icon-zoom-out.png") no-repeat center center;
-    background-size: contain!important;
+    background-size: contain !important;
+  }
+
+  .div-help{
+    width: 95%;
+    height: auto;
+    margin: auto;
+    margin-top: 2%;
+    background: white;
+    padding-bottom: 40px;
+  }
+  .div-help h4{
+    text-align: center;
+    font-weight: bold;
+  }
+  .div-help h5{
+    font-weight: bold;
+  }
+  .div-help img {
+    width: 100%;
+    max-width: 100%;
+  }
+  .div-help .div-img-help{
+    background: url("~../images/help/help.png") no-repeat center center;
+    background-size: contain !important;
+    max-width: 100%;
+    width: 100%;
+    height: 500px;
   }

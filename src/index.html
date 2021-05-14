@@ -82,12 +82,17 @@
                     onclick="clickRotate(this)" data-tooltip="Mở tự động xoay">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
-                <div class="chil-controls fullscreen-control" data-tooltip-number="3" data-status="open"
-                    onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
+
+                <div class="chil-controls hidePoint-control" data-tooltip-number="4" data-status="open" onclick=""
+                    data-tooltip="Ẩn các điểm chuyển cảnh">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
-                <div class="chil-controls hidePoint-control" data-tooltip-number="4" data-status="open"
-                    onclick="clickHidePoint(this)" data-tooltip="Ẩn các điểm chuyển cảnh">
+                <div class="chil-controls help-control" data-tooltip-number="6" data-status="open"
+                    onclick="clickHelp(this)" data-tooltip="Hướng dẫn">
+                    <span class="tooltiptext-map">Tooltip text</span>
+                </div>
+                <div class="chil-controls fullscreen-control" data-tooltip-number="3" data-status="open"
+                    onclick="clickFullscreen(this)" data-tooltip="Mở toàn màn hình">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
                 <div class="chil-controls hideAll-control" data-tooltip-number="5" data-status="open"
@@ -101,7 +106,8 @@
             <div class="mainThumb">
                 <div class="search-thumb">
 
-                    <input class="form-control mr-sm-2" class="input-search-thumb" type="search" placeholder="Tìm kiếm" aria-label="Search" style="padding-top: 0px;padding-bottom: 0px;" oninput="searchThumb(this)">
+                    <input class="form-control mr-sm-2" class="input-search-thumb" type="search" placeholder="Tìm kiếm"
+                        aria-label="Search" style="padding-top: 0px;padding-bottom: 0px;" oninput="searchThumb(this)">
                 </div>
                 <div class="bodyThumb">
                     <div class="list-thumb">
@@ -126,14 +132,34 @@
             <div class="slidecontainer">
                 <div id="btn-zoom-out"></div>
                 <input type="range" min="1" value="1" step="1" max="100" data-orientation="vertical" class="slider-zoom"
-                    id="myRange" >
+                    id="myRange">
                 <div id="btn-zoom-in"></div>
             </div>
 
         </div>
     </div>
+    <div class="div-help">
+        <h4>Hướng dẫn sử dụng</h4>
+        <h5>Điều khiển</h5>
+        <ul>
+            <li>Nhấn giữ chuột trái và di chuyển chuột để xoay</li>
+            <li>Sử dụng con lăn chuột để phóng to và thu nhỏ</li>
+
+        </ul>
+        <h5>Chức năng</h5>
+        <!-- <div class="div-img-help"></div> -->
+        <img src="/images/help/help.png" alt="">
+        <ol>
+            <li>Cài đặt</li>
+            <li>Danh sách các cảnh</li>
+            <li>Các công cụ điều khiển</li>
+            <li>Điểm chuyển cảnh (Nhấn vào để chuyển cảnh tiếp theo)</li>
+            <li>Bản đồ: Xem vị trí hiện tại và có thể chọn các diểm trên đó để chuyển cảnh</li>
+            <li>Thanh Phóng to/Thu nhỏ hình ảnh</li>
+        </ol>
+    </div>
     <script>
-  var listThumb = document.querySelectorAll(".div-thumb")
+        var listThumb = document.querySelectorAll(".div-thumb")
         document.addEventListener("DOMContentLoaded", function (event) {
             listThumb = document.querySelectorAll(".div-thumb")
             document.querySelector(".slidecontainer").style.bottom = ((window.innerHeight * 0.02) + 65) + "px"
@@ -141,14 +167,24 @@
 
         function clickMap() {
             var map = document.getElementById("map");
-            if (map.classList.contains("mini-map")) {
-                map.classList.remove("mini-map")
-                map.classList.add("active")
+            if (isMobileDevice) {
+                if (map.classList.contains("mini-map")) {
+                    map.classList.remove("mini-map")
+                    map.classList.add("activeMobile")
+                } else {
+                    map.classList.add('mini-map');
+                    map.classList.remove("activeMobile")
+                }
             } else {
-                map.classList.add('mini-map');
-                map.classList.remove("active")
-
+                if (map.classList.contains("mini-map")) {
+                    map.classList.remove("mini-map")
+                    map.classList.add("active")
+                } else {
+                    map.classList.add('mini-map');
+                    map.classList.remove("active")
+                }
             }
+
         }
         function clickThumb() {
             var thumb = document.querySelector(".mainThumb");
@@ -234,6 +270,9 @@
             document.querySelector(".slidecontainer").style.display = "block"
 
         }
+        function clickHelp() {
+            document.querySelector(".div-help").scrollIntoView({ behavior: 'smooth' })
+        }
         class Tooltip {
             /**
              * @param {String} open - tooltip text open
@@ -255,46 +294,35 @@
             new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
             new Tooltip("Ẩn điểm chuyển cảnh", "Hiện điểm chuyển cảnh", "images/icons/icon-point.png", "images/icons/icon-point-disable.png"),
             new Tooltip("Ẩn giao diện điều khiển", "Mở giao diện điều khiển", "images/icons/icon-arrow-right.png", "images/icons/icon-arrow-left.png"),
+            new Tooltip("Hướng dẫn", "Hướng dẫn", "images/icons/icon-help.png", "images/icons/icon-help.png"),
 
         ]
         document.querySelectorAll(".chil-controls").forEach(x => {
-            const div = x.firstChild
+            const div = x.firstElementChild
             //const tooltip = document.querySelector(".tooltiptext-map")
             const tooltip = div
             x.addEventListener("mouseover", function () {
-                tooltip.innerHTML = x.getAttribute("data-tooltip")
-                var rect = x.getBoundingClientRect();
-                var parent = document.querySelector(".controls").getBoundingClientRect()
-                tooltip.style.left = (rect.left - parent.left + (rect.width / 2)) + 'px'
-
-                tooltip.style.visibility = "visible"
-
+                mouseOver(x, tooltip)
             })
             x.addEventListener("mouseleave", function () {
-                tooltip.style.visibility = "hidden"
-
+                mouseLeave(x, tooltip)
             })
             x.addEventListener("click", function () {
-                var number = x.getAttribute("data-tooltip-number")
-                //   tooltip.style.visibility = "hidden"
-                if (x.getAttribute("data-status") == "open") {
-                    x.setAttribute("data-tooltip", tooltips[number].close)
-                    x.setAttribute("data-status", "close")
-                    x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
-
-                } else {
-                    x.setAttribute("data-tooltip", tooltips[number].open)
-                    x.setAttribute("data-status", "open")
-                    x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
-                }
-                tooltip.innerHTML = x.getAttribute("data-tooltip")
-                tooltip.style.visibility = "visible"
-
-
+                mouseClick(x, tooltip)
+            })
+            x.addEventListener("touchstart", function (event) {
+                //event.preventDefault()
+                mouseOver(x, tooltip)
+            })
+            x.addEventListener("touchend", function () {
+               //mouseClick(x, tooltip)
+                mouseLeave(x, tooltip)
+            })
+            x.addEventListener("touchcancle",function(){
+                mouseLeave(x, tooltip)
             })
 
         })
-      
         document.addEventListener("fullscreenchange", function () {
 
             if (!document.fullscreenElement) {
@@ -305,6 +333,39 @@
                 x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
             }
         }, false)
+        function mouseOver(x, tooltip) {
+            tooltip.innerHTML = x.getAttribute("data-tooltip")
+            var rect = x.getBoundingClientRect();
+            var parent = document.querySelector(".controls").getBoundingClientRect()
+            tooltip.style.left = (rect.left - parent.left + (rect.width / 2)) + 'px'
+            tooltip.style.visibility = "visible"
+        }
+        function mouseLeave(x, tooltip) {
+
+            tooltip.style.visibility = "hidden"
+        }
+        function mouseClick(x, tooltip) {
+            var number = x.getAttribute("data-tooltip-number")
+            //   tooltip.style.visibility = "hidden"
+            if (x.getAttribute("data-status") == "open") {
+                x.setAttribute("data-tooltip", tooltips[number].close)
+                x.setAttribute("data-status", "close")
+                x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+            } else {
+                x.setAttribute("data-tooltip", tooltips[number].open)
+                x.setAttribute("data-status", "open")
+                x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+            }
+            tooltip.innerHTML = x.getAttribute("data-tooltip")
+            if (isMobileDevice) {
+                tooltip.style.visibility = "hidden"
+
+            } else {
+                tooltip.style.visibility = "visible"
+            }
+
+        }
+
 
         function searchThumb(e) {
             console.log(e)
@@ -317,6 +378,24 @@
                 }
             })
         }
+
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        };
+
+        $(document).ready(function () {
+            const isMobile = isMobileDevice()
+            if (isMobile) {
+                const map = document.querySelector(".map")
+                const thumb = document.querySelector(".mainThumb")
+                const gui = document.querySelector("#gui")
+                const controls = document.querySelector(".controls")
+                controls.style.overfolow = "auto"
+                gui.style.display = "none"
+                map.style.left = "1%"
+                map.style.top = "1%"
+            }
+        })
     </script>
 
 </body>

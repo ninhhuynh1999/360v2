@@ -64,9 +64,12 @@ const canvas = document.querySelector('canvas.output')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xf0f0f0);
-
+const textureLoader = new THREE.TextureLoader()
+let textureEquirec = textureLoader.load('/images/anh360/Vue1.jpg');
+textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
+scene.background = textureEquirec
 //camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000)
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 camera.position.x = 65
 camera.position.y = 76
 camera.position.z = 3
@@ -265,27 +268,6 @@ window.addEventListener("resize", function () {
     camera.updateProjectionMatrix();
     renderer.setSize(div_output.clientWidth, div_output.clientHeight);
 })
-window.addEventListener('touchstart', (event) => {
-    // prevent the window from scrolling
-    event.preventDefault();
-    setPickPosition(event.touches[0]);
-    onClick(event)
-}, { passive: false });
-
-window.addEventListener('touchmove', (event) => {
-    setPickPosition(event.touches[0]);
-    console.log(pickPosition)
-
-});
-window.addEventListener('touchend', clearPickPosition);
-function onWindowResize() {
-
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    render()
-}
-
 // show stats
 const stats = Stats()
 stats.domElement.className = "stats"

@@ -79,6 +79,9 @@ export  default  class Scene {
         })
         let sprite = new THREE.Sprite(spriteMaterial)
         sprite.onScene = true
+        if(this.scene.isHidePoint) {
+            sprite.visible = false
+        }
         sprite.name = point.scene.id +") "+point.scene.name
         sprite.position.copy(point.position.clone().normalize().multiplyScalar(140))
         sprite.scale.multiplyScalar(8)
@@ -129,7 +132,7 @@ export  default  class Scene {
 
     }
     appear() {
-
+       
         this.sprites.forEach((sprite) => {
             sprite.scale.set(8, 8, 8)
             // console.log("da hien"+sprite.name)

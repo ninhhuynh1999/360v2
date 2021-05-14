@@ -136,6 +136,16 @@ img.img-map {
   border-color: aqua;
   border-width: 4px;
 }
+.map.activeMobile {
+  top: 20%;
+  left: 5%;
+  opacity: 1;
+  visibility: visible;
+  border-style: groove;
+  border-color: aqua;
+  border-width: 4px;
+  max-width: 91%;
+}
 .map.mini-map {
   width: 150px;
   left: 60px;
