@@ -47,7 +47,6 @@
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent;
-   
   }
   .control-map{
     background: url("~../images/icons/icon-map.png") no-repeat center center;
@@ -128,7 +127,7 @@
     margin: auto;
     margin-top: 2%;
     background: white;
-    padding-bottom: 40px;
+    /* padding-bottom: 40px; */
   }
   .div-help h4{
     text-align: center;
@@ -138,8 +137,12 @@
     font-weight: bold;
   }
   .div-help img {
-    width: 100%;
+    width: 90%;
+    height: 400px;
     max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   .div-help .div-img-help{
     background: url("~../images/help/help.png") no-repeat center center;
@@ -147,4 +150,13 @@
     max-width: 100%;
     width: 100%;
     height: 500px;
+  }
+  .div-help ol {
+    padding-bottom: 25px;
+  }
+  @media only screen and (min-width: 950px) {
+    .div-help img {
+      height: 500px;
+      width: 80%;
+    }
   }

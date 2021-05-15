@@ -50,7 +50,7 @@
 
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
-             
+
             </ul>
         </div>
 
@@ -88,11 +88,16 @@
                 $('#sidebar').toggleClass('active');
             });
             $('#sidebarCollapse').on('touchend', function () {
-                
+
                 $('#sidebar').toggleClass('active');
             });
+
+            if ((typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1)){
+            alert("Hiện tại trang 'Xem mô hình trường' vẫn chưa hỗ trọ xem bằng thiết bị di động!!!")
+        }
+             
         });
-        
+
     </script>
 </body>
 

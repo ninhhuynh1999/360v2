@@ -71,6 +71,7 @@
             <div class="controls">
                 <div class="chil-controls control-map" data-tooltip-number="0" onclick="clickMap()" data-status="open"
                     data-tooltip="Mở bản đồ">
+
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
 
@@ -139,25 +140,39 @@
         </div>
     </div>
     <div class="div-help">
+        <br>
         <h4>Hướng dẫn sử dụng</h4>
         <h5>Điều khiển</h5>
         <ul>
-            <li>Nhấn giữ chuột trái và di chuyển chuột để xoay</li>
-            <li>Sử dụng con lăn chuột để phóng to và thu nhỏ</li>
+            <li> <b>Trên máy tính:</b>
+                <ul>
+                    <li>Nhấn giữ chuột trái và di chuyển chuột để xoay</li>
+                    <li>Sử dụng con lăn chuột để phóng to và thu nhỏ</li>
+                </ul>
+            </li>
+            <li> <b>Trên thiết bị di động:</b>
+                <ul>
+                    <li>Chạm và giữ vào mành hình rồi di chuyển ngón tay để xoay góc nhìn </li>
+                    <li>Sử dụng 2 ngón tay để phóng to và thu nhỏ</li>
+                </ul>
+            </li>
 
         </ul>
         <h5>Chức năng</h5>
         <!-- <div class="div-img-help"></div> -->
         <img src="/images/help/help.png" alt="">
         <ol>
-            <li>Cài đặt</li>
-            <li>Danh sách các cảnh</li>
-            <li>Các công cụ điều khiển</li>
-            <li>Điểm chuyển cảnh (Nhấn vào để chuyển cảnh tiếp theo)</li>
-            <li>Bản đồ: Xem vị trí hiện tại và có thể chọn các diểm trên đó để chuyển cảnh</li>
-            <li>Thanh Phóng to/Thu nhỏ hình ảnh</li>
+            <b><li>Cài đặt</li></b>
+            <b><li>Danh sách các cảnh</li></b>
+            <b><li>Các công cụ điều khiển</li></b>
+            <li><b>Điểm chuyển cảnh</b>(Nhấn vào để chuyển cảnh tiếp theo)</li>
+           <li> <b>Bản đồ:</b> Xem vị trí hiện tại và có thể chọn các diểm trên đó để chuyển cảnh
+                <br> (Điều khiển bản đồ giống như điều khiển Cảnh 360)
+            </li>
+            <b><li>Thanh Phóng to/Thu nhỏ hình ảnh</li></b>
         </ol>
     </div>
+    <div style="height: 30px;"></div>
     <script>
         var listThumb = document.querySelectorAll(".div-thumb")
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -249,9 +264,9 @@
                 item.style.display = "none"
             })
 
-            thumb.style.visibility = "hidden"
+            thumb.style.display = "none"
             document.querySelector(".map").style.display = "none"
-            document.querySelector(".slidecontainer").style.display = "none"
+            //document.querySelector(".slidecontainer").style.display = "none"
 
         }
         function showItems() {
@@ -264,10 +279,10 @@
             })
 
 
-            thumb.style.visibility = "visible"
+            thumb.style.display = "block"
 
             document.querySelector(".map").style.display = "block"
-            document.querySelector(".slidecontainer").style.display = "block"
+            //document.querySelector(".slidecontainer").style.display = "block"
 
         }
         function clickHelp() {
@@ -315,10 +330,10 @@
                 mouseOver(x, tooltip)
             })
             x.addEventListener("touchend", function () {
-               //mouseClick(x, tooltip)
+                //mouseClick(x, tooltip)
                 mouseLeave(x, tooltip)
             })
-            x.addEventListener("touchcancle",function(){
+            x.addEventListener("touchcancle", function () {
                 mouseLeave(x, tooltip)
             })
 
@@ -390,7 +405,7 @@
                 const thumb = document.querySelector(".mainThumb")
                 const gui = document.querySelector("#gui")
                 const controls = document.querySelector(".controls")
-                controls.style.overfolow = "auto"
+                controls.style.overflow = "auto"
                 gui.style.display = "none"
                 map.style.left = "1%"
                 map.style.top = "1%"
