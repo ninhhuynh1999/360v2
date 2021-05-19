@@ -15,7 +15,7 @@ export default class ListScene {
      * @param {[]} map_sprites -all Sprite in Map scene
      * @param {OrbitControls} map_sprites -all Sprite in Map scene
      */
-    constructor(scenes, scene, camera, actived, newActive = null, map_scene = null, activePoint = null, renderer = null, map_sprites = [],scene_controls = null) {
+    constructor(scenes, scene, camera, actived, newActive = null, map_scene = null, activePoint = null, renderer = null, map_sprites = [], scene_controls = null) {
         this.scenes = scenes;
         this.scene = scene;
         this.camera = camera
@@ -42,7 +42,7 @@ export default class ListScene {
      */
     activeScene(zoom = false) {
         if (this.newActive != null && this.newActive != this.actived.id) {
-        
+
             let sc = this.actived;
 
             var x = sc.destroy();
@@ -63,7 +63,7 @@ export default class ListScene {
                     zoom: 1,
                     onComplete: () => {
                         this.camera.updateProjectionMatrix()
-                        this.scene_controls.target.set(0,0,0)
+                        this.scene_controls.target.set(0, 0, 0)
                     }
                 }).delay(1)
             } else {
@@ -83,10 +83,18 @@ export default class ListScene {
             this.actived = find
             this.newActive = null;
             this.changeCurrentSprite()
+            this.updateBeam()
         }
 
     }
-
+    updateBeam() {
+        const beam = this.map_scene.getObjectByName("beam")
+        const eu = new THREE.Euler()
+        let numberPlus = this.actived.updateMiniMap
+        //console.log(camera.rotation.y)
+        eu.copy(this.camera.rotation)
+        beam.rotation.y = eu.y + numberPlus
+    }
     changeCurrentSprite() {
         this.map_sprites.forEach(sprite => {
             if (sprite.userData.mapScene == this.actived.id) {
@@ -141,7 +149,7 @@ export default class ListScene {
             });
             const sprite = new THREE.Sprite(material2);
             sprite.position.copy(element.positionOnMap)
-            sprite.name = element.id+")"+element.name
+            sprite.name = element.id + ")" + element.name
             sprite.scale.set(8, 8, 8)
             sprite.isPoint = true
             sprite.userData.mapScene = element.id

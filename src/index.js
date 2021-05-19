@@ -6,6 +6,7 @@ import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import ListScene from '../static/js/ListScene.js'
 import Scene from '../static/js/Scene.js'
 
+
 import './style.css'
 import '../static/css/controls.css'
 // declared variables
@@ -27,7 +28,7 @@ let tooltipActive = false
 
 //init scene
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(40, 40, 40)
 camera.rotation.order = "YXZ";
 scene.add(camera)
@@ -45,7 +46,7 @@ controls.autoRotate = false
 controls.enableKeys = true
 controls.enableDamping = true
 controls.enableZoom = false
-
+controls.enablePan = false
 // controls.dampingFactor = 0.04;
 controls.keys = {
     LEFT: 37, //left arrow
@@ -75,18 +76,6 @@ sphere.name = "Sphere1"
 sphere.position.set(0, 0, 0.001)
 scene.add(sphere)
 sphere.material.transparent = false
-
-
-//const sphereGeo = new THREE.IcosahedronGeometry(150, 75)
-//const texture = textureLoader.load("/images/anh360/congtruong.jpg")
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.repeat.x = - 1;
-// const sphereMaterial = new THREE.MeshBasicMaterial({
-//     map: texture,
-//     side: THREE.BackSide,
-//     transparent: true,
-//     // wireframe: true
-// })
 
 //setup map
 const map_scene = new THREE.Scene();
@@ -237,7 +226,7 @@ s6.addPoint({
 })
 s6.addPoint({
     position: new THREE.Vector3(87.07322423294886, 0.5156327976719801, -122.01721838283987),
-    scene: s8//147.4189192801223, y: 2.8480345365645983, z: -26.869026299150608
+    scene: s8
 })
 s6.addPoint({
     position: new THREE.Vector3(147.4189192801223, 2.8480345365645983, -26.869026299150608),
@@ -290,28 +279,46 @@ s9.addPoint({
     scene: s8
 })
 s9.addPoint({
-    position: new THREE.Vector3(-89.88917547991328, 3.1271446989021223, -119.99495535114077),
+    position: new THREE.Vector3(-91.44822938174059,  1.3088294026530143,  -118.80845734337824),
     scene: s10
 })
-// s10.addPoint({
-//     position: new THREE.Vector3(-148.39671217645767, -5.975249156553756, -19.869635759269965),
-//     name: 'KLF (1)',
-//     scene: s6
-// })
+s10.addPoint({
+    position: new THREE.Vector3(-149.77539378555917, 1.7169690211934503, -4.573025225428476),
+    scene: s9
+})
+s10.addPoint({
+    position: new THREE.Vector3(7.756807915156445, 0.9398262711222838, -149.64279488715937),
+    scene: s11
+})
+s10.addPoint({
+    position: new THREE.Vector3(36.44697312189721, 3.886526957277905, -148.3202023357695),
+    scene: s12
+})
+s10.addPoint({
+    position: new THREE.Vector3(149.58929338056498, -9.022155266075787, 5.713378339627928),
+    scene: s14
+})
+s10.addPoint({
+    position: new THREE.Vector3(-7.5540340891818705, 1.4681080448491137, 149.71118804400422),
+    scene: s13
+})
 s11.addPoint({
     position: new THREE.Vector3(1.9732150763772738, -17.471011837955622, 148.89625877632554),
     scene: s12
 })
 s11.addPoint({
-    position: new THREE.Vector3(-137.87804148942317, -2.7764918625970063, 58.78490186451747),
+    position: new THREE.Vector3(-148.87804148942317, -2.7764918625970063, 58.78490186451747),
     scene: s14
 })
 s11.addPoint({
-    position: new THREE.Vector3(-137.87804148942317, -2.7764918625970063, 58.78490186451747),
+    position: new THREE.Vector3(-148.87804148942317, -2.7764918625970063, 58.78490186451747),
     scene: s14
 })
 
-//s12
+s12.addPoint({
+    position: new THREE.Vector3(50.33336770551446, 0.5446967981429189, -149.19112377996595),
+    scene: s10
+})
 
 s13.addPoint({
     position: new THREE.Vector3(-149.68241370177188, -3.794794882050912, -6.138035461153658),
@@ -325,9 +332,14 @@ s13.addPoint({
     position: new THREE.Vector3(149.4661618037447, 5.867995998505368, 9.315441905033653),
     scene: s17
 })
+
 s14.addPoint({
     position: new THREE.Vector3(149.58831161044273, -9.045600097201065, 5.042923053503089),
     scene: s10
+})
+s14.addPoint({
+    position: new THREE.Vector3(72.13332038959162, 3.891547169913153, -131.32893652232084),
+    scene: s13
 })
 s14.addPoint({
     position: new THREE.Vector3(-58.577555451660714, -0.4076468506963832, -138.03029034680517),
@@ -389,40 +401,59 @@ s22.addPoint({
     scene: s17
 })
 
-
-
 //add scene to ListScene 
 const listScene = new ListScene(arr, scene, camera)
 listScene.scene_controls = controls
-//generate frist first scene
-listScene.actived = s1
-listScene.newActive = 0
-listScene.activeScene()
-console.log(listScene)
 
 //init map to listScene
 listScene.map_scene = map_scene
 listScene.renderer = map_renderer
 listScene.createMap()
+
+//generate frist first scene
+listScene.actived = s1
+listScene.newActive = 0
+listScene.activeScene()
 listScene.changeCurrentSprite()
 mapCameraLookAt(listScene.activePoint.position.clone())
+
+console.log(listScene)
+
 
 //DAT GUI
 GUI.TEXT_CLOSED = "ĐÓNG CÀI ĐẶT"
 GUI.TEXT_OPEN = "MỞ CÀI ĐẶT"
 //setup dat GUI
+let camera_conf = {
+    goOut: false,
+    envMap: false
+}
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
-let camera_fov = cameraFolder.add(camera, "fov", 25, 200).onChange(updateCamera)
-let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60).onChange(updateCamera)
-let camera_position_y = cameraFolder.add(camera.position, "y", -60, 80).onChange(updateCamera)
-let camera_position_z = cameraFolder.add(camera.position, "z", -60, 80).onChange(updateCamera)
+let camera_fov = cameraFolder.add(camera, "fov", 25, 150,1).onChange(updateCamera)
+let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60,1).onChange(updateCamera)
+let camera_position_y = cameraFolder.add(camera.position, "y", -60, 110,3).onChange(updateCamera)
+let camera_position_z = cameraFolder.add(camera.position, "z", -60, 60,3).onChange(updateCamera)
+let camera_move_out = cameraFolder.add(camera_conf, "goOut").onChange(function (e) {
+    if (e == true) {
+        controls.enabled = false
+        camera.position.z = 350
+        controls.enabled = true
+    } else {
+        controls.enabled = false
+        camera.position.set(-44, -4, -30)
+        controls.enabled = true
+        gui.removeFolder("Cài đặt Cảnh")
+    }
+})
 
-camera_fov.name("Trường nhìn(fov)")
+camera_move_out.name("Ra ngoài cảnh:")
+camera_fov.name("Trường nhìn(fov):")
 camera_position_x.name("Vị trí x:")
 camera_position_y.name("Vị trí y:")
 camera_position_z.name("Vị trí z:")
 cameraFolder.open()
+
 gui.closed = true
 //config position GUI add
 gui.domElement.id = 'gui';
@@ -447,9 +478,8 @@ function onResize() {
 
 // event on change controls
 controls.addEventListener("change", function () {
-    let numberPlus = listScene.actived.updateMiniMap
     //console.log(camera.rotation.y)
-    updateBeam(numberPlus)
+    updateBeam()
 })
 
 //add event on camera map change
@@ -542,29 +572,29 @@ function addEventToImgThumb() {
 }
 
 //event Mouse click on main scene
-const pickPosition = {x: 0, y: 0};
+const pickPosition = { x: 0, y: 0 };
 clearPickPosition();
- 
-function getCanvasRelativePosition(event,element) {
-  const rect = element.getBoundingClientRect();
-  return {
-    x: (event.clientX - rect.left) * element.width  / rect.width,
-    y: (event.clientY - rect.top ) * element.height / rect.height,
-  };
+
+function getCanvasRelativePosition(event, element) {
+    const rect = element.getBoundingClientRect();
+    return {
+        x: (event.clientX - rect.left) * element.width / rect.width,
+        y: (event.clientY - rect.top) * element.height / rect.height,
+    };
 }
- 
-function setPickPosition(event,element) {
-  const pos = getCanvasRelativePosition(event,element);
-  pickPosition.x = (pos.x / element.width ) *  2 - 1;
-  pickPosition.y = (pos.y / element.height) * -2 + 1;  // note we flip Y
+
+function setPickPosition(event, element) {
+    const pos = getCanvasRelativePosition(event, element);
+    pickPosition.x = (pos.x / element.width) * 2 - 1;
+    pickPosition.y = (pos.y / element.height) * -2 + 1;  // note we flip Y
 }
- 
+
 function clearPickPosition() {
-  pickPosition.x = -100000;
-  pickPosition.y = -100000;
- 
+    pickPosition.x = -100000;
+    pickPosition.y = -100000;
+
 }
- 
+
 function onClick(event) {
     if (scene.isHidePoint) return
     document.querySelector("input.form-control").blur();
@@ -595,7 +625,7 @@ function onMouseMove(event) {
     //     ((event.clientX - main1Rect.left) / div_main1.clientWidth) * 2 - 1,
     //     - ((event.clientY - main1Rect.top) / div_main1.clientHeight) * 2 + 1
     // )
-    setPickPosition(event,output)
+    setPickPosition(event, output)
     rayCaster.setFromCamera(pickPosition, camera)
     let foundSprite = false
     let newObjectHover = false
@@ -719,6 +749,7 @@ function mapClick(event) {
         intersects[0].object.onClick()
         console.log(listScene.activePoint)
         mapCameraLookAt(position)
+
     }
 }
 
@@ -826,12 +857,12 @@ output.addEventListener("mousemove", onMouseMove)
 output.addEventListener('touchstart', (event) => {
     // prevent the window from scrolling
     event.preventDefault();
-    setPickPosition(event.touches[0],output);
+    setPickPosition(event.touches[0], output);
     onClick(event)
 });
 
 output.addEventListener('touchmove', (event) => {
-    setPickPosition(event.touches[0],output);
+    setPickPosition(event.touches[0], output);
 });
 output.addEventListener('touchend', clearPickPosition);
 
@@ -841,7 +872,7 @@ output.addEventListener('touchend', clearPickPosition);
 
 divOuputMap.addEventListener("mousemove", mapHover)
 divOuputMap.addEventListener("click", mapClick)
-divOuputMap.addEventListener("touchstart", (event)=>{
+divOuputMap.addEventListener("touchstart", (event) => {
     mapClick(event.touches[0])
 })
 divOuputMap.addEventListener("mouseleave", function (e) {
@@ -858,16 +889,14 @@ divOuputMap.addEventListener("mouseleave", function (e) {
 })
 
 //update camera's field of view on map 
-/**
- * 
- * @param {Number} numberPlus 
- */
-function updateBeam(numberPlus = 0) {
+
+function updateBeam() {
     const beam = map_scene.getObjectByName("beam")
     const eu = new THREE.Euler()
+    let numberPlus = listScene.actived.updateMiniMap
+    //console.log(camera.rotation.y)
     eu.copy(camera.rotation)
     beam.rotation.y = eu.y + numberPlus
-    // console.log(beam.rotation.y)
 }
 
 /**

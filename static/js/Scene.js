@@ -2,6 +2,7 @@ import TweenLite from 'gsap/TweenLite'
 import * as THREE from 'three'
 
 export  default  class Scene {
+  
     /**
      * Assign the project to an employee.
      * @param {number} id 
@@ -16,17 +17,17 @@ export  default  class Scene {
      */
     constructor(id, image, camera, name, scene,positionOnMap,updateMiniMap =0 ,points = [], sprites = []) {
 
-        this.id = id
-        this.image = image
-        this.camera = camera
-        this.name = name
-        this.scene = scene
-
-        this.points = points
-        this.sprites = sprites
-        this.updateMiniMap = updateMiniMap
-        this.positionOnMap = positionOnMap
-        this.start_position_camera = new THREE.Vector3(1,1,1)
+        // this.id = id
+        // this.image = image
+        // this.camera = camera
+        // this.name = name
+        // this.scene = scene
+        // this.points = points
+        // this.sprites = sprites
+        // this.updateMiniMap = updateMiniMap
+        // this.positionOnMap = positionOnMap
+         this.start_position_camera = new THREE.Vector3(1,1,1)
+        Object.assign(this, {id, image, camera, name, scene,positionOnMap,updateMiniMap ,points, sprites});
     }
 
     async createScene() {
@@ -144,4 +145,5 @@ export  default  class Scene {
     }
 
 }
+
 

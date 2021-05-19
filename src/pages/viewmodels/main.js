@@ -1,13 +1,11 @@
 import * as THREE from 'three'
-
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import * as dat from 'three/examples/jsm/libs/dat.gui.module'
-import { Capsule } from 'three/examples/jsm/math/Capsule.js';
 
 import './style.css'
 
@@ -29,33 +27,30 @@ class InfoModel {
         this.model = model
     }
 }
-const dae_Models = [
 
-    new InfoModel("Khu A", "/models/dae/a/a.dae", "/models/thumbs/a.png", false),
-    new InfoModel("Khu B", "/models/dae/b/b.dae", "/models/thumbs/b.png", false),
-    new InfoModel("Khu C", "/models/dae/c/c.dae", "/models/thumbs/c.png", false),
-    new InfoModel("Khu D", "/models/dae/d/d.dae", "/models/thumbs/d.png", false),
-    new InfoModel("Khu HB", "/models/dae/hb/hb.dae", "/models/thumbs/hb.png", false),
-    new InfoModel("Khu KLF", "/models/dae/klf/klf.dae", "/models/thumbs/klf.png", false),
-    new InfoModel("TRUONG","/models/dae/truong/truong.dae", "/models/thumbs/truong.png",false),
-]
 const gltf_Models = [
     new InfoModel("Khu A", "/models/gltf/khua.gltf", "/models/thumbs/a.PNG", false),
     new InfoModel("Khu B", "/models/gltf/khub.gltf", "/models/thumbs/b.PNG", false),
     new InfoModel("Khu C", "/models/gltf/khuc.gltf", "/models/thumbs/c.PNG", false),
-    new InfoModel("Khu D", "/models/gltf/d.gltf", "/models/thumbs/d.PNG", false),
+    new InfoModel("Khu D", "/models/gltf/khud.gltf", "/models/thumbs/d.PNG", false),
     new InfoModel("Khu HB", "/models/gltf/hb.gltf", "/models/thumbs/hb.PNG", false),
     new InfoModel("Khu KLF", "/models/gltf/klf.gltf", "/models/thumbs/klf.PNG", false),
     new InfoModel("Truong", "/models/gltf/truong.gltf", "/models/thumbs/truong.PNG", false),
 ]
-gltf_Models[1].actived = true
-gltf_Models[1].inActive = true
+gltf_Models[3].actived = true
+gltf_Models[3].inActive = true
 
-const playerCollider = new Capsule(new THREE.Vector3(0, 0.35, 0), new THREE.Vector3(0, 1, 0), 0.35);
-const playerVelocity = new THREE.Vector3();
-const playerDirection = new THREE.Vector3();
 
-const clock = new THREE.Clock();
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+let moveUp = false
+let moveDown = false
+
+let prevTime = performance.now();
+const velocity = new THREE.Vector3();
+const direction = new THREE.Vector3();
 
 // Canvas
 const div_output = document.querySelector(".div-output")
@@ -71,12 +66,15 @@ scene.background = textureEquirec
 //camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 250)
 camera.position.x = 65
-camera.position.y = 76
+camera.position.y = 10
 camera.position.z = 3
 camera.rotation.order = 'YXZ';
 camera.updateProjectionMatrix()
 scene.add(camera)
 
+//controls
+const controls = new PointerLockControls(camera, document.body);
+scene.add(controls.getObject());
 //renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
@@ -125,153 +123,86 @@ scene.add(directionalLight);
 const directionHelper = new THREE.DirectionalLightHelper(directionalLight, "red")
 scene.add(directionHelper)
 
+const onKeyDown = function (event) {
 
-const pickPosition = { x: 0, y: 0 };
-clearPickPosition();
-const raycaster = new THREE.Raycaster();
+    switch (event.code) {
 
-function onClick(event) {
-    // const mouse = new THREE.Vector2();
-    // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    // mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(pickPosition, camera);
+        case 'ArrowUp':
+        case 'KeyW':
+            moveForward = true;
+            break;
 
-    // calculate objects intersecting the picking ray
-    const intersects = raycaster.intersectObjects(scene.children);
+        case 'ArrowLeft':
+        case 'KeyA':
+            moveLeft = true;
+            break;
 
-    if (intersects.length > 0) {
-    }
+        case 'ArrowDown':
+        case 'KeyS':
+            moveBackward = true;
+            break;
 
-}
+        case 'ArrowRight':
+        case 'KeyD':
+            moveRight = true;
+            break;
 
-function getCanvasRelativePosition(event) {
-    const rect = canvas.getBoundingClientRect();
-    return {
-        x: (event.clientX - rect.left) * canvas.width / rect.width,
-        y: (event.clientY - rect.top) * canvas.height / rect.height,
-    };
-}
-
-function setPickPosition(event) {
-    // const pos = getCanvasRelativePosition(event);
-    // pickPosition.x = (pos.x / canvas.width) * 2 - 1;
-    // pickPosition.y = (pos.y / canvas.height) * -2 + 1;  // note we flip Y
-    // raycaster.setFromCamera(pickPosition, camera);
-
-    // // calculate objects intersecting the picking ray
-    // const intersects = raycaster.intersectObjects(scene.children);
-
-    if (document.pointerLockElement === canvas) {
-        camera.rotation.y -= event.movementX / 500;
-        camera.rotation.x -= event.movementY / 500;
-    }
-}
-
-function clearPickPosition() {
-
-    pickPosition.x = -100000;
-    pickPosition.y = -100000;
-}
-
-
-const keyStates = {};
-function onKeyDown(event) {
-
-    const step = 3
-    keyStates[event.code] = true;
-
-}
-function onKeyUp(event) {
-
-    keyStates[event.code] = false;
-}
-
-function updatePlayer(deltaTime) {
-    const damping = Math.exp(- 3 * deltaTime) - 1;
-    playerVelocity.addScaledVector(playerVelocity, damping);
-    const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime);
-    playerCollider.translate(deltaPosition);
-    camera.position.copy(playerCollider.end);
-}
-function getForwardVector() {
-
-    camera.getWorldDirection(playerDirection);
-    playerDirection.y = 0;
-    playerDirection.normalize();
-    return playerDirection;
-}
-
-function getSideVector() {
-    camera.getWorldDirection(playerDirection);
-    playerDirection.y = 0;
-    playerDirection.normalize();
-    playerDirection.cross(camera.up);
-    return playerDirection;
-}
-
-function controls(deltaTime) {
-
-    const speed = 20;
-
-    if (true) {
-
-        if (keyStates['KeyW']) {
-            playerVelocity.add(getForwardVector().multiplyScalar(speed * deltaTime));
-
-        }
-
-        if (keyStates['KeyS']) {
-
-            playerVelocity.add(getForwardVector().multiplyScalar(- speed * deltaTime));
-
-        }
-
-        if (keyStates['KeyA']) {
-            playerVelocity.add(getSideVector().multiplyScalar(- speed * deltaTime));
-
-        }
-
-        if (keyStates['KeyD']) {
-            playerVelocity.add(getSideVector().multiplyScalar(speed * deltaTime));
-
-        }
-
-        if (keyStates['Space']) {
-
-            playerVelocity.y = 3;
-
-        }
-        if (keyStates['KeyF']) {
-            playerVelocity.y = -3;
-
-        }
+        case 'Space':
+            moveUp = true;
+            break;
+        case 'KeyF':
+            moveDown = true;
+            break;
 
     }
-}
-function onWindowResize(){
-    renderer.setSize(div_output.clientWidth,div_output.clientHeight)
-    
-}
 
-document.addEventListener('resize', onWindowResize, false)
-document.addEventListener('click', onClick, false)
-document.addEventListener('mousemove', setPickPosition);
-document.addEventListener('mouseout', clearPickPosition);
-document.addEventListener('mouseleave', clearPickPosition);
+};
+
+const onKeyUp = function (event) {
+
+    switch (event.code) {
+
+        case 'ArrowUp':
+        case 'KeyW':
+            moveForward = false;
+            break;
+
+        case 'ArrowLeft':
+        case 'KeyA':
+            moveLeft = false;
+            break;
+
+        case 'ArrowDown':
+        case 'KeyS':
+            moveBackward = false;
+            break;
+
+        case 'ArrowRight':
+        case 'KeyD':
+            moveRight = false;
+            break;
+        case 'Space':
+            moveUp = false;
+            break;
+        case 'KeyF':
+            moveDown = false;
+            break;
+    }
+
+};
+
+document.addEventListener('keydown', onKeyDown);
+document.addEventListener('keyup', onKeyUp);
 canvas.addEventListener('mousedown', () => {
-
-    canvas.requestPointerLock();
-
+    controls.lock()
 }, false);
-
-document.addEventListener("keydown", onKeyDown, false)
-document.addEventListener("keyup", onKeyUp, false)
 
 window.addEventListener("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix();
     renderer.setSize(div_output.clientWidth, div_output.clientHeight);
 })
+
 // show stats
 const stats = Stats()
 stats.domElement.className = "stats"
@@ -280,21 +211,42 @@ div_output.appendChild(stats.dom)
 //loop renderer
 var animate = function () {
 
-    requestAnimationFrame(animate)
-    render()
+    requestAnimationFrame(animate);
     stats.update()
+    const time = performance.now();
+
+    if (controls.isLocked === true) {
+
+        const delta = (time - prevTime) / 1000;
+
+        velocity.x -= velocity.x * 10.0 * delta;
+        velocity.z -= velocity.z * 10.0 * delta;
+
+        velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+
+        direction.z = Number(moveForward) - Number(moveBackward);
+        direction.x = Number(moveRight) - Number(moveLeft);
+        direction.y = Number(moveDown) - Number(moveUp);
+        direction.normalize(); // this ensures consistent movements in all directions
+        velocity.y = Math.max(0, velocity.y);
+        if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
+        if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
+        if (moveUp || moveDown) velocity.y -= direction.y * 400.0 * delta;
+
+        controls.moveRight(- velocity.x * delta);
+        controls.moveForward(- velocity.z * delta);
+        controls.getObject().position.y += ( velocity.y * delta ); // new behavior
+    }
+
+    prevTime = time;
+    renderer.render(scene, camera);
+
 
 };
 
-function render() {
-    const deltaTime = Math.min(0.1, clock.getDelta());
-    controls(deltaTime);
-    updatePlayer(deltaTime);
-    renderer.render(scene, camera)
-}
 
 animate();
-render()
+
 
 // Debug dat gui
 const gui = new dat.GUI({ autoPlace: true })
@@ -352,7 +304,7 @@ function createThumb() {
         }, false)
     })
     //ul.firstElementChild.firstElementChild.classList.add("active")
-    document.querySelectorAll(".card").item(1).classList.add('active')
+    document.querySelectorAll(".card").item(5).classList.add('active')
 }
 
 /**
@@ -468,4 +420,4 @@ function gltf(url, item) {
 }
 // obj('/models/obj/truong/truong.mtl','/models/obj/truong/truong.obj')
 // collada("/models/dae/truong.dae")
-gltf("/models/gltf/khub.gltf", gltf_Models[1])
+gltf("/models/gltf/klf.gltf", gltf_Models[5])
