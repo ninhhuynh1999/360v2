@@ -279,7 +279,7 @@ s9.addPoint({
     scene: s8
 })
 s9.addPoint({
-    position: new THREE.Vector3(-91.44822938174059,  1.3088294026530143,  -118.80845734337824),
+    position: new THREE.Vector3(-91.44822938174059, 1.3088294026530143, -118.80845734337824),
     scene: s10
 })
 s10.addPoint({
@@ -430,10 +430,10 @@ let camera_conf = {
 }
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
-let camera_fov = cameraFolder.add(camera, "fov", 25, 150,1).onChange(updateCamera)
-let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60,1).onChange(updateCamera)
-let camera_position_y = cameraFolder.add(camera.position, "y", -60, 110,3).onChange(updateCamera)
-let camera_position_z = cameraFolder.add(camera.position, "z", -60, 60,3).onChange(updateCamera)
+let camera_fov = cameraFolder.add(camera, "fov", 25, 150, 1).onChange(updateCamera)
+let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60, 1).onChange(updateCamera)
+let camera_position_y = cameraFolder.add(camera.position, "y", -60, 110, 3).onChange(updateCamera)
+let camera_position_z = cameraFolder.add(camera.position, "z", -60, 60, 3).onChange(updateCamera)
 let camera_move_out = cameraFolder.add(camera_conf, "goOut").onChange(function (e) {
     if (e == true) {
         controls.enabled = false
@@ -865,10 +865,6 @@ output.addEventListener('touchmove', (event) => {
     setPickPosition(event.touches[0], output);
 });
 output.addEventListener('touchend', clearPickPosition);
-
-
-
-
 
 divOuputMap.addEventListener("mousemove", mapHover)
 divOuputMap.addEventListener("click", mapClick)

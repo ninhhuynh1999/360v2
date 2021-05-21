@@ -1,9 +1,11 @@
 import * as THREE from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 
 import "./load360.css"
 import '../../../static/css/controls.css'
+
+
 
 //init scene
 const div_output = document.querySelector(".show360")
@@ -33,7 +35,7 @@ const textureLoader = new THREE.TextureLoader()
 let textureEquirec = textureLoader.load('../images/anh360/1.jpg');
 textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
 scene.background = textureEquirec
-const sphereMaterial = new THREE.MeshBasicMaterial({ envMap: textureEquirec })
+const sphereMaterial = new THREE.MeshBasicMaterial({ map: textureEquirec,side:THREE.DoubleSide })
 sphereMaterial.needsUpdate = true;
 
 sphereMaterial.transparent = true
@@ -49,55 +51,44 @@ document.body.onload = animate()
 
 function animate() {
     requestAnimationFrame(animate);
-    controls.update()
+    controls.update()  
     renderer.render(scene, camera);
     //render()
 }
 
 var loadFile = function (event) {
 
-    //cach 1
-    // var reader = new FileReader();
-    // reader.onload = function(){
-    //   var output = document.getElementById('output-img');
-    //   output.src = reader.result;
-    //   console.log(reader)
-    // };
-    // reader.readAsDataURL(event.target.files[0]);
-
-    //cach 2
-    //var output = document.getElementById('output-img');
-    //console.log(event.target.files[0])
     const textureLoader = new THREE.TextureLoader()
     let textureEquirec = textureLoader.load(URL.createObjectURL(event.target.files[0]),
-    function(texture){
-        scene.background = texture
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-    
-    sphere.material.envMap = texture
-    },function(){
+        function (texture) {
+            scene.background = texture
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            sphere.material.map = texture
+            sphere.material.needsUpdate = true;
+console.log(sphere)
+        }, function () {
 
-    },function(error){
-        console.log(error)
-    }
+        }, function (error) {
+            console.log(error)
+        }
     );
-    
-    
-        // URL.revokeObjectURL(output.src) // free memory
-    
+
+
+    // URL.revokeObjectURL(output.src) // free memory
+
 };
 
 document.querySelector("#input-file").addEventListener('change', function (e) {
-        loadFile(e)
-        
+    loadFile(e)
+
 })
 
-window.addEventListener("resize",function(){
+window.addEventListener("resize", function () {
     let x = div_output.clientWidth
-    let y =div_output.clientHeight
-    camera.aspect=x/y
+    let y = div_output.clientHeight
+    camera.aspect = x / y
     camera.updateProjectionMatrix()
-    renderer.setSize(x,y)
+    renderer.setSize(x, y)
 })
 
 
@@ -106,10 +97,10 @@ GUI.TEXT_OPEN = "MỞ CÀI ĐẶT"
 //setup dat GUI
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
-let camera_fov = cameraFolder.add(camera,"fov",25,80).onChange(updateCamera)
-let camera_position_x = cameraFolder.add(camera.position,"x",-60,60).onChange(updateCamera)
-let camera_position_y = cameraFolder.add(camera.position,"y",-60,80).onChange(updateCamera)
-let camera_position_z = cameraFolder.add(camera.position,"z",-60,80).onChange(updateCamera)
+let camera_fov = cameraFolder.add(camera, "fov", 25, 80).onChange(updateCamera)
+let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60).onChange(updateCamera)
+let camera_position_y = cameraFolder.add(camera.position, "y", -60, 80).onChange(updateCamera)
+let camera_position_z = cameraFolder.add(camera.position, "z", -60, 80).onChange(updateCamera)
 
 camera_fov.name("Trường nhìn(fov)")
 camera_position_x.name("Vị trí x:")
@@ -123,8 +114,8 @@ mainGui.className = "dg ac dat-gui"
 mainGui.appendChild(gui.domElement)
 div_output.insertBefore(mainGui, div_output.firstChild)
 
-function updateCamera(){
-   camera.updateProjectionMatrix()
+function updateCamera() {
+    camera.updateProjectionMatrix()
 }
 
 // event scroll mouse to zoom
@@ -154,26 +145,16 @@ slider.oninput = function () {
 }
 //add event to object
 div_output.addEventListener("wheel", onScroll)
-// function onScroll(event){
-   
-//     event.preventDefault();
-//     if (event.deltaY < 0 && camera.zoom < 3.5) {
-//         camera.zoom +=0.1
-//         camera.updateProjectionMatrix()
-//     } 
-//     if (event.deltaY > 0 && camera.zoom > 0.7) {
-//         camera.zoom -=0.1
-//         camera.updateProjectionMatrix()
-//     }
-//     console.log(camera.zoom)
-// }
-// div_output.onwheel = onScroll
-document.querySelector(".rotate-control").addEventListener("click",function(){
+
+document.querySelector(".rotate-control").addEventListener("click", function () {
     const clicked = document.querySelector(".rotate-control").getAttribute("data-status")
-    if(clicked=="open"){
-        controls.autoRotate = true
+    if (clicked == "open") {
+       controls.autoRotate = true
+        
     }
-    if(clicked=="close"){
+    if (clicked == "close") {
         controls.autoRotate = false
+       
+
     }
 })

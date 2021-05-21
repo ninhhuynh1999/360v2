@@ -9,6 +9,9 @@ import * as dat from 'three/examples/jsm/libs/dat.gui.module'
 
 import './style.css'
 
+
+dat.GUI.TEXT_CLOSED = "Đóng Cài đặt"
+dat.GUI.TEXT_OPEN = "Mở Cài đặt"
 class InfoModel {
     /**
      * @param {string} name 
