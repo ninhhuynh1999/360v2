@@ -40,8 +40,8 @@ const gltf_Models = [
     new InfoModel("Khu KLF", "/models/gltf/klf.gltf", "/models/thumbs/klf.PNG", false),
     new InfoModel("Truong", "/models/gltf/truong.gltf", "/models/thumbs/truong.PNG", false),
 ]
-gltf_Models[3].actived = true
-gltf_Models[3].inActive = true
+gltf_Models[5].actived = true
+gltf_Models[5].inActive = true
 
 
 let moveForward = false;
@@ -68,11 +68,12 @@ textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
 scene.background = textureEquirec
 //camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 250)
-camera.position.x = 65
+camera.position.x =-4
 camera.position.y = 10
-camera.position.z = 3
+camera.position.z = -28
 camera.rotation.order = 'YXZ';
 camera.updateProjectionMatrix()
+camera.lookAt(0,0,0)
 scene.add(camera)
 
 //controls
@@ -193,13 +194,29 @@ const onKeyUp = function (event) {
     }
 
 };
+const blocker=document.querySelector("#blocker")
+controls.addEventListener( 'lock', function () {
 
+   
+    blocker.style.display = 'none';
+
+} );
+
+controls.addEventListener( 'unlock', function () {
+
+    blocker.style.display = 'block';
+
+
+} );
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
 canvas.addEventListener('mousedown', () => {
     controls.lock()
 }, false);
-
+blocker.addEventListener("click",()=>{
+    blocker.style.display= "none"
+    controls.lock()
+})
 window.addEventListener("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix();
@@ -250,7 +267,9 @@ var animate = function () {
 
 animate();
 
-
+controls.addEventListener("change",()=>{
+    console.log(camera.position)
+})
 // Debug dat gui
 const gui = new dat.GUI({ autoPlace: true })
 gui.closed = true
@@ -290,16 +309,21 @@ folder3.addColor(lightcolor, 'directionalLight').onChange(function (val) {
 function createThumb() {
     const ul = document.querySelector("ul.list-unstyled")
     gltf_Models.forEach(element => {
-        ul.innerHTML += `
-    <li>
-            <div class="card" data-model="${element.name}">
-                <img src="${element.thumb}"
-                    class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">${element.name}</p>
-                </div>
-            </div>
-    </li>`
+        if(element.name.trim().valueOf() === "Khu A" || element.name.trim().valueOf() === "Truong"){
+            
+        } else{
+            ul.innerHTML += `
+            <li>
+                    <div class="card" data-model="${element.name}">
+                        <img src="${element.thumb}"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">${element.name}</p>
+                        </div>
+                    </div>
+            </li>`
+        }
+    
     })
     document.querySelectorAll(".card").forEach(x => {
         x.addEventListener("click", () => {
@@ -307,7 +331,7 @@ function createThumb() {
         }, false)
     })
     //ul.firstElementChild.firstElementChild.classList.add("active")
-    document.querySelectorAll(".card").item(5).classList.add('active')
+    document.querySelectorAll(".card").item(4).classList.add('active')
 }
 
 /**
@@ -403,8 +427,8 @@ function gltf(url, item) {
 
             if (child.isMesh) {
                 child.matrixAutoUpdate = false;
-                child.castShadow = true;
-                child.receiveShadow = true;
+                //child.castShadow = true;
+               // child.receiveShadow = true;
 
                 if (child.material.map) {
 

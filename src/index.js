@@ -6,15 +6,8 @@ import { GUI } from 'three/examples/jsm/libs/dat.gui.module'
 import ListScene from '../static/js/ListScene.js'
 import Scene from '../static/js/Scene.js'
 
-
 import './style.css'
 import '../static/css/controls.css'
-// declared variables
-// let output //output of main scene
-// let scene, camera, renderer, controls, sphere //property mine scene
-// let divOuputMap, map_output //output of map scene
-// let map_scene, map_camera, map_renderer, map_controls //property of map scene
-// let aspect
 
 //tooltip
 const tooltip = document.querySelector('.tooltip')
@@ -29,7 +22,7 @@ let tooltipActive = false
 //init scene
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(40, 40, 40)
+camera.position.set(-42, 9, -24)
 camera.rotation.order = "YXZ";
 scene.add(camera)
 scene.isHidePoint = false
@@ -45,16 +38,8 @@ controls.enableRotate = true
 controls.autoRotate = false
 controls.enableKeys = true
 controls.enableDamping = true
-controls.enableZoom = false
 controls.enablePan = false
-// controls.dampingFactor = 0.04;
-controls.keys = {
-    LEFT: 37, //left arrow
-    UP: 38, // up arrow
-    RIGHT: 39, // right arrow
-    BOTTOM: 40 // down arrow
-}
-
+controls.enableZoom =false
 
 // create the sphere
 const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
@@ -152,6 +137,9 @@ const s22 = new Scene(22, "/images/anh360/san-bong/san-bong-ro.jpg", camera, "SÃ
 
 //aray of all scene
 const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22]
+arr.forEach(x =>{
+    x.controls = controls
+})
 //add point to scene (position of sprite)
 s0.addPoint({
     position: new THREE.Vector3(119.082458435241, 9.995027139237752, 90.47797014227162),
@@ -537,7 +525,7 @@ listScene.scenes.forEach(element => {
     var a = element
     document.querySelector(".all-thumb").innerHTML += `<div data-name="${a.id}) ${a.name}" class="div-thumb"  elemtype="thumb">'
     <div class="div-thumb-img">
-    <img class="img-thumb" alt="${a.id}) ${a.name}" data-sceneId="${a.id}" data-title="${a.name}" src="/images/thumbnails/thumb (${a.id}).png" style="width:100%",height:100%;>
+    <img class="img-thumb" alt="${a.id+1}) ${a.name}" data-sceneId="${a.id}" data-title="${a.name}" src="/images/thumbnails/thumb (${a.id}).jpg" style="width:100%",height:100%;>
     </div>
     </div>`
 })
@@ -612,7 +600,7 @@ function onClick(event) {
             y: intersects[0].point.y,
             z: intersects[0].point.z,
         })
-
+        controls.enabled= false
     }
 }
 //event Mouse move on main scene

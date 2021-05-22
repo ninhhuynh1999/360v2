@@ -40,7 +40,7 @@ export default class ListScene {
      * 
      * @param {Boolean} zoom - if set true camera will zoom on change scene. Defaut is false 
      */
-    activeScene(zoom = false) {
+  activeScene(zoom = false) {
         if (this.newActive != null && this.newActive != this.actived.id) {
 
             let sc = this.actived;
@@ -56,16 +56,17 @@ export default class ListScene {
                     },
                     onComplete: () => {
                         //point.scene.createScene()
-                        x = find.createScene();
+                        find.createScene();
                     }
                 })
-                TweenLite.to(this.camera, 0.5, {
-                    zoom: 1,
-                    onComplete: () => {
-                        this.camera.updateProjectionMatrix()
-                        this.scene_controls.target.set(0, 0, 0)
-                    }
-                }).delay(1)
+                // TweenLite.to(this.camera, 0.5, {
+                //     zoom: 1,
+                //     onComplete: () => {
+                //         this.camera.updateProjectionMatrix()
+                //         this.scene_controls.target.set(0, 0, 0)
+                //     }
+                // }).delay(1)
+               
             } else {
                 TweenLite.to(this.camera, 0.5, {
                     zoom: 1,
@@ -84,6 +85,7 @@ export default class ListScene {
             this.newActive = null;
             this.changeCurrentSprite()
             this.updateBeam()
+            
         }
 
     }

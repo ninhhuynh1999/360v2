@@ -19,7 +19,7 @@ module.exports = {
         index:path.resolve(__dirname, '../src/index.js'),
         load360:path.resolve(__dirname, '../src/pages/load360/main.js'),
         viewmodels:path.resolve(__dirname, '../src/pages/viewmodels/main.js'),
-        about:path.resolve(__dirname, '../src/pages/viewmodels/main.js'),
+        about:path.resolve(__dirname, '../src/pages/about/main.js'),
     },
     output:
     {

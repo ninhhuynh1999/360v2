@@ -32,9 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="viewmodels.html">Xem mô hình của trường</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="about.html">Giới thiệu</a>
-                </li>
+                </li> -->
             </ul>
 
         </div>
@@ -137,7 +137,7 @@
             <li> <b>Trên thiết bị di động:</b>
                 <ul>
                     <li>Chạm và giữ vào mành hình rồi di chuyển ngón tay để xoay góc nhìn </li>
-                    <li>Sử dụng 2 ngón tay để phóng to và thu nhỏ</li>
+                    
                 </ul>
             </li>
 
@@ -147,7 +147,7 @@
         <img src="/images/help/help.png" alt="">
         <ol>
             <b>
-                <li>Cài đặt</li>
+                <li>Cài đặt (Nhấn H để ẩn/hiện)</li>
             </b>
             <b>
                 <li>Danh sách các cảnh</li>
@@ -357,6 +357,7 @@
             if (x.getAttribute("data-status") == "open") {
                 x.setAttribute("data-tooltip", tooltips[number].close)
                 x.setAttribute("data-status", "close")
+               
                 x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
             } else {
                 x.setAttribute("data-tooltip", tooltips[number].open)
@@ -401,8 +402,26 @@
                 gui.style.display = "none"
                 map.style.left = "1%"
                 map.style.top = "1%"
+                
             }
+            
         })
+        document.querySelectorAll(".chil-controls").forEach(x =>{
+                    var number = x.getAttribute("data-tooltip-number")
+                   
+                   
+                    x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+                  
+
+            })
+            document.querySelectorAll(".chil-controls").forEach(x =>{
+                    var number = x.getAttribute("data-tooltip-number")
+                   
+                   
+                    x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+                  
+
+            })
     </script>
 
 </body>

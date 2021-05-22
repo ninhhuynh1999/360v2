@@ -20,6 +20,8 @@
 
 <body>
 
+
+
     <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
         <a class="navbar-brand" href="/">THAM QUAN SGU</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -38,13 +40,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="viewmodels.html">Xem mô hình của trường</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="about.html">Giới thiệu</a>
-                  </li>
+                  </li> -->
             </ul>
         </div>
     </nav>
     <div class="wrapper">
+        
         <!-- Sidebar  -->
         <div id="sidebar">
             <div class="sidebar-header">
@@ -76,6 +79,16 @@
                 </div>
             </div>
             <div class="div-output" style="width: 100%;height: 100%;">
+                <div id="blocker">
+                    <div id="instructions">
+                        <span style="font-size:36px">Nhấn vào màn hình để bắt đầu</span>
+                        <br><br>
+                        Di chuyển: WASD<br>
+                        Lên: SPACE<br>
+                        Xuống: F<br>
+                        Xoay: MOUSE
+                    </div>
+                </div>
                 <canvas class="output"></canvas>
             </div>
 
@@ -96,7 +109,8 @@
             });
 
             if ((typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1)){
-            alert("Hiện tại trang 'Xem mô hình trường' vẫn chưa hỗ trọ xem bằng thiết bị di động!!!")
+            alert("Hiện tại trang 'Xem mô hình trường' vẫn chưa hỗ trợ xem bằng thiết bị di động!!!")
+            
         }
              
         });

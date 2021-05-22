@@ -26,8 +26,9 @@ export  default  class Scene {
         // this.sprites = sprites
         // this.updateMiniMap = updateMiniMap
         // this.positionOnMap = positionOnMap
-         this.start_position_camera = new THREE.Vector3(1,1,1)
+         
         Object.assign(this, {id, image, camera, name, scene,positionOnMap,updateMiniMap ,points, sprites});
+        this.controls = null
     }
 
     async createScene() {
@@ -51,6 +52,7 @@ export  default  class Scene {
                 //sphere.material.envMap = texture
                 sphere.material.map = texture
                 client_view.classList.remove("loading")
+                  
             },
 
             //onProgress callback
@@ -66,7 +68,14 @@ export  default  class Scene {
         this.points.forEach(point => {
             this.addTooltip(point)
         })
-
+        TweenLite.to(this.camera, 0.5, {
+            zoom: 1,
+            onComplete: () => {
+                this.camera.updateProjectionMatrix()
+                this.controls.enabled = true
+                this.controls.target.set(0, 0, 0)
+            }
+        })
     }
 
     addPoint(point) {
