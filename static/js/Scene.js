@@ -15,25 +15,15 @@ export  default  class Scene {
      * @param {Number} updateMiniMap
      * @param {THREE.Vector3} positionOnMap
      */
-    constructor(id, image, camera, name, scene,positionOnMap,updateMiniMap =0 ,points = [], sprites = []) {
-
-        // this.id = id
-        // this.image = image
-        // this.camera = camera
-        // this.name = name
-        // this.scene = scene
-        // this.points = points
-        // this.sprites = sprites
-        // this.updateMiniMap = updateMiniMap
-        // this.positionOnMap = positionOnMap
-         
-        Object.assign(this, {id, image, camera, name, scene,positionOnMap,updateMiniMap ,points, sprites});
-        this.controls = null
+    constructor(id, image,  name, positionOnMap,updateMiniMap =0 ,points = [], sprites = []) {
+        Object.assign(this, {id, image, name,positionOnMap,updateMiniMap ,points, sprites});
+        this.scene = null
+        this.camera = null
     }
 
-    async createScene() {
+    async createScene(scene_controls) {
         //this.scene = scene
-        const load = (t)=>{this.loadTexture(t)}
+        const load = (t,scene_controls)=>{this.loadTexture(t,scene_controls)}
         const client_view=document.querySelector(".div-scene")
         client_view.classList.add("loading")
 
@@ -45,7 +35,7 @@ export  default  class Scene {
 
             //onLoad callback
             function (texture) {
-               load(texture)
+               load(texture,scene_controls)
                client_view.classList.remove("loading")
             },
 
@@ -106,17 +96,16 @@ export  default  class Scene {
         })
 
     }
-    zoomOut(){
+    zoomOut(controls){
         TweenLite.to(this.camera, 0.5, {
             zoom: 1,
             onComplete: () => {
                 this.camera.updateProjectionMatrix()
-                this.controls.enabled = true
-                this.controls.target.set(0, 0, 0)
+                controls.target.set(0, 0, 0)
             }
         })
     }
-    loadTexture(texture){
+    loadTexture(texture,scene_controls){
         const sphere = this.scene.getObjectByName("Sphere1")
         const scene = this.scene
 
@@ -127,7 +116,7 @@ export  default  class Scene {
         //sphere.material.envMap = texture
         sphere.material.map = texture
       
-        this.zoomOut()
+        this.zoomOut(scene_controls)
         this.appear()
         this.points.forEach(point => {
             this.addTooltip(point)

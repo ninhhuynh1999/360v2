@@ -113,38 +113,40 @@ const ss = new Scene({
     name:"do nq"
 }) 
 console.log(ss)
-const s0 = new Scene(0, img_url+"/congtruong.jpg", camera, "Ngoài cổng", scene, new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
-const s1 = new Scene(1, img_url+"/truoc-khu-c/vao-cong.jpg", camera, "Cổng chính trường", scene, new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 3.993400099918637)
-const s2 = new Scene(2, img_url+"/truoc-khu-c/giua-hb-d(0).jpg", camera, "Giữa dãy HB và dãy C (1)", scene, new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504), 4.056037835757044)
-const s3 = new Scene(3, img_url+"/truoc-khu-c/giua-hb-d.jpg", camera, "Giữa dãy HB và dãy C (2)", scene, new THREE.Vector3(-4.1712394946635062, 1, 52.18576295183792), 3.962936954853368)
-const s4 = new Scene(4, img_url+"/truoc-khu-c/truoc-khu-d.jpg", camera, "Trước dãy D", scene, new THREE.Vector3(14.59200559381937, 1, 52.186303499582436), -4.1323269486552912)
-const s5 = new Scene(5, img_url+"/truoc-khu-c/truoc-khu-hb.jpg", camera, "Trước dãy HB", scene, new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201), -0.5278661113898819)
+const s0 = new Scene(0, img_url+"/congtruong.jpg",  "Ngoài cổng",  new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
+const s1 = new Scene(1, img_url+"/truoc-khu-c/vao-cong.jpg",  "Cổng chính trường",  new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 3.993400099918637)
+const s2 = new Scene(2, img_url+"/truoc-khu-c/giua-hb-d(0).jpg",  "Giữa dãy HB và dãy C (1)",  new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504), 4.056037835757044)
+const s3 = new Scene(3, img_url+"/truoc-khu-c/giua-hb-d.jpg",  "Giữa dãy HB và dãy C (2)",  new THREE.Vector3(-4.1712394946635062, 1, 52.18576295183792), 3.962936954853368)
+const s4 = new Scene(4, img_url+"/truoc-khu-c/truoc-khu-d.jpg",  "Trước dãy D",  new THREE.Vector3(14.59200559381937, 1, 52.186303499582436), -4.1323269486552912)
+const s5 = new Scene(5, img_url+"/truoc-khu-c/truoc-khu-hb.jpg",  "Trước dãy HB",  new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201), -0.5278661113898819)
 //
-const s6 = new Scene(6, img_url+"/giua-khu-c-b/khu-c-nhin-khu-b.jpg", camera, "Phía sau dãy C", scene, new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934), 3.7935468107790233)
-const s7 = new Scene(7, img_url+"/giua-khu-c-b/giua-san-c-b.jpg", camera, "Sân giữa dãy B và dãy C (1)", scene, new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158), 3.8250613400611837)
-const s8 = new Scene(8, img_url+"/giua-khu-c-b/truoc-klf.jpg", camera, "Trước KLF", scene, new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632), 3.746275016855796,)
-const s9 = new Scene(9, img_url+"/giua-khu-c-b/khu-b-nhin-khu-c.jpeg", camera, "Sân giữa dãy B và dãy C (2)", scene, new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085), 0.89816062827589086)
+const s6 = new Scene(6, img_url+"/giua-khu-c-b/khu-c-nhin-khu-b.jpg",  "Phía sau dãy C",  new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934), 3.7935468107790233)
+const s7 = new Scene(7, img_url+"/giua-khu-c-b/giua-san-c-b.jpg",  "Sân giữa dãy B và dãy C (1)",  new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158), 3.8250613400611837)
+const s8 = new Scene(8, img_url+"/giua-khu-c-b/truoc-klf.jpg",  "Trước KLF",  new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632), 3.746275016855796,)
+const s9 = new Scene(9, img_url+"/giua-khu-c-b/khu-b-nhin-khu-c.jpeg",  "Sân giữa dãy B và dãy C (2)",  new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085), 0.89816062827589086)
 //
-const s10 = new Scene(10, img_url+"/giua-khu-b-a/khu-b-nhin-khu-a.jpeg", camera, "Phía sau dãy B", scene, new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
-const s11 = new Scene(11, img_url+"/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg", camera, "Trước trung tam khảo thí (1)", scene, new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
-const s12 = new Scene(12, img_url+"/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
-const s13 = new Scene(13, img_url+"/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
-const s14 = new Scene(14, img_url+"/giua-khu-b-a/giua-khu-a-b-2.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
-const s15 = new Scene(15, img_url+"/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
-const s16 = new Scene(16, img_url+"/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước VP khoa Ngệ thuật", scene, new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
+const s10 = new Scene(10, img_url+"/giua-khu-b-a/khu-b-nhin-khu-a.jpeg",  "Phía sau dãy B",  new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
+const s11 = new Scene(11, img_url+"/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg",  "Trước trung tam khảo thí (1)",  new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
+const s12 = new Scene(12, img_url+"/giua-khu-b-a/san-co-truoc-cong-trinh.jpg",  "Trước trung tam khảo thí (2)",  new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
+const s13 = new Scene(13, img_url+"/giua-khu-b-a/san-co-2.jpg",  "Trước phòng Kỹ thuật và bãi xe",  new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
+const s14 = new Scene(14, img_url+"/giua-khu-b-a/giua-khu-a-b-2.jpeg",  "Giữa khu B và khu A",  new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
+const s15 = new Scene(15, img_url+"/giua-khu-b-a/truoc-A016.jpeg",  "Trước phòng A.016",  new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
+const s16 = new Scene(16, img_url+"/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg",  "Trước VP khoa Ngệ thuật",  new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
 //
-const s17 = new Scene(17, img_url+"/cong-khu-e/vao-bai-xe.jpg", camera, "Bãi giữ xe khu E (1)", scene, new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
-const s18 = new Scene(18, img_url+"/cong-khu-e/bai-xe-trai.jpg", camera, "Bãi giữ xe khu E (2)", scene, new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
-const s19 = new Scene(19, img_url+"/cong-khu-e/cong-khu-e.jpg", camera, "Cổng khu E", scene, new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
-const s20 = new Scene(20, img_url+"/cong-khu-e/truoc-khu-e.jpg", camera, "Trước Khu E", scene, new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
+const s17 = new Scene(17, img_url+"/cong-khu-e/vao-bai-xe.jpg",  "Bãi giữ xe khu E (1)",  new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
+const s18 = new Scene(18, img_url+"/cong-khu-e/bai-xe-trai.jpg",  "Bãi giữ xe khu E (2)",  new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
+const s19 = new Scene(19, img_url+"/cong-khu-e/cong-khu-e.jpg",  "Cổng khu E",  new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
+const s20 = new Scene(20, img_url+"/cong-khu-e/truoc-khu-e.jpg",  "Trước Khu E",  new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
 //
-const s21 = new Scene(21, img_url+"/san-bong/san-bong-da(0).jpg", camera, "Sân bóng đá", scene, new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
-const s22 = new Scene(22, img_url+"/san-bong/san-bong-ro.jpg", camera, "Sân bóng rổ", scene, new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
+const s21 = new Scene(21, img_url+"/san-bong/san-bong-da(0).jpg",  "Sân bóng đá",  new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
+const s22 = new Scene(22, img_url+"/san-bong/san-bong-ro.jpg",  "Sân bóng rổ",  new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
 
 //aray of all scene
 const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22]
 arr.forEach(x => {
     x.controls = controls
+    x.scene = scene
+    x.camera= camera
 })
 //add point to scene (position of sprite)
 s0.addPoint({
@@ -601,14 +603,14 @@ function onClick(event) {
     if (intersects.length > 0 && intersects[0].object.type == "Sprite" && intersects[0].object.onScene) {
         listScene.newActive = intersects[0].object.idScene
         listScene.activeScene(true)
-        document.getElementById("myRange").value = 1
+        
         mapCameraLookAt(listScene.activePoint.position.clone())
         TweenLite.to(controls.target, 0.5, {
             x: intersects[0].point.x,
             y: intersects[0].point.y,
             z: intersects[0].point.z,
         })
-        controls.enabled = false
+        
         handleChangeThumbActive()
     }
 }
@@ -759,7 +761,6 @@ document.querySelector(".rotate-control").addEventListener("click", function () 
         controls.autoRotate = false
     }
 })
-document.querySelector(".hidePoint-control").addEventListener("click", click_hidePoint, true)
 
 function click_hidePoint() {
     let points = listScene.actived.sprites
@@ -777,15 +778,7 @@ function click_hidePoint() {
         scene.isHidePoint = false
     }
 }
-function checkHidePoint() {
-    const status = document.querySelector(".hidePoint-control").getAttribute("data-status")
-    if (status == "open") {
-        return false
-    }
-    if (status == "close") {
-        return true
-    }
-}
+
 //update map canvas resize
 document.querySelector(".map").addEventListener("transitionend", function () {
     const element = document.querySelector(".map")
@@ -805,19 +798,11 @@ document.querySelector(".map").addEventListener("transitionend", function () {
         parameters.radiusTop = 30
         map_camera.zoom = map_controls.minZoom
     }
-    beam.geometry = new THREE.CylinderGeometry(
-        parameters.radiusTop,
-        parameters.radiusTop,
-        parameters.height,
-        parameters.radialSegments,
-        parameters.heightSegments,
-        false,
-        parameters.thetaStart,
-        parameters.thetaLength
-    )
+    beam.geometry = createCylinder(parameters)
     mapCameraLookAt(position)
     map_controlsChange()
     map_renderer.setSize(divOuputMap.clientWidth, divOuputMap.clientHeight);
+    console.log(beam.geometry.parameters.radiusTop)
 })
 
 // event scroll mouse to zoom
@@ -844,6 +829,7 @@ const slider = document.getElementById("myRange");
 slider.oninput = function () {
     camera.zoom = 1 + this.value * 3 / 100;
     camera.updateProjectionMatrix()
+    resizeBeam((this.value))
 }
 //add event to object
 window.addEventListener("resize", onResize)
@@ -851,14 +837,12 @@ window.addEventListener("resize", onResize)
 output.addEventListener("wheel", onScroll)
 output.addEventListener("click", onClick)
 output.addEventListener("mousemove", onMouseMove)
-
 output.addEventListener('touchstart', (event) => {
     // prevent the window from scrolling
     event.preventDefault();
     setPickPosition(event.touches[0], output);
     onClick(event)
 });
-
 output.addEventListener('touchmove', (event) => {
     setPickPosition(event.touches[0], output);
 });
@@ -881,6 +865,7 @@ divOuputMap.addEventListener("mouseleave", function (e) {
         z: scaleSprite,
     })
 })
+document.querySelector(".hidePoint-control").addEventListener("click", click_hidePoint, true)
 
 //update camera's field of view on map 
 
@@ -963,4 +948,35 @@ function handleChangeThumbActive() {
     const thumbActive=div_thumb.item(listScene.actived.id)
     thumbActive.classList.add("active")
     document.querySelector('.all-thumb').scrollTop = thumbActive.offsetTop;
+    resizeBeam(0)
+    document.getElementById("myRange").value = 1
+}
+/**
+ * 
+ * @param {THREE.CylinderGeometry().parameters} parameters 
+ * @param {Number} radiusTop 
+ */
+function createCylinder(parameters){
+    const geometry = new THREE.CylinderGeometry( 
+        parameters.radiusTop,
+        parameters.radiusTop,
+        parameters.height,
+        parameters.radialSegments,
+        parameters.heightSegments,
+        false,
+        parameters.thetaStart,
+        parameters.thetaLength)
+    return geometry
+}
+function resizeBeam(Percentage){
+    if(Percentage > 90) return
+   const beam = map_scene.getObjectByName("beam")
+   const parameters = beam.geometry.parameters
+   parameters.thetaLength =  1.5- parameters.thetaLength * Percentage  /100
+   parameters.thetaStart = 0 +  0.5 * Percentage/100
+
+console.log(parameters.thetaLength * Percentage  /100)
+const geometry = createCylinder(beam.geometry.parameters)
+beam.geometry.dispose()
+beam.geometry = geometry
 }
