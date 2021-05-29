@@ -80,7 +80,7 @@ export default class ListScene {
                 }).delay(0.5)
             }
 
-            find.appear();
+           
             this.actived = find
             this.newActive = null;
             this.changeCurrentSprite()
@@ -151,7 +151,7 @@ export default class ListScene {
             });
             const sprite = new THREE.Sprite(material2);
             sprite.position.copy(element.positionOnMap)
-            sprite.name = element.id + ")" + element.name
+            sprite.name = `${element.id +1}` + ")" + element.name
             sprite.scale.set(8, 8, 8)
             sprite.isPoint = true
             sprite.userData.mapScene = element.id

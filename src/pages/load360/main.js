@@ -20,7 +20,7 @@ scene.add(camera)
 //renderer
 const renderer = new THREE.WebGLRenderer({ canvas: output, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio)
+// renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio)
 
 //Controls
 const controls = new OrbitControls(camera, output)
@@ -61,6 +61,8 @@ var loadFile = function (event) {
     const textureLoader = new THREE.TextureLoader()
     let textureEquirec = textureLoader.load(URL.createObjectURL(event.target.files[0]),
         function (texture) {
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.repeat.x = - 1;
             scene.background = texture
             texture.mapping = THREE.EquirectangularReflectionMapping;
             sphere.material.map = texture

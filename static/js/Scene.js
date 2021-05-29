@@ -33,11 +33,11 @@ export  default  class Scene {
 
     async createScene() {
         //this.scene = scene
-        const sphere = this.scene.getObjectByName("Sphere1")
-        const scene = this.scene
-        const textureLoader = new THREE.TextureLoader()
+        const load = (t)=>{this.loadTexture(t)}
         const client_view=document.querySelector(".div-scene")
         client_view.classList.add("loading")
+
+        const textureLoader = new THREE.TextureLoader()
         textureLoader.load(
 
             //resource URK
@@ -45,37 +45,20 @@ export  default  class Scene {
 
             //onLoad callback
             function (texture) {
-                texture.wrapS = THREE.RepeatWrapping;
-                texture.repeat.x = - 1;
-                texture.mapping = THREE.EquirectangularReflectionMapping;
-                scene.background = texture
-                //sphere.material.envMap = texture
-                sphere.material.map = texture
-                client_view.classList.remove("loading")
-                  
+               load(texture)
+               client_view.classList.remove("loading")
             },
 
             //onProgress callback
-            function (event) {
-                console.log(event)
-            },
+            undefined,
             //onError callback
             function (err) {
                 console.error('An error happened while load texture.');
             }
         )
-        // this.camera.position.copy(this.start_position_camera);
-        this.points.forEach(point => {
-            this.addTooltip(point)
-        })
-        TweenLite.to(this.camera, 0.5, {
-            zoom: 1,
-            onComplete: () => {
-                this.camera.updateProjectionMatrix()
-                this.controls.enabled = true
-                this.controls.target.set(0, 0, 0)
-            }
-        })
+        
+       
+        
     }
 
     addPoint(point) {
@@ -104,32 +87,7 @@ export  default  class Scene {
     }
 
     spriteClick() {
-        this.camera.zoom = this.camera.zoom >= 1 ? 1 : 1
-        TweenLite.to(this.camera, 1, {
-            zoom: 3,
-            onStart: () => {
-                //this.destroy()
-            },
-            onUpdate: () => {
-                this.camera.updateProjectionMatrix()
-            },
-            onComplete: () => {
-                //point.scene.createScene()
-            }
-        })
-
-        TweenLite.to(this.camera, 0.5, {
-            zoom: 1,
-            onStart: () => {
-                //this.appear()
-            },
-            // onUpdate: () => {
-            //     this.camera.updateProjectionMatrix()
-            // }, 
-            onComplete: () => {
-                this.camera.updateProjectionMatrix()
-            }
-        }).delay(1)
+       
     }
 
 
@@ -142,12 +100,38 @@ export  default  class Scene {
 
     }
     appear() {
-       
         this.sprites.forEach((sprite) => {
             sprite.scale.set(8, 8, 8)
             // console.log("da hien"+sprite.name)
         })
 
+    }
+    zoomOut(){
+        TweenLite.to(this.camera, 0.5, {
+            zoom: 1,
+            onComplete: () => {
+                this.camera.updateProjectionMatrix()
+                this.controls.enabled = true
+                this.controls.target.set(0, 0, 0)
+            }
+        })
+    }
+    loadTexture(texture){
+        const sphere = this.scene.getObjectByName("Sphere1")
+        const scene = this.scene
+
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.repeat.x = - 1;
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.background = texture
+        //sphere.material.envMap = texture
+        sphere.material.map = texture
+      
+        this.zoomOut()
+        this.appear()
+        this.points.forEach(point => {
+            this.addTooltip(point)
+        })
     }
     getPoints() {
         return this.points

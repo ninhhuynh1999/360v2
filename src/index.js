@@ -9,15 +9,16 @@ import Scene from '../static/js/Scene.js'
 import './style.css'
 import '../static/css/controls.css'
 
-//tooltip
+//
 const tooltip = document.querySelector('.tooltip')
 const div_main1 = document.querySelector(".main1")
 const output = document.querySelector('#output')
 const divOuputMap = document.querySelector(".map")
 const map_output = document.querySelector("#output-map")
-
+let div_thumb
 let map_tooltipActive = false
 let tooltipActive = false
+let img_url = "/images/anh360_lite"
 
 //init scene
 const scene = new THREE.Scene()
@@ -29,7 +30,7 @@ scene.isHidePoint = false
 //renderer
 const renderer = new THREE.WebGLRenderer({ canvas: output, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio)
+//renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio)
 //document.body.appendChild(renderer.domElement)
 
 //Controls
@@ -39,7 +40,7 @@ controls.autoRotate = false
 controls.enableKeys = true
 controls.enableDamping = true
 controls.enablePan = false
-controls.enableZoom =false
+controls.enableZoom = false
 
 // create the sphere
 const sphereGeo = new THREE.SphereGeometry(150, 75, 75)
@@ -106,38 +107,43 @@ map_animate();
 //init all scene
 
 //-1.635077939209397
-
-const s0 = new Scene(0, "/images/anh360/congtruong.jpg", camera, "Ngoài cổng", scene, new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
-const s1 = new Scene(1, "/images/anh360/truoc-khu-c/vao-cong.jpg", camera, "Vào cổng", scene, new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 3.993400099918637)
-const s2 = new Scene(2, "/images/anh360/truoc-khu-c/giua-hb-d(0).jpg", camera, "Giữa khu HB và Khu C (1)", scene, new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504), 4.056037835757044)
-const s3 = new Scene(3, "/images/anh360/truoc-khu-c/giua-hb-d.jpg", camera, "Giữa khu HB và Khu C (2)", scene, new THREE.Vector3(-4.1712394946635062, 1, 52.18576295183792), 3.962936954853368)
-const s4 = new Scene(4, "/images/anh360/truoc-khu-c/truoc-khu-d.jpg", camera, "Trước khu D", scene, new THREE.Vector3(14.59200559381937, 1, 52.186303499582436), -4.1323269486552912)
-const s5 = new Scene(5, "/images/anh360/truoc-khu-c/truoc-khu-hb.jpg", camera, "Trước khu HB", scene, new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201), -0.5278661113898819)
+const ss = new Scene({
+    image: "123",
+    id: 12345,
+    name:"do nq"
+}) 
+console.log(ss)
+const s0 = new Scene(0, img_url+"/congtruong.jpg", camera, "Ngoài cổng", scene, new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
+const s1 = new Scene(1, img_url+"/truoc-khu-c/vao-cong.jpg", camera, "Cổng chính trường", scene, new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 3.993400099918637)
+const s2 = new Scene(2, img_url+"/truoc-khu-c/giua-hb-d(0).jpg", camera, "Giữa dãy HB và dãy C (1)", scene, new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504), 4.056037835757044)
+const s3 = new Scene(3, img_url+"/truoc-khu-c/giua-hb-d.jpg", camera, "Giữa dãy HB và dãy C (2)", scene, new THREE.Vector3(-4.1712394946635062, 1, 52.18576295183792), 3.962936954853368)
+const s4 = new Scene(4, img_url+"/truoc-khu-c/truoc-khu-d.jpg", camera, "Trước dãy D", scene, new THREE.Vector3(14.59200559381937, 1, 52.186303499582436), -4.1323269486552912)
+const s5 = new Scene(5, img_url+"/truoc-khu-c/truoc-khu-hb.jpg", camera, "Trước dãy HB", scene, new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201), -0.5278661113898819)
 //
-const s6 = new Scene(6, "/images/anh360/giua-khu-c-b/khu-c-nhin-khu-b.jpg", camera, "Sân giữa khu B và khu C (1)", scene, new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934), 3.7935468107790233)
-const s7 = new Scene(7, "/images/anh360/giua-khu-c-b/giua-san-c-b.jpg", camera, "Sân giữa khu B và khu C (2)", scene, new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158), 3.8250613400611837)
-const s8 = new Scene(8, "/images/anh360/giua-khu-c-b/truoc-klf.jpg", camera, "Trước KLF", scene, new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632), 3.746275016855796,)
-const s9 = new Scene(9, "/images/anh360/giua-khu-c-b/khu-b-nhin-khu-c.jpeg", camera, "Sân giữa khu B và khu C (3)", scene, new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085), 0.89816062827589086)
+const s6 = new Scene(6, img_url+"/giua-khu-c-b/khu-c-nhin-khu-b.jpg", camera, "Phía sau dãy C", scene, new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934), 3.7935468107790233)
+const s7 = new Scene(7, img_url+"/giua-khu-c-b/giua-san-c-b.jpg", camera, "Sân giữa dãy B và dãy C (1)", scene, new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158), 3.8250613400611837)
+const s8 = new Scene(8, img_url+"/giua-khu-c-b/truoc-klf.jpg", camera, "Trước KLF", scene, new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632), 3.746275016855796,)
+const s9 = new Scene(9, img_url+"/giua-khu-c-b/khu-b-nhin-khu-c.jpeg", camera, "Sân giữa dãy B và dãy C (2)", scene, new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085), 0.89816062827589086)
 //
-const s10 = new Scene(10, "/images/anh360/giua-khu-b-a/khu-b-nhin-khu-a.jpeg", camera, "Sân giữa khu B và khu A (1)", scene, new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
-const s11 = new Scene(11, "/images/anh360/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg", camera, "Trước trung tam khảo thí (1)", scene, new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
-const s12 = new Scene(12, "/images/anh360/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
-const s13 = new Scene(13, "/images/anh360/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
-const s14 = new Scene(14, "/images/anh360/giua-khu-b-a/giua-khu-a-b-2.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
-const s15 = new Scene(15, "/images/anh360/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
-const s16 = new Scene(16, "/images/anh360/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước VP khoa Ngệ thuật", scene, new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
+const s10 = new Scene(10, img_url+"/giua-khu-b-a/khu-b-nhin-khu-a.jpeg", camera, "Phía sau dãy B", scene, new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
+const s11 = new Scene(11, img_url+"/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg", camera, "Trước trung tam khảo thí (1)", scene, new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
+const s12 = new Scene(12, img_url+"/giua-khu-b-a/san-co-truoc-cong-trinh.jpg", camera, "Trước trung tam khảo thí (2)", scene, new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
+const s13 = new Scene(13, img_url+"/giua-khu-b-a/san-co-2.jpg", camera, "Trước phòng Kỹ thuật và bãi xe", scene, new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
+const s14 = new Scene(14, img_url+"/giua-khu-b-a/giua-khu-a-b-2.jpeg", camera, "Giữa khu B và khu A", scene, new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
+const s15 = new Scene(15, img_url+"/giua-khu-b-a/truoc-A016.jpeg", camera, "Trước phòng A.016", scene, new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
+const s16 = new Scene(16, img_url+"/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg", camera, "Trước VP khoa Ngệ thuật", scene, new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
 //
-const s17 = new Scene(17, "/images/anh360/cong-khu-e/vao-bai-xe.jpg", camera, "Bãi giữ xe khu E (1)", scene, new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
-const s18 = new Scene(18, "/images/anh360/cong-khu-e/bai-xe-trai.jpg", camera, "Bãi giữ xe khu E (2)", scene, new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
-const s19 = new Scene(19, "/images/anh360/cong-khu-e/cong-khu-e.jpg", camera, "Cổng khu E", scene, new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
-const s20 = new Scene(20, "/images/anh360/cong-khu-e/truoc-khu-e.jpg", camera, "Trước Khu E", scene, new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
+const s17 = new Scene(17, img_url+"/cong-khu-e/vao-bai-xe.jpg", camera, "Bãi giữ xe khu E (1)", scene, new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
+const s18 = new Scene(18, img_url+"/cong-khu-e/bai-xe-trai.jpg", camera, "Bãi giữ xe khu E (2)", scene, new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
+const s19 = new Scene(19, img_url+"/cong-khu-e/cong-khu-e.jpg", camera, "Cổng khu E", scene, new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
+const s20 = new Scene(20, img_url+"/cong-khu-e/truoc-khu-e.jpg", camera, "Trước Khu E", scene, new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
 //
-const s21 = new Scene(21, "/images/anh360/san-bong/san-bong-da(0).jpg", camera, "Sân bóng đá", scene, new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
-const s22 = new Scene(22, "/images/anh360/san-bong/san-bong-ro.jpg", camera, "Sân bóng rổ", scene, new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
+const s21 = new Scene(21, img_url+"/san-bong/san-bong-da(0).jpg", camera, "Sân bóng đá", scene, new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
+const s22 = new Scene(22, img_url+"/san-bong/san-bong-ro.jpg", camera, "Sân bóng rổ", scene, new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
 
 //aray of all scene
 const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22]
-arr.forEach(x =>{
+arr.forEach(x => {
     x.controls = controls
 })
 //add point to scene (position of sprite)
@@ -407,14 +413,13 @@ mapCameraLookAt(listScene.activePoint.position.clone())
 
 console.log(listScene)
 
-
 //DAT GUI
 GUI.TEXT_CLOSED = "ĐÓNG CÀI ĐẶT"
 GUI.TEXT_OPEN = "MỞ CÀI ĐẶT"
 //setup dat GUI
 let camera_conf = {
     goOut: false,
-    envMap: false
+    envMap: false,
 }
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
@@ -448,7 +453,6 @@ gui.domElement.id = 'gui';
 let customContainer = document.querySelector('.main1');
 let domElement = gui.domElement
 customContainer.insertBefore(domElement, customContainer.firstChild);
-
 
 function updateCamera() {
     camera.updateProjectionMatrix()
@@ -525,7 +529,7 @@ listScene.scenes.forEach(element => {
     var a = element
     document.querySelector(".all-thumb").innerHTML += `<div data-name="${a.id}) ${a.name}" class="div-thumb"  elemtype="thumb">'
     <div class="div-thumb-img">
-    <img class="img-thumb" alt="${a.id+1}) ${a.name}" data-sceneId="${a.id}" data-title="${a.name}" src="/images/thumbnails/thumb (${a.id}).jpg" style="width:100%",height:100%;>
+    <img class="img-thumb" alt="${a.id + 1}) ${a.name}" data-sceneId="${a.id}" data-title="${a.name}" src="/images/thumbnails/thumb (${a.id}).jpg" style="width:100%",height:100%;>
     </div>
     </div>`
 })
@@ -533,6 +537,8 @@ listScene.scenes.forEach(element => {
 addEventToImgThumb()
 
 function addEventToImgThumb() {
+    div_thumb = document.querySelectorAll(".div-thumb")
+    div_thumb.item(0).classList.add("active")
     document.querySelectorAll(".img-thumb").forEach(x => {
         const title = document.querySelector(".p-title-thumb")
         const divTitle = document.querySelector(".div-title-thumb")
@@ -551,6 +557,8 @@ function addEventToImgThumb() {
             listScene.newActive = txt
             listScene.activeScene()
             mapCameraLookAt(listScene.activePoint.position.clone())
+            handleChangeThumbActive()
+
         })
         x.addEventListener("mouseup", function () {
             divTitle.style.opacity = 0
@@ -600,7 +608,8 @@ function onClick(event) {
             y: intersects[0].point.y,
             z: intersects[0].point.z,
         })
-        controls.enabled= false
+        controls.enabled = false
+        handleChangeThumbActive()
     }
 }
 //event Mouse move on main scene
@@ -737,6 +746,7 @@ function mapClick(event) {
         intersects[0].object.onClick()
         console.log(listScene.activePoint)
         mapCameraLookAt(position)
+        handleChangeThumbActive()
 
     }
 }
@@ -947,4 +957,10 @@ function limitPanMap() {
     positionZ = map_camera.position.z
     phi = map_controls.getPolarAngle()
     theta = map_controls.getAzimuthalAngle()
+}
+function handleChangeThumbActive() {
+    document.querySelector(".div-thumb.active").classList.remove("active")
+    const thumbActive=div_thumb.item(listScene.actived.id)
+    thumbActive.classList.add("active")
+    document.querySelector('.all-thumb').scrollTop = thumbActive.offsetTop;
 }

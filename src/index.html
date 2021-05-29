@@ -137,30 +137,35 @@
             <li> <b>Trên thiết bị di động:</b>
                 <ul>
                     <li>Chạm và giữ vào mành hình rồi di chuyển ngón tay để xoay góc nhìn </li>
-                    
+
                 </ul>
             </li>
 
         </ul>
         <h5>Chức năng</h5>
         <!-- <div class="div-img-help"></div> -->
-        <img src="/images/help/help.png" alt="">
+        <img src="/images/help/help2.PNG" alt="">
         <ol>
             <b>
                 <li>Cài đặt (Nhấn H để ẩn/hiện)</li>
             </b>
             <b>
-                <li>Danh sách các cảnh</li>
+                <li>Khung tìm kiếm địa điểm</li>
             </b>
             <b>
-                <li>Các công cụ điều khiển</li>
+                <li>Danh sách các địa điểm</li>
             </b>
-            <li><b>Điểm chuyển cảnh</b>(Nhấn vào để chuyển cảnh tiếp theo)</li>
+            <b> <li>Điểm chuyển cảnh </b>(Nhấn vào để chuyển cảnh tiếp theo)</li>
+
+           
             <li> <b>Bản đồ:</b> Xem vị trí hiện tại và có thể chọn các diểm trên đó để chuyển cảnh
                 <br> (Điều khiển bản đồ giống như điều khiển Cảnh 360)
             </li>
             <b>
                 <li>Thanh Phóng to/Thu nhỏ hình ảnh</li>
+            </b>
+             <b>
+                <li>Các công cụ điều khiển</li>
             </b>
         </ol>
     </div>
@@ -357,7 +362,7 @@
             if (x.getAttribute("data-status") == "open") {
                 x.setAttribute("data-tooltip", tooltips[number].close)
                 x.setAttribute("data-status", "close")
-               
+
                 x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
             } else {
                 x.setAttribute("data-tooltip", tooltips[number].open)
@@ -402,26 +407,15 @@
                 gui.style.display = "none"
                 map.style.left = "1%"
                 map.style.top = "1%"
-                
+
             }
-            
+            var help = document.querySelector(".div-help"); 
+            tooltips.forEach(e => { 
+                help.innerHTML += `<img src="${e.imgOpen}" width="0" height="0">`
+                help.innerHTML += `<img src="${e.imgClose}" width="0" height="0">` 
+            })
         })
-        document.querySelectorAll(".chil-controls").forEach(x =>{
-                    var number = x.getAttribute("data-tooltip-number")
-                   
-                   
-                    x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
-                  
 
-            })
-            document.querySelectorAll(".chil-controls").forEach(x =>{
-                    var number = x.getAttribute("data-tooltip-number")
-                   
-                   
-                    x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
-                  
-
-            })
     </script>
 
 </body>
