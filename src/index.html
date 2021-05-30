@@ -300,10 +300,10 @@
             }
         }
         const tooltips = [
-            new Tooltip("Phóng to bản đồ", "Thu nhỏ bản đồ", "/images/icons/icon-map.png", "/images/icons/icon-map.png"),
-            new Tooltip("Ẩn chọn cảnh", "Hiện chọn cảnh", "/images/icons/icon-details.png", "/images/icons/icon-details-disable.png"),
-            new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "/images/icons/icon-rotate-left.png", "/images/icons/icon-rotate-left-disable.png"),
-            new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "/images/icons/icon-fullscreen.png", "/images/icons/icon-fullscreen-disable.png"),
+            new Tooltip("Phóng to bản đồ", "Thu nhỏ bản đồ", "images/icons/icon-map.png", "images/icons/icon-map.png"),
+            new Tooltip("Ẩn chọn cảnh", "Hiện chọn cảnh", "images/icons/icon-details.png", "images/icons/icon-details-disable.png"),
+            new Tooltip("Đóng tự dộng xoay", "Mở tự dộng xoay", "images/icons/icon-rotate-left.png", "images/icons/icon-rotate-left-disable.png"),
+            new Tooltip("Mở toàn màn hình", "Thoát toàn màn hình", "images/icons/icon-fullscreen.png", "images/icons/icon-fullscreen-disable.png"),
             new Tooltip("Ẩn điểm chuyển cảnh", "Hiện điểm chuyển cảnh", "images/icons/icon-point.png", "images/icons/icon-point-disable.png"),
             new Tooltip("Ẩn giao diện điều khiển", "Mở giao diện điều khiển", "images/icons/icon-arrow-right.png", "images/icons/icon-arrow-left.png"),
             new Tooltip("Hướng dẫn", "Hướng dẫn", "images/icons/icon-help.png", "images/icons/icon-help.png"),
@@ -363,11 +363,11 @@
                 x.setAttribute("data-tooltip", tooltips[number].close)
                 x.setAttribute("data-status", "close")
 
-                x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+                x.style.backgroundImage  = 'url("' + tooltips[number].imgClose + '?v=1234")';
             } else {
                 x.setAttribute("data-tooltip", tooltips[number].open)
                 x.setAttribute("data-status", "open")
-                x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+                x.style.backgroundImage  = 'url("' + tooltips[number].imgOpen + '?v=1234") ';
             }
             tooltip.innerHTML = x.getAttribute("data-tooltip")
             if (isMobileDevice) {

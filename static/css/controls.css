@@ -17,7 +17,6 @@
     width: auto;
     height: auto;
     padding: 0 15px 0 15px;
-    transition: 0.45s;
   }
   .chil-controls:hover {
     background-color: rgba(160, 73, 73, 0.829) !important;
@@ -49,76 +48,94 @@
     border-color: black transparent transparent transparent;
   }
   .control-map{
-    background: url(~../images/icons/icon-map.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-map.png);
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important; 
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .thumb-control{
-    background: url(~../images/icons/icon-details.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-details.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
     background-size: contain !important;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .rotate-control{
-    background: url(~../images/icons/icon-rotate-left-disable.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-rotate-left-disable.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
     background-size: contain !important;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .fullscreen-control{
-    background: url(~../images/icons/icon-fullscreen.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-fullscreen.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
     background-size: contain !important;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .hideAll-control{
-    background: url(~../images/icons/icon-arrow-right.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-arrow-right.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important;  
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .hidePoint-control{
-    background: url(~../images/icons/icon-point.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-point.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important; 
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .help-control{
-    background: url(~../images/icons/icon-help.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-help.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important; 
+    background-position: center;
+    background-repeat: no-repeat;
   }
   #btn-zoom-in{
-    background: url(~../images/icons/icon-zoom-in.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-zoom-in.png)  ;
     background-size: contain!important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important; 
+    background-position: center;
+    background-repeat: no-repeat;
   }
   #btn-zoom-out{
-    background: url(~../images/icons/icon-zoom-out.png) no-repeat center center;
+    background-image: url(~../images/icons/icon-zoom-out.png)  ;
     background-size: contain !important;
     -webkit-background-size: contain !important;
     -moz-background-size: contain !important;
     -o-background-size: contain !important;
-    background-size: contain !important;
+    background-size: contain !important; 
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .div-help{
@@ -145,7 +162,7 @@
     margin-right: auto;
   }
   .div-help .div-img-help{
-    background: url("~../images/help/help.png") no-repeat center center;
+    background-image: url("~../images/help/help.png")  ;
     background-size: contain !important;
     max-width: 100%;
     width: 100%;
