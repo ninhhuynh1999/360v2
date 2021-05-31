@@ -8,8 +8,9 @@ import Scene from '../static/js/Scene.js'
 
 import './style.css'
 import '../static/css/controls.css'
+import data from '../static/js/data.json';
 
-//
+//init variables
 const tooltip = document.querySelector('.tooltip')
 const div_main1 = document.querySelector(".main1")
 const output = document.querySelector('#output')
@@ -82,7 +83,7 @@ map_renderer.setSize(divOuputMap.clientWidth, divOuputMap.clientHeight);
 map_renderer.setPixelRatio(window.devicePixelRatio)
 
 
-// map_controls.
+// map_controls
 const map_controls = new OrbitControls(map_camera, map_renderer.domElement)
 map_controls.enableRotate = false
 map_controls.enablePan = true
@@ -95,307 +96,46 @@ map_controls.maxPolarAngle = 0.00001
 map_controls.minAzimuthAngle = 0
 map_controls.minPolarAngle = 0
 
-//create healper XYZ axes
-// const axesHelper = new THREE.AxesHelper( 500 );
-// map_scene.add( axesHelper );
-
-
-document.body.onload = animate()
-map_animate();
+//animation scene
+document.body.onload = () => {
+    animate()
+    map_animate();
+}
 
 
 //init all scene
+//read json file
+let arr = []
+const json_scenes = data.scenes
+const json_points = data.points
+//data scene
+let sceneId = 0
+json_scenes.forEach(element => {
+    const positionOnMap = new THREE.Vector3(element.positionOnMap[0], element.positionOnMap[1], element.positionOnMap[2])
+    const s = new Scene(sceneId, img_url + element.url, element.name, positionOnMap, element.updateMiniMap)
+    sceneId++
+    arr.push(s)
+})
+//add point scene 
+sceneId = 0
+json_points.forEach(element => {
+    const s = arr.find(x => x.id == element.sceneId)
+    element.points.forEach(point => {
+        const info_scene = arr.find(x => x.id == point.sceneId)
+        s.addPoint({
+            position: new THREE.Vector3(point.position[0], point.position[1], point.position[2]),
+            scene: info_scene
+        })
+    })
+})
 
-//-1.635077939209397
-const ss = new Scene({
-    image: "123",
-    id: 12345,
-    name:"do nq"
-}) 
-console.log(ss)
-const s0 = new Scene(0, img_url+"/congtruong.jpg",  "Ngoài cổng",  new THREE.Vector3(0.5893866497456746, 1, 74.96576104450105), 4.9475004391)
-const s1 = new Scene(1, img_url+"/truoc-khu-c/vao-cong.jpg",  "Cổng chính trường",  new THREE.Vector3(-4.1836143344462196, 1, 64.76574883746466), 3.993400099918637)
-const s2 = new Scene(2, img_url+"/truoc-khu-c/giua-hb-d(0).jpg",  "Giữa dãy HB và dãy C (1)",  new THREE.Vector3(-4.170613350254327, 1, 59.69907810178504), 4.056037835757044)
-const s3 = new Scene(3, img_url+"/truoc-khu-c/giua-hb-d.jpg",  "Giữa dãy HB và dãy C (2)",  new THREE.Vector3(-4.1712394946635062, 1, 52.18576295183792), 3.962936954853368)
-const s4 = new Scene(4, img_url+"/truoc-khu-c/truoc-khu-d.jpg",  "Trước dãy D",  new THREE.Vector3(14.59200559381937, 1, 52.186303499582436), -4.1323269486552912)
-const s5 = new Scene(5, img_url+"/truoc-khu-c/truoc-khu-hb.jpg",  "Trước dãy HB",  new THREE.Vector3(-22.75123720584515, 1, 52.6157606630201), -0.5278661113898819)
-//
-const s6 = new Scene(6, img_url+"/giua-khu-c-b/khu-c-nhin-khu-b.jpg",  "Phía sau dãy C",  new THREE.Vector3(-4.480000305175781, 1, 27.800000000013934), 3.7935468107790233)
-const s7 = new Scene(7, img_url+"/giua-khu-c-b/giua-san-c-b.jpg",  "Sân giữa dãy B và dãy C (1)",  new THREE.Vector3(-4.4872451411697476, 1, 14.526740464849158), 3.8250613400611837)
-const s8 = new Scene(8, img_url+"/giua-khu-c-b/truoc-klf.jpg",  "Trước KLF",  new THREE.Vector3(-23.08000068664551, 1, 14.115624237067632), 3.746275016855796,)
-const s9 = new Scene(9, img_url+"/giua-khu-c-b/khu-b-nhin-khu-c.jpeg",  "Sân giữa dãy B và dãy C (2)",  new THREE.Vector3(-10.544967976550593, 1, 1.7089432774640085), 0.89816062827589086)
-//
-const s10 = new Scene(10, img_url+"/giua-khu-b-a/khu-b-nhin-khu-a.jpeg",  "Phía sau dãy B",  new THREE.Vector3(-3.3396058310161347, 1, -14.12074311158788),)
-const s11 = new Scene(11, img_url+"/giua-khu-b-a/truoc-trung-tam-khao-thi.jpg",  "Trước trung tam khảo thí (1)",  new THREE.Vector3(-17.5357713677974, 1, -14.11075508938375), -0.72940453778854409)
-const s12 = new Scene(12, img_url+"/giua-khu-b-a/san-co-truoc-cong-trinh.jpg",  "Trước trung tam khảo thí (2)",  new THREE.Vector3(-17.335770604857945, 1, -18.860755089386128), 1.016515391017462)
-const s13 = new Scene(13, img_url+"/giua-khu-b-a/san-co-2.jpg",  "Trước phòng Kỹ thuật và bãi xe",  new THREE.Vector3(19.69396315163179, 1, -14.171434022941398), 2.5640870575458819)
-const s14 = new Scene(14, img_url+"/giua-khu-b-a/giua-khu-a-b-2.jpeg",  "Giữa khu B và khu A",  new THREE.Vector3(-3.5313110583807877, 1, -33.65734462848801), 0.7113779244342634)
-const s15 = new Scene(15, img_url+"/giua-khu-b-a/truoc-A016.jpeg",  "Trước phòng A.016",  new THREE.Vector3(19.69396315163179, 1, -36.40166799709852), -1.4383899878200255)
-const s16 = new Scene(16, img_url+"/giua-khu-b-a/truoc-khoa-nghe-thuat.jpg",  "Trước VP khoa Ngệ thuật",  new THREE.Vector3(-40.059427344415866, 1, -47.28202139744883), 4.1490519811884534)
-//
-const s17 = new Scene(17, img_url+"/cong-khu-e/vao-bai-xe.jpg",  "Bãi giữ xe khu E (1)",  new THREE.Vector3(41.2978812500057, 1, -16.328114631825642), 2.368653610977309715)
-const s18 = new Scene(18, img_url+"/cong-khu-e/bai-xe-trai.jpg",  "Bãi giữ xe khu E (2)",  new THREE.Vector3(41.84788239441488, 1, -65.87811005421378), -2.2982974509295153)
-const s19 = new Scene(19, img_url+"/cong-khu-e/cong-khu-e.jpg",  "Cổng khu E",  new THREE.Vector3(40.94069299664302, 1, -70.64192427713209), -2.2670281292993237)
-const s20 = new Scene(20, img_url+"/cong-khu-e/truoc-khu-e.jpg",  "Trước Khu E",  new THREE.Vector3(67.03096090906818, 1, -66.71809319276714), -3.8129060654203966)
-//
-const s21 = new Scene(21, img_url+"/san-bong/san-bong-da(0).jpg",  "Sân bóng đá",  new THREE.Vector3(65.2776487434876, 1, 46.25711049148522), 2.3295666234558236)
-const s22 = new Scene(22, img_url+"/san-bong/san-bong-ro.jpg",  "Sân bóng rổ",  new THREE.Vector3(52.920521032029576, 1, 27.582163873808565), 2.2963426989729457)
-
-//aray of all scene
-const arr = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22]
+//init controls, scene ,camera
 arr.forEach(x => {
     x.controls = controls
     x.scene = scene
-    x.camera= camera
-})
-//add point to scene (position of sprite)
-s0.addPoint({
-    position: new THREE.Vector3(119.082458435241, 9.995027139237752, 90.47797014227162),
-    scene: s1
-})
-s1.addPoint({
-    position: new THREE.Vector3(-148.81812694586452, -0.52096241137655, -17.479650077968667),
-    scene: s0
-})
-s1.addPoint(
-    {
-        position: new THREE.Vector3(147.91606892767774, -23.24395524030091, 7.6298611113481245),
-        scene: s2
-    })
-s2.addPoint({
-    position: new THREE.Vector3(-149.75523445416007, -5.346723038716707, 2.850621888385917),
-    scene: s1
-})
-s2.addPoint(
-    {
-        position: new THREE.Vector3(149.5285449495513, -9.94477854762541, 1.7090881555240123),
-        scene: s3
-    })
-
-s2.addPoint(
-    {
-        position: new THREE.Vector3(93.65609400771531, -0.19086069226432897, 117.02254605908068),
-        scene: s4
-    })
-s2.addPoint(
-    {
-        position: new THREE.Vector3(81.01356464310713, -1.7533340591720101, -126.0475579974873),
-        scene: s5
-    })
-s3.addPoint({
-    position: new THREE.Vector3(-148.966064878636, -16.923834119279945, -1.3111230488109633),
-    scene: s2
-})
-s3.addPoint({
-    position: new THREE.Vector3(-0.3069320379437328, -2.5391223769809375, -149.86099936801256),
-    scene: s5
-})
-s3.addPoint({
-    position: new THREE.Vector3(-6.970251780650603, -3.867082081760203, 149.69301917034102),
-    scene: s4
+    x.camera = camera
 })
 
-s3.addPoint({
-    position: new THREE.Vector3(149.69750049582956, 6.438151652206899, 3.8039942741929216),
-    scene: s6
-})
-s4.addPoint({
-    position: new THREE.Vector3(-149.1854058235806, -11.354524288557803, 8.495716228094587),
-    scene: s3
-})
-s5.addPoint({
-    position: new THREE.Vector3(-147.39257807687608, -2.8626846304010183, -27.24068345917134),
-    scene: s3
-})
-
-s5.addPoint({
-    position: new THREE.Vector3(-108.6040637692513, 12.818063445457295, 102.59582371027813),
-    scene: s6
-})
-s6.addPoint({
-    position: new THREE.Vector3(149.83555603027344, -1.9361317072133806, 1.9298749802129425),
-    scene: s7
-})
-s6.addPoint({
-    position: new THREE.Vector3(-149.83211667964764, 2.709228396437713, 3.221656615476403),
-    scene: s3
-})
-s6.addPoint({
-    position: new THREE.Vector3(87.07322423294886, 0.5156327976719801, -122.01721838283987),
-    scene: s8
-})
-s6.addPoint({
-    position: new THREE.Vector3(147.4189192801223, 2.8480345365645983, -26.869026299150608),
-    scene: s9
-})
-s7.addPoint({
-    position: new THREE.Vector3(-149.88759983864128, -4.614246168004618, -0.42298935637734886),
-    scene: s6
-})
-
-s7.addPoint({
-    position: new THREE.Vector3(-5.0698953325023295, -4.266101295415246, -149.71411611768778),
-    scene: s8
-})
-s7.addPoint({
-    position: new THREE.Vector3(142.50490592680072, -9.889179240347442, -45.47317343171973),
-    scene: s9
-})
-s7.addPoint({
-    position: new THREE.Vector3(149.80161463632572, 3.9518889453683435, -2.1217529182323323),
-    scene: s10
-})
-
-s8.addPoint({
-    position: new THREE.Vector3(-94.54257756360454, -2.4600244873919004, 116.25058954627777),
-    scene: s6
-})
-s8.addPoint({
-    position: new THREE.Vector3(32.19101964565116, -3.5781744607556303, 146.33368989089124),
-    scene: s7
-})
-s8.addPoint({
-    position: new THREE.Vector3(120.58730703974211, -5.425528242803196, 88.92738027219521),
-    scene: s9
-})
-s8.addPoint({
-    position: new THREE.Vector3(115.66240009643643, 5.786877281575937, 95.11670250090945),
-    scene: s10
-})
-s9.addPoint({
-    position: new THREE.Vector3(149.4031315131067, -1.1718148074483639, -11.428547014039296),
-    scene: s6
-})
-s9.addPoint({
-    position: new THREE.Vector3(139.37651392531998, -8.0745846310535, -54.747904147530534),
-    scene: s7
-})
-s9.addPoint({
-    position: new THREE.Vector3(89.67651259288643, -10.237963905358853, 119.62690020711193),
-    scene: s8
-})
-s9.addPoint({
-    position: new THREE.Vector3(-91.44822938174059, 1.3088294026530143, -118.80845734337824),
-    scene: s10
-})
-s10.addPoint({
-    position: new THREE.Vector3(-149.77539378555917, 1.7169690211934503, -4.573025225428476),
-    scene: s9
-})
-s10.addPoint({
-    position: new THREE.Vector3(7.756807915156445, 0.9398262711222838, -149.64279488715937),
-    scene: s11
-})
-s10.addPoint({
-    position: new THREE.Vector3(36.44697312189721, 3.886526957277905, -148.3202023357695),
-    scene: s12
-})
-s10.addPoint({
-    position: new THREE.Vector3(149.58929338056498, -9.022155266075787, 5.713378339627928),
-    scene: s14
-})
-s10.addPoint({
-    position: new THREE.Vector3(-7.5540340891818705, 1.4681080448491137, 149.71118804400422),
-    scene: s13
-})
-s11.addPoint({
-    position: new THREE.Vector3(1.9732150763772738, -17.471011837955622, 148.89625877632554),
-    scene: s12
-})
-s11.addPoint({
-    position: new THREE.Vector3(-148.87804148942317, -2.7764918625970063, 58.78490186451747),
-    scene: s14
-})
-s11.addPoint({
-    position: new THREE.Vector3(-148.87804148942317, -2.7764918625970063, 58.78490186451747),
-    scene: s14
-})
-
-s12.addPoint({
-    position: new THREE.Vector3(50.33336770551446, 0.5446967981429189, -149.19112377996595),
-    scene: s10
-})
-
-s13.addPoint({
-    position: new THREE.Vector3(-149.68241370177188, -3.794794882050912, -6.138035461153658),
-    scene: s10
-})
-s13.addPoint({
-    position: new THREE.Vector3(32.92441089619419, 3.5512313864087055, -146.16083344211808),
-    scene: s15
-})
-s13.addPoint({
-    position: new THREE.Vector3(149.4661618037447, 5.867995998505368, 9.315441905033653),
-    scene: s17
-})
-
-s14.addPoint({
-    position: new THREE.Vector3(149.58831161044273, -9.045600097201065, 5.042923053503089),
-    scene: s10
-})
-s14.addPoint({
-    position: new THREE.Vector3(72.13332038959162, 3.891547169913153, -131.32893652232084),
-    scene: s13
-})
-s14.addPoint({
-    position: new THREE.Vector3(-58.577555451660714, -0.4076468506963832, -138.03029034680517),
-    scene: s15
-})
-s14.addPoint({
-    position: new THREE.Vector3(-30.127413017254167, 9.179735264329878, 146.53388682476552),
-    scene: s16
-})
-s15.addPoint({
-    position: new THREE.Vector3(-76.2380209449156, 5.554501791589643, -128.8814719962447),
-    scene: s13
-})
-s15.addPoint({
-    position: new THREE.Vector3(64.48419672826782, 4.438170401059122, -135.30197160293778),
-    scene: s14
-})
-
-//s16
-s17.addPoint({
-    position: new THREE.Vector3(-25.209274148826157, 7.99157428012301, -147.52072086910786),
-    scene: s18
-})
-s17.addPoint({
-    position: new THREE.Vector3(31.701969042008947, 11.215431469209719, 146.04233795743406),
-    scene: s22
-})
-s18.addPoint({
-    position: new THREE.Vector3(-149.70908060250022, 3.0467705288839517, 6.157211427670404),
-    scene: s17
-})
-s18.addPoint({
-    position: new THREE.Vector3(147.75419143686514, -1.5187478474826157, 24.88877717695003),
-    scene: s19
-})
-s18.addPoint({
-    position: new THREE.Vector3(50.7493352284624, 4.206440520990926, 141.01107127111536),
-    scene: s20
-})
-
-s19.addPoint({
-    position: new THREE.Vector3(-149.3689683762136, 10.162074440684579, -6.5031629356355705),
-    scene: s18
-})
-s20.addPoint({
-    position: new THREE.Vector3(-149.04774052842845, -0.3664151103024838, 15.664065437495376),
-    scene: s18
-})
-s21.addPoint({
-    position: new THREE.Vector3(-46.23486510573507, -10.530074711379017, -142.28622689618498),
-    scene: s22
-})
-s22.addPoint({
-    position: new THREE.Vector3(35.88937827384574, -8.003002769935929, 145.27592605624386),
-    scene: s21
-})
-s22.addPoint({
-    position: new THREE.Vector3(-42.86407527175825, 4.169616768460883, -143.55265185765833),
-    scene: s17
-})
 
 //add scene to ListScene 
 const listScene = new ListScene(arr, scene, camera)
@@ -407,7 +147,7 @@ listScene.renderer = map_renderer
 listScene.createMap()
 
 //generate frist first scene
-listScene.actived = s1
+listScene.actived = arr[1]
 listScene.newActive = 0
 listScene.activeScene()
 listScene.changeCurrentSprite()
@@ -423,7 +163,10 @@ let camera_conf = {
     goOut: false,
     envMap: false,
 }
+
+
 const gui = new GUI({ autoPlace: true })
+
 const cameraFolder = gui.addFolder("Cài đặt Camera")
 let camera_fov = cameraFolder.add(camera, "fov", 25, 150, 1).onChange(updateCamera)
 let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60, 1).onChange(updateCamera)
@@ -474,10 +217,11 @@ function onResize() {
 controls.addEventListener("change", function () {
     //console.log(camera.rotation.y)
     updateBeam()
+
 })
 
 //add event on camera map change
-// Limits
+// Limits pan x,y
 let maxX = 80
 let minX = -80
 
@@ -603,14 +347,13 @@ function onClick(event) {
     if (intersects.length > 0 && intersects[0].object.type == "Sprite" && intersects[0].object.onScene) {
         listScene.newActive = intersects[0].object.idScene
         listScene.activeScene(true)
-        
         mapCameraLookAt(listScene.activePoint.position.clone())
         TweenLite.to(controls.target, 0.5, {
             x: intersects[0].point.x,
             y: intersects[0].point.y,
             z: intersects[0].point.z,
         })
-        
+
         handleChangeThumbActive()
     }
 }
@@ -873,9 +616,9 @@ function updateBeam() {
     const beam = map_scene.getObjectByName("beam")
     const eu = new THREE.Euler()
     let numberPlus = listScene.actived.updateMiniMap
-    //console.log(camera.rotation.y)
     eu.copy(camera.rotation)
     beam.rotation.y = eu.y + numberPlus
+
 }
 
 /**
@@ -945,7 +688,7 @@ function limitPanMap() {
 }
 function handleChangeThumbActive() {
     document.querySelector(".div-thumb.active").classList.remove("active")
-    const thumbActive=div_thumb.item(listScene.actived.id)
+    const thumbActive = div_thumb.item(listScene.actived.id)
     thumbActive.classList.add("active")
     document.querySelector('.all-thumb').scrollTop = thumbActive.offsetTop;
     resizeBeam(0)
@@ -956,8 +699,8 @@ function handleChangeThumbActive() {
  * @param {THREE.CylinderGeometry().parameters} parameters 
  * @param {Number} radiusTop 
  */
-function createCylinder(parameters){
-    const geometry = new THREE.CylinderGeometry( 
+function createCylinder(parameters) {
+    const geometry = new THREE.CylinderGeometry(
         parameters.radiusTop,
         parameters.radiusTop,
         parameters.height,
@@ -968,15 +711,15 @@ function createCylinder(parameters){
         parameters.thetaLength)
     return geometry
 }
-function resizeBeam(Percentage){
-    if(Percentage > 90) return
-   const beam = map_scene.getObjectByName("beam")
-   const parameters = beam.geometry.parameters
-   parameters.thetaLength =  1.5- parameters.thetaLength * Percentage  /100
-   parameters.thetaStart = 0 +  0.5 * Percentage/100
+function resizeBeam(Percentage) {
+    if (Percentage > 90) return
+    const beam = map_scene.getObjectByName("beam")
+    const parameters = beam.geometry.parameters
+    parameters.thetaLength = 1.5 - parameters.thetaLength * Percentage / 100
+    parameters.thetaStart = 0 + 0.5 * Percentage / 100
 
-console.log(parameters.thetaLength * Percentage  /100)
-const geometry = createCylinder(beam.geometry.parameters)
-beam.geometry.dispose()
-beam.geometry = geometry
+    console.log(parameters.thetaLength * Percentage / 100)
+    const geometry = createCylinder(beam.geometry.parameters)
+    beam.geometry.dispose()
+    beam.geometry = geometry
 }

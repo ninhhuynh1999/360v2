@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { DoubleSide } from 'three';
 import Scene from './Scene';
 
 export default class ListScene {
@@ -151,7 +152,6 @@ export default class ListScene {
             sprite.userData.mapScene = element.id
             this.map_scene.add(sprite);
             sprite.onClick = () => {
-                //console.log(this.scenes[element.scene].name)
                 this.newActive = element.id
                 this.activeScene()
             }
