@@ -57,7 +57,6 @@ export default class ListScene {
                     },
                     onComplete: () => {
                         find.createScene(this.scene_controls);
-
                     }
                 })
                
@@ -80,7 +79,6 @@ export default class ListScene {
             this.newActive = null;
             this.changeCurrentSprite()
             this.updateBeam()
-            
         }
 
     }

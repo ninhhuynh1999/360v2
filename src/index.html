@@ -63,7 +63,7 @@
                     onclick="clickThumb()" data-tooltip="Ẩn chọn cảnh">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
-                <div class="chil-controls rotate-control" data-tooltip-number="2" data-status="close"
+                <div class="chil-controls rotate-control active" data-tooltip-number="2" data-status="close"
                     onclick="clickRotate(this)" data-tooltip="Mở tự động xoay">
                     <span class="tooltiptext-map">Tooltip text</span>
                 </div>
@@ -136,7 +136,7 @@
             </li>
             <li> <b>Trên thiết bị di động:</b>
                 <ul>
-                    <li>Chạm và giữ vào mành hình rồi di chuyển ngón tay để xoay góc nhìn </li>
+                    <li>Chạm và giữ vào màn hình rồi di chuyển để xoay góc nhìn </li>
 
                 </ul>
             </li>
@@ -336,13 +336,12 @@
 
         })
         document.addEventListener("fullscreenchange", function () {
-
             if (!document.fullscreenElement) {
                 let x = document.querySelector(".fullscreen-control")
                 var number = x.getAttribute("data-tooltip-number")
                 x.setAttribute("data-tooltip", tooltips[number].open)
                 x.setAttribute("data-status", "open")
-                x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+                x.classList.remove("active")
             }
         }, false)
         function mouseOver(x, tooltip) {
@@ -353,7 +352,6 @@
             tooltip.style.visibility = "visible"
         }
         function mouseLeave(x, tooltip) {
-
             tooltip.style.visibility = "hidden"
         }
         function mouseClick(x, tooltip) {
@@ -362,12 +360,13 @@
             if (x.getAttribute("data-status") == "open") {
                 x.setAttribute("data-tooltip", tooltips[number].close)
                 x.setAttribute("data-status", "close")
-
-                x.style.backgroundImage  = 'url("' + tooltips[number].imgClose + '?v=1234")';
+                // x.style.backgroundImage  = 'url("' + tooltips[number].imgClose + '?v=1234")';
+                x.classList.add("active")
             } else {
                 x.setAttribute("data-tooltip", tooltips[number].open)
                 x.setAttribute("data-status", "open")
-                x.style.backgroundImage  = 'url("' + tooltips[number].imgOpen + '?v=1234") ';
+                // x.style.backgroundImage  = 'url("' + tooltips[number].imgOpen + '?v=1234") ';
+                x.classList.remove("active")
             }
             tooltip.innerHTML = x.getAttribute("data-tooltip")
             if (isMobileDevice) {
@@ -411,8 +410,8 @@
             }
             var help = document.querySelector(".div-help"); 
             tooltips.forEach(e => { 
-                help.innerHTML += `<img src="${e.imgOpen}" width="0" height="0">`
-                help.innerHTML += `<img src="${e.imgClose}" width="0" height="0">` 
+                help.innerHTML += `<img style="display: none;" src="${e.imgOpen}" width="0" height="0">`
+                help.innerHTML += `<img style="display: none;" src="${e.imgClose}" width="0" height="0">` 
             })
         })
 

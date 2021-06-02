@@ -102,6 +102,7 @@ export  default  class Scene {
             onComplete: () => {
                 this.camera.updateProjectionMatrix()
                 controls.target.set(0, 0, 0)
+                controls.enabled = true
             }
         })
     }

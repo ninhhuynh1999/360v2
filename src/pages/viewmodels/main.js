@@ -8,28 +8,12 @@ import Stats from 'three/examples/jsm/libs/stats.module'
 import * as dat from 'three/examples/jsm/libs/dat.gui.module'
 
 import './style.css'
-
+import  InfoModel from '../../../static/js/InfoModel.js'
 
 dat.GUI.TEXT_CLOSED = "Đóng Cài đặt"
 dat.GUI.TEXT_OPEN = "Mở Cài đặt"
-class InfoModel {
-    /**
-     * @param {string} name 
-     * @param {string} url 
-     * @param {string} thumb 
-     * @param {boolean} actived 
-     * @param {boolean} inActive 
-     * @param {THREE.Object3D} model
-     */
-    constructor(name, url, thumb, actived, inActive = false, model = null) {
-        this.name = name
-        this.url = url
-        this.thumb = thumb
-        this.actived = actived
-        this.inActive = inActive
-        this.model = model
-    }
-}
+
+
 
 const gltf_Models = [
     new InfoModel("Khu A", "/models/gltf/khua.gltf", "/models/thumbs/a.PNG", false),
@@ -68,12 +52,12 @@ textureEquirec.mapping = THREE.EquirectangularReflectionMapping;
 scene.background = textureEquirec
 //camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 250)
-camera.position.x =-4
+camera.position.x = -4
 camera.position.y = 10
 camera.position.z = -28
 camera.rotation.order = 'YXZ';
 camera.updateProjectionMatrix()
-camera.lookAt(0,0,0)
+camera.lookAt(0, 0, 0)
 scene.add(camera)
 
 //controls
@@ -126,6 +110,11 @@ scene.add(directionalLight);
 
 const directionHelper = new THREE.DirectionalLightHelper(directionalLight, "red")
 scene.add(directionHelper)
+
+// show stats
+const stats = Stats()
+stats.domElement.className = "stats"
+div_output.appendChild(stats.dom)
 
 const onKeyDown = function (event) {
 
@@ -194,27 +183,21 @@ const onKeyUp = function (event) {
     }
 
 };
-const blocker=document.querySelector("#blocker")
-controls.addEventListener( 'lock', function () {
-
-   
+const blocker = document.querySelector("#blocker")
+controls.addEventListener('lock', function () {
     blocker.style.display = 'none';
+});
 
-} );
-
-controls.addEventListener( 'unlock', function () {
-
+controls.addEventListener('unlock', function () {
     blocker.style.display = 'block';
-
-
-} );
+});
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
 canvas.addEventListener('mousedown', () => {
     controls.lock()
 }, false);
-blocker.addEventListener("click",()=>{
-    blocker.style.display= "none"
+blocker.addEventListener("click", () => {
+    blocker.style.display = "none"
     controls.lock()
 })
 window.addEventListener("resize", function () {
@@ -223,10 +206,20 @@ window.addEventListener("resize", function () {
     renderer.setSize(div_output.clientWidth, div_output.clientHeight);
 })
 
-// show stats
-const stats = Stats()
-stats.domElement.className = "stats"
-div_output.appendChild(stats.dom)
+document.querySelector("#sidebarCollapse").addEventListener("click", function () {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix();
+    renderer.setSize(div_output.clientWidth, div_output.clientHeight);
+})
+const resize_update = new ResizeObserver(function(entries) {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix();
+    renderer.setSize(div_output.clientWidth, div_output.clientHeight);
+});
+
+// start observing for resize
+resize_update.observe(document.querySelector("#instructions"));
+
 
 //loop renderer
 var animate = function () {
@@ -255,21 +248,20 @@ var animate = function () {
 
         controls.moveRight(- velocity.x * delta);
         controls.moveForward(- velocity.z * delta);
-        controls.getObject().position.y += ( velocity.y * delta ); // new behavior
+        controls.getObject().position.y += (velocity.y * delta); // new behavior
     }
 
     prevTime = time;
     renderer.render(scene, camera);
-
-
 };
 
 
 animate();
 
-controls.addEventListener("change",()=>{
+controls.addEventListener("change", () => {
     console.log(camera.position)
 })
+
 // Debug dat gui
 const gui = new dat.GUI({ autoPlace: true })
 gui.closed = true
@@ -279,9 +271,7 @@ mainGui.appendChild(gui.domElement)
 
 div_output.insertBefore(mainGui, div_output.firstChild)
 
-
 const lightcolor = {
-
     ambientLight: ambientLight.color.getHex(),
     directionalLight: directionalLight.color.getHex(),
 }
@@ -289,10 +279,8 @@ const lightcolor = {
 let folder2 = gui.addFolder("AmbientLight")
 folder2.add(ambientLight, "intensity", 0, 5, 0.001)
 folder2.addColor(lightcolor, 'ambientLight').onChange(function (val) {
-
     ambientLight.color.setHex(val);
     render();
-
 });
 
 let folder3 = gui.addFolder("directionalLight")
@@ -309,9 +297,9 @@ folder3.addColor(lightcolor, 'directionalLight').onChange(function (val) {
 function createThumb() {
     const ul = document.querySelector("ul.list-unstyled")
     gltf_Models.forEach(element => {
-        if(element.name.trim().valueOf() === "Khu A" || element.name.trim().valueOf() === "Truong"){
-            
-        } else{
+        if (element.name.trim().valueOf() === "Khu A" || element.name.trim().valueOf() === "Truong") {
+
+        } else {
             ul.innerHTML += `
             <li>
                     <div class="card" data-model="${element.name}">
@@ -323,14 +311,13 @@ function createThumb() {
                     </div>
             </li>`
         }
-    
+
     })
     document.querySelectorAll(".card").forEach(x => {
         x.addEventListener("click", () => {
             clickThumb(x)
         }, false)
     })
-    //ul.firstElementChild.firstElementChild.classList.add("active")
     document.querySelectorAll(".card").item(4).classList.add('active')
 }
 
@@ -362,11 +349,9 @@ function loadModels(name) {
             gltf(item.url, item)
         }
         item.inActive = true
-        item.activeda = true
+        item.actived = true
         curItem.inActive = false
     }
-
-
 }
 
 
@@ -377,11 +362,6 @@ function collada(url) {
 
         dae.traverse(function (child) {
             if (child.isMesh) {
-                // model does not have normals
-                // child.material.flatShading = true;
-                // child.material.wireframe = false
-                //child.geometry.normalizeNormals()
-                //child.matrixAutoUpdate = false
                 if (child.material.map) {
                     child.castShadow = true
                     child.material.map.anisotropy = 8;
@@ -428,16 +408,11 @@ function gltf(url, item) {
             if (child.isMesh) {
                 child.matrixAutoUpdate = false;
                 //child.castShadow = true;
-               // child.receiveShadow = true;
-
+                // child.receiveShadow = true;
                 if (child.material.map) {
-
                     child.material.map.anisotropy = 8;
-
                 }
-
             }
-
         });
         // gltf.scene.scale.x = gltf.scene.scale.y = gltf.scene.scale.z = 0.02;
         scene.add(gltf.scene);
@@ -445,6 +420,5 @@ function gltf(url, item) {
         directionalLight.target = gltf.scene
     })
 }
-// obj('/models/obj/truong/truong.mtl','/models/obj/truong/truong.obj')
-// collada("/models/dae/truong.dae")
+
 gltf("/models/gltf/klf.gltf", gltf_Models[5])

@@ -1,9 +1,0 @@
-1. chinh giao dien dien thoai (map, )
-
-2 trang gioi  thieu
-
-3 xem anh 360 cua ban : giao dien dieu khien
-
-4 camera zoom at sprites
-
-5 tu dong xoay nhieu huong DAT GUI
