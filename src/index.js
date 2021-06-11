@@ -228,7 +228,6 @@ map_controls.addEventListener('change', map_controlsChange)
 // map_controls change
 function map_controlsChange() {
     let cameraZoom = map_camera.zoom
-    console.log(cameraZoom)
     if (cameraZoom > 5) {
         maxX = 100
         minX = -100
@@ -263,7 +262,7 @@ function map_controlsChange() {
 // create thumbs && click event thumb 
 listScene.scenes.forEach(element => {
     var a = element
-    document.querySelector(".all-thumb").innerHTML += `<div data-name="${a.id}) ${a.name}" class="div-thumb"  elemtype="thumb">'
+    document.querySelector(".all-thumb").innerHTML += `<div data-name="${a.id +1}) ${a.name}" class="div-thumb"  elemtype="thumb">'
     <div class="div-thumb-img">
     <img class="img-thumb" alt="${a.id + 1}) ${a.name}" data-sceneId="${a.id}" data-title="${a.name}" src="/images/thumbnails/thumb (${a.id}).jpg" style="width:100%",height:100%;>
     </div>
@@ -410,6 +409,8 @@ function onMouseMove(event) {
     }
 }
 
+
+
 // mouse move on Map scene
 function mapHover(event) {
     let foundSprite2 = false
@@ -523,12 +524,12 @@ document.querySelector(".map").addEventListener("transitionend", function () {
     map_camera.bottom = newcamera.bottom
     beam.geometry.dispose()
     if (element.classList.contains("activeMobile")) {
-        console.log("2.65")
+ 
         map_controls.minZoom =  2.65
         map_camera.zoom = map_controls.minZoom
         parameters.radiusTop = 30
     } else {
-        console.log("2")
+  
         map_controls.minZoom =  2.4 
         parameters.radiusTop = 30
         map_camera.zoom = map_controls.minZoom
@@ -570,12 +571,7 @@ window.addEventListener("resize", onResize)
 output.addEventListener("wheel", onScroll)
 output.addEventListener("click", onClick)
 output.addEventListener("mousemove", onMouseMove)
-output.addEventListener("mousedown",function(event){
-    console.log(event)
-})
-output.addEventListener("mouseup",(event)=>{
-    console.log("up")
-},false)
+
 output.addEventListener('touchstart', (event) => {
      //event.preventDefault();
      setPickPosition(event.touches[0], output);
@@ -669,7 +665,7 @@ function limitPanMap() {
         map_camera.position.setZ(positionZ)
         shallWeUpdateAngle = true
     }
-
+    
     if (shallWeUpdateAngle) {
         const distance = map_camera.position.distanceTo(map_controls.target)
         map_camera.position.set(

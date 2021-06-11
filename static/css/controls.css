@@ -9,6 +9,7 @@
     position: absolute;
     right: 10px;
     bottom: 2%;
+    z-index: 101;
   }
   .chil-controls {
     margin: 5px 5px 5px 5px;

@@ -48,7 +48,7 @@
   <div class="show360">
     <canvas id="output-threejs"></canvas>
     <div class="controls">
-      <div class="chil-controls rotate-control" data-tooltip-number="0" data-status="close" onclick="clickRotate(this)"
+      <div class="chil-controls rotate-control active" data-tooltip-number="0" data-status="close" onclick="clickRotate(this)"
         data-tooltip="Mở tự động xoay">
         <span class="tooltiptext-map">Tooltip text</span>
       </div>
@@ -145,7 +145,15 @@
     },false)
 
   })
-
+  document.addEventListener("fullscreenchange", function () {
+            if (!document.fullscreenElement) {
+                let x = document.querySelector(".fullscreen-control")
+                var number = x.getAttribute("data-tooltip-number")
+                x.setAttribute("data-tooltip", tooltips[number].open)
+                x.setAttribute("data-status", "open")
+                x.classList.remove("active")
+            }
+        }, false)
   function mouseOver(x, tooltip) {
     tooltip.innerHTML = x.getAttribute("data-tooltip")
     var rect = x.getBoundingClientRect();
@@ -163,11 +171,11 @@
     if (x.getAttribute("data-status") == "open") {
       x.setAttribute("data-tooltip", tooltips[number].close)
       x.setAttribute("data-status", "close")
-      x.style.background = 'url("' + tooltips[number].imgClose + '") no-repeat center center';
+      x.classList.add("active")
     } else {
       x.setAttribute("data-tooltip", tooltips[number].open)
       x.setAttribute("data-status", "open")
-      x.style.background = 'url("' + tooltips[number].imgOpen + '") no-repeat center center';
+      x.classList.remove("active")
     }
     tooltip.innerHTML = x.getAttribute("data-tooltip")
     tooltip.style.visibility = "visible"

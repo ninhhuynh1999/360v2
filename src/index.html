@@ -323,17 +323,16 @@
                 mouseClick(x, tooltip)
             })
             x.addEventListener("touchstart", function (event) {
-                //event.preventDefault()
+        
                 mouseOver(x, tooltip)
             })
             x.addEventListener("touchend", function () {
-                //mouseClick(x, tooltip)
+         
                 mouseLeave(x, tooltip)
             })
             x.addEventListener("touchcancle", function () {
                 mouseLeave(x, tooltip)
             })
-
         })
         document.addEventListener("fullscreenchange", function () {
             if (!document.fullscreenElement) {
@@ -360,12 +359,10 @@
             if (x.getAttribute("data-status") == "open") {
                 x.setAttribute("data-tooltip", tooltips[number].close)
                 x.setAttribute("data-status", "close")
-                // x.style.backgroundImage  = 'url("' + tooltips[number].imgClose + '?v=1234")';
                 x.classList.add("active")
             } else {
                 x.setAttribute("data-tooltip", tooltips[number].open)
                 x.setAttribute("data-status", "open")
-                // x.style.backgroundImage  = 'url("' + tooltips[number].imgOpen + '?v=1234") ';
                 x.classList.remove("active")
             }
             tooltip.innerHTML = x.getAttribute("data-tooltip")
@@ -406,13 +403,7 @@
                 gui.style.display = "none"
                 map.style.left = "1%"
                 map.style.top = "1%"
-
             }
-            var help = document.querySelector(".div-help"); 
-            tooltips.forEach(e => { 
-                help.innerHTML += `<img style="display: none;" src="${e.imgOpen}" width="0" height="0">`
-                help.innerHTML += `<img style="display: none;" src="${e.imgClose}" width="0" height="0">` 
-            })
         })
 
     </script>

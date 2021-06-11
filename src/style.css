@@ -400,10 +400,14 @@ border-color: rgb(178,61,180);
   /* disable all mouse events on subElements */
   pointer-events: none; 
 }
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 510px) {
   .map{
     width: 120px;
     height: 120px;
+  }
+  .map.mini-map{
+    left: 1%;
+    top: 1%;
   }
   .mainThumb{
     width: 180px;

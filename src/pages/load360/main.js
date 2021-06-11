@@ -99,7 +99,7 @@ GUI.TEXT_OPEN = "MỞ CÀI ĐẶT"
 //setup dat GUI
 const gui = new GUI({ autoPlace: true })
 const cameraFolder = gui.addFolder("Cài đặt Camera")
-let camera_fov = cameraFolder.add(camera, "fov", 25, 80).onChange(updateCamera)
+let camera_fov = cameraFolder.add(camera, "fov", 25, 150).onChange(updateCamera)
 let camera_position_x = cameraFolder.add(camera.position, "x", -60, 60).onChange(updateCamera)
 let camera_position_y = cameraFolder.add(camera.position, "y", -60, 80).onChange(updateCamera)
 let camera_position_z = cameraFolder.add(camera.position, "z", -60, 80).onChange(updateCamera)

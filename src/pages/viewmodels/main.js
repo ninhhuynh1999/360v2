@@ -1,7 +1,5 @@
 import * as THREE from 'three'
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js'
 import Stats from 'three/examples/jsm/libs/stats.module'
@@ -10,23 +8,16 @@ import * as dat from 'three/examples/jsm/libs/dat.gui.module'
 import './style.css'
 import  InfoModel from '../../../static/js/InfoModel.js'
 
-dat.GUI.TEXT_CLOSED = "Đóng Cài đặt"
-dat.GUI.TEXT_OPEN = "Mở Cài đặt"
 
 
 
 const gltf_Models = [
-    new InfoModel("Khu A", "/models/gltf/khua.gltf", "/models/thumbs/a.PNG", false),
     new InfoModel("Khu B", "/models/gltf/khub.gltf", "/models/thumbs/b.PNG", false),
     new InfoModel("Khu C", "/models/gltf/khuc.gltf", "/models/thumbs/c.PNG", false),
     new InfoModel("Khu D", "/models/gltf/khud.gltf", "/models/thumbs/d.PNG", false),
     new InfoModel("Khu HB", "/models/gltf/hb.gltf", "/models/thumbs/hb.PNG", false),
     new InfoModel("Khu KLF", "/models/gltf/klf.gltf", "/models/thumbs/klf.PNG", false),
-    new InfoModel("Truong", "/models/gltf/truong.gltf", "/models/thumbs/truong.PNG", false),
 ]
-gltf_Models[5].actived = true
-gltf_Models[5].inActive = true
-
 
 let moveForward = false;
 let moveBackward = false;
@@ -61,7 +52,7 @@ camera.lookAt(0, 0, 0)
 scene.add(camera)
 
 //controls
-const controls = new PointerLockControls(camera, document.body);
+const controls = new PointerLockControls(camera, canvas);
 scene.add(controls.getObject());
 //renderer
 const renderer = new THREE.WebGLRenderer({
@@ -184,6 +175,7 @@ const onKeyUp = function (event) {
 
 };
 const blocker = document.querySelector("#blocker")
+const instructions = document.querySelector("#instructions")
 controls.addEventListener('lock', function () {
     blocker.style.display = 'none';
 });
@@ -196,10 +188,9 @@ document.addEventListener('keyup', onKeyUp);
 canvas.addEventListener('mousedown', () => {
     controls.lock()
 }, false);
-blocker.addEventListener("click", () => {
-    blocker.style.display = "none"
+instructions.addEventListener("click", () => {
     controls.lock()
-})
+},false)
 window.addEventListener("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix();
@@ -254,15 +245,15 @@ var animate = function () {
     prevTime = time;
     renderer.render(scene, camera);
 };
-
-
 animate();
 
-controls.addEventListener("change", () => {
-    console.log(camera.position)
-})
+// controls.addEventListener("change", () => {
+//     console.log(camera.position)
+// })
 
 // Debug dat gui
+dat.GUI.TEXT_CLOSED = "Đóng Cài đặt"
+dat.GUI.TEXT_OPEN = "Mở Cài đặt"
 const gui = new dat.GUI({ autoPlace: true })
 gui.closed = true
 let mainGui = document.createElement("div")
@@ -283,7 +274,7 @@ folder2.addColor(lightcolor, 'ambientLight').onChange(function (val) {
     render();
 });
 
-let folder3 = gui.addFolder("directionalLight")
+let folder3 = gui.addFolder("Directiona lLight")
 folder3.add(directionalLight, "intensity", 0, 1, 0.001)
 folder3.add(directionalLight.position, "x", -100, 100, 1)
 folder3.add(directionalLight.position, "y", -100, 100, 1)
@@ -297,9 +288,6 @@ folder3.addColor(lightcolor, 'directionalLight').onChange(function (val) {
 function createThumb() {
     const ul = document.querySelector("ul.list-unstyled")
     gltf_Models.forEach(element => {
-        if (element.name.trim().valueOf() === "Khu A" || element.name.trim().valueOf() === "Truong") {
-
-        } else {
             ul.innerHTML += `
             <li>
                     <div class="card" data-model="${element.name}">
@@ -310,15 +298,12 @@ function createThumb() {
                         </div>
                     </div>
             </li>`
-        }
-
     })
     document.querySelectorAll(".card").forEach(x => {
         x.addEventListener("click", () => {
             clickThumb(x)
         }, false)
     })
-    document.querySelectorAll(".card").item(4).classList.add('active')
 }
 
 /**
@@ -354,18 +339,15 @@ function loadModels(name) {
     }
 }
 
-
 function collada(url) {
     const colladaLoader = new ColladaLoader()
     colladaLoader.load(url, function (collada) {
         let dae = collada.scene;
-
         dae.traverse(function (child) {
             if (child.isMesh) {
                 if (child.material.map) {
                     child.castShadow = true
                     child.material.map.anisotropy = 8;
-
                 }
             }
         });
@@ -375,7 +357,6 @@ function collada(url) {
         scene.add(dae)
         models[dae.name] = true
     })
-    console.log(models)
 }
 //collada('/models/truong/truong.dae')
 
@@ -420,5 +401,7 @@ function gltf(url, item) {
         directionalLight.target = gltf.scene
     })
 }
-
-gltf("/models/gltf/klf.gltf", gltf_Models[5])
+gltf_Models[4].actived = true
+gltf_Models[4].inActive = true
+document.querySelectorAll(".card").item(4).classList.add('active')
+gltf("/models/gltf/klf.gltf", gltf_Models[4])
